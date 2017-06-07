@@ -20,7 +20,7 @@ export default class App extends Component {
     render() {
         return (
             <View style={{flex: 1}}>
-                {/*<StatusBar barStyle={this.props.app.barStyle} animated />*/}
+                <StatusBar barStyle="light-content" />
                 <Navigator
                     initialRoute={{component: Comment}}
                     configureScene={this.configureScene}
@@ -38,7 +38,7 @@ export default class App extends Component {
             ...Navigator.SceneConfigs.PushFromRight,
             gestures: {}    // 禁用左滑返回手势
         }
-    }
+    };
 
     //渲染场景(renderScene): 使用动态加载组件的方式. 设置加载页面的navigator参数, 其余使用route.passProps属性传递其他参数.
     renderScene = (route, navigator) => {
