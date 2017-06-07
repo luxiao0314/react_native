@@ -14,6 +14,8 @@ import {observer} from 'mobx-react/native'
 import {reaction} from 'mobx'
 import CommentStore from "../store/CommentStore";
 import Toast from "react-native-easy-toast";
+import Loading from "../components/Loading";
+import LoadMoreFooter from "../../../../src/components/LoadMoreFooter";
 
 /**
  * @Description 评论列表
@@ -39,7 +41,9 @@ export default class NewCommentList extends Component {
     //视图加载完成请求网络
     componentDidMount() {
         // reaction(() => {
-        this.commentStore.fetchCommentList(1);
+        this.commentStore.page;
+        this.commentStore.id = 1;
+        this.commentStore.fetchCommentList();
         // });
     }
 
@@ -50,7 +54,7 @@ export default class NewCommentList extends Component {
     }
 
     render() {
-        const {isRefreshing, commentList} = this.commentStore;
+        const {isFetching, isRefreshing, commentList} = this.commentStore;
         return (
             <View style={styles.listView}>
                 <ListView
@@ -74,30 +78,35 @@ export default class NewCommentList extends Component {
                             colors={['rgb(217, 51, 58)']}/>
                     }>
                 </ListView>
-
+                <Loading isShow={isFetching}/>
                 <Toast ref={toast => this.toast = toast}/>
             </View>
         )
     }
 
-    _renderRow = feed => {
-
+    _renderRow = data => {
+        return (
+            <View>
+                <Text style={styles.itemStyle}>
+                    {data.content}
+                </Text>
+            </View>
+        );
     };
 
-    _renderFooter = () => {
-
-    };
+    _renderFooter = () => <LoadMoreFooter isNoMore={this.commentStore.isNoMore}/>
 
     _onScroll = () => {
 
     };
 
-    _onEndReach = () => {
-
-    };
+    //当滑动到底部结束的时候页面叠加
+    _onEndReach = () => this.commentStore.page++;
 
     _onRefresh = () => {
-
+        this.commentStore.isRefreshing = true;
+        this.commentStore.id = 2;
+        this.commentStore.fetchCommentList();
     };
 
 }
@@ -106,5 +115,10 @@ const styles = StyleSheet.create({
     listView: {
         flex: 1,
         backgroundColor: '#f5f5f5'
+    },
+    itemStyle: {
+        height: 50,
+        backgroundColor: 'rgb(217, 51, 58)',
+        marginTop: 10
     }
-})
+});
