@@ -2,6 +2,13 @@
  * Created by luthor on 07/06/2017.
  */
 import React, {Component} from 'react'
+import {
+    Animated,
+    StyleSheet,
+    View,
+    Text,
+    AppRegistry
+} from 'react-native'
 
 /**
  * @Description 评论列表

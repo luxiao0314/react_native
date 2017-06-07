@@ -1,12 +1,17 @@
 /**
  * Created by luthor on 07/06/2017.
  */
-import React, {
-    View
-} from 'react'
+import React, { Component } from 'react'
+import {
+    StyleSheet,
+    View,
+    Text,
+} from 'react-native';
+
 import FeedsCategoryBar from "../../../../src/components/FeedsCategoryBar";
 import NewCommentList from "./NewCommentList";
 import HotCommentList from "./HotCommentList";
+import ScrollableTabView from "react-native-scrollable-tab-view";
 
 const titles = ['最新评论', '热门评论'];
 const controllers = [
