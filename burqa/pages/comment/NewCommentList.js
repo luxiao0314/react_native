@@ -15,10 +15,10 @@ import {reaction} from 'mobx'
 import CommentStore from "../../store/CommentStore";
 import Toast from "react-native-easy-toast";
 import Loading from "../../components/Loading";
-import LoadMoreFooter from "../../../../src/components/LoadMoreFooter";
 import ViewUtils from "../../utils/ViewUtils";
 import NavigationBar from "../../components/NavigationBar";
 import CommentDetails from "./CommentDetails";
+import LoadMoreFooter from "../../components/LoadMoreFooter";
 
 /**
  * @Description 评论列表
@@ -44,8 +44,6 @@ export default class NewCommentList extends Component {
     //视图加载完成请求网络
     componentDidMount() {
         // reaction(() => {
-        this.commentStore.page;
-        this.commentStore.id = 1;
         this.commentStore.fetchCommentList();
         // });
     }
@@ -61,15 +59,15 @@ export default class NewCommentList extends Component {
         return (
             <View style={styles.listView}>
                 <ListView
-                    dataSource={this.state.dataSource.cloneWithRows(commentList.slice())}
+                    dataSource={this.state.dataSource.cloneWithRows(commentList.slice(0))}
                     //item布局
                     renderRow={this._renderRow}
                     //加载更多脚布局
                     renderFooter={this._renderFooter}
-                    enableEmptySections
+                    enableEmptySections={true}
                     initialListSize={3}
                     //滑动监听
-                    onScroll={this._onScroll}
+                    // onScroll={this._onScroll}
                     //ListView在滚动到最后一个Cell的时候，会触发onEndReached方法，就是从这个方法入手
                     onEndReached={this._onEndReach}
                     onEndReachedThreshold={30}
@@ -134,11 +132,13 @@ export default class NewCommentList extends Component {
     };
 
     //当滑动到底部结束的时候页面叠加
-    _onEndReach = () => this.commentStore.page++;
+    _onEndReach = () => {
+        this.commentStore.page++;
+        this.commentStore.fetchCommentList();
+    };
 
     _onRefresh = () => {
         this.commentStore.isRefreshing = true;
-        this.commentStore.id = 2;
         this.commentStore.fetchCommentList();
     };
 
@@ -148,7 +148,7 @@ export default class NewCommentList extends Component {
      */
     _onPress = () => {
         this.props.navigator.push({
-            component: <CommentDetails/> 
+            component: CommentDetails
         })
     };
 

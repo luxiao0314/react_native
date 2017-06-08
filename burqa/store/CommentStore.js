@@ -15,21 +15,19 @@ export default class CommentStore {
 
     @observable commentList = [];
     @observable errorMsg = '';
-    @observable page = 1;
+    @observable page = 0;
     @observable isRefreshing = false;
     @observable isNoMore = true;
-    @observable id = 0;
 
     constructor() {
-        this.id = 0;
-        this.page = 1
+        this.page = 0;
         this.fetchCommentList();
     }
 
     @action
     fetchCommentList = async () => {
-        if (this.isRefreshing) this.page = 1;
-        const url = "http://v2.api.dmzj.com/old/comment/0/0/33461/" + this.id + ".json";
+        if (this.isRefreshing) this.page = 0;
+        const url = "http://v2.api.dmzj.com/old/comment/0/0/33461/" + this.page + ".json";
 
         fetch(url)
             .then((res) => res.json())
@@ -37,10 +35,11 @@ export default class CommentStore {
                 this.isNoMore = dataArr.length === 0;
                 this.isRefreshing = false;
                 this.errorMsg = '';
-                if (this.page === 1) {
+                //如果page为0就是刷新,替换集合,否则追加集合
+                if (this.page === 0) {
                     this.commentList.replace(dataArr);
                 } else {
-                    this.commentList.splice(dataArr.length, 0, dataArr)
+                    this.commentList.splice(dataArr.length, 0, ...dataArr)
                 }
             })
             .catch(error => {
