@@ -148,7 +148,7 @@ export default class NewCommentList extends Component {
      */
     _onPress = () => {
         this.props.navigator.push({
-            component: CommentDetails
+            component: <CommentDetails/> 
         })
     };
 
