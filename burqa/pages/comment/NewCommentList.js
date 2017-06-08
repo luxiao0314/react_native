@@ -7,14 +7,14 @@ import {
     StyleSheet,
     View,
     Text,
-    AppRegistry, ListView, RefreshControl
+    AppRegistry, ListView, RefreshControl, Image
 } from 'react-native'
 
 import {observer} from 'mobx-react/native'
 import {reaction} from 'mobx'
-import CommentStore from "../store/CommentStore";
+import CommentStore from "../../store/CommentStore";
 import Toast from "react-native-easy-toast";
-import Loading from "../components/Loading";
+import Loading from "../../components/Loading";
 import LoadMoreFooter from "../../../../src/components/LoadMoreFooter";
 
 /**
@@ -86,15 +86,38 @@ export default class NewCommentList extends Component {
 
     _renderRow = data => {
         return (
-            <View>
-                <Text style={styles.itemStyle}>
+            <View style={{padding: 10}}>
+                <View style={styles.topStyle}>
+                    {/*头像*/}
+                    <Image style={{borderRadius: 15, borderWidth: 0.5, height: 30, width: 30}}
+                           source={{uri: data.avatar_url}}
+                    />
+                    {/*用户名*/}
+                    <Text style={{color: '#2E8FDB', marginLeft: 10}}>
+                        {data.nickname}
+                    </Text>
+                </View>
+
+                {/*评论*/}
+                <Text style={{marginLeft: 40, marginTop: 5, marginBottom: 5, color: '#010101'}}>
                     {data.content}
                 </Text>
+
+                <View style={styles.buttonStyle}>
+                    {/*时间*/}
+                    <Text style={{alignSelf: 'flex-start', color: '#949a9f', fontSize: 12}}>{data.createtime}</Text>
+                    {/*点赞*/}
+                    <Text style={{marginLeft: 50}}>点赞 {data.isused}</Text>
+                    {/*回复*/}
+                    <Text style={{textAlign: 'right', marginLeft: 20}}>回复</Text>
+                </View>
+
+                <View style={{borderBottomWidth: 1, marginLeft: 40}}/>
             </View>
         );
     };
 
-    _renderFooter = () => <LoadMoreFooter isNoMore={this.commentStore.isNoMore}/>
+    _renderFooter = () => <LoadMoreFooter isNoMore={this.commentStore.isNoMore}/>;
 
     _onScroll = () => {
 
@@ -116,9 +139,17 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f5f5f5'
     },
-    itemStyle: {
-        height: 50,
-        backgroundColor: 'rgb(217, 51, 58)',
-        marginTop: 10
+    topStyle: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignSelf: 'flex-start',
+    },
+    buttonStyle: {
+        width: gScreen.width,
+        marginBottom: 5,
+        marginLeft: 40,
+        flexDirection: 'row',
+        alignItems: 'center',
     }
 });

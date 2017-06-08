@@ -11,7 +11,7 @@ import {
 import NewCommentList from "./NewCommentList";
 import HotCommentList from "./HotCommentList";
 import ScrollableTabView, {DefaultTabBar} from "react-native-scrollable-tab-view";
-import FeedsCategoryBar from "../components/FeedsCategoryBar";
+import FeedsCategoryBar from "../../components/FeedsCategoryBar";
 
 const titles = ['最新评论', '热门评论'];
 const controllers = [

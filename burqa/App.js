@@ -13,7 +13,7 @@ import {
 
 import Comment from "./pages/comment/Comment";
 import {Navigator} from 'react-native-deprecated-custom-components'
-import Router from "./pages/common/Router";
+import Router from "./common/Router";
 
 export default class App extends Component {
 
