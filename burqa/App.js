@@ -40,6 +40,8 @@ export default class App extends Component {
     renderScene = (route, navigator) => {
         // let Component = Router[route.id].default;
         // return <Component navigator={navigator} {...route.passProps}/>
-        return <route.component navigator={navigator}  {...route.passProps} />;
+        // return <route.component navigator={navigator}  {...route.passProps} />;
+        let Component = route.component;
+        return <Component {...route.passProps} navigator={navigator}/>;
     }
 }
