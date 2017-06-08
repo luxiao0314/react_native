@@ -85,9 +85,9 @@ export default class NewCommentList extends Component {
         )
     }
 
-    _renderRow = data => {
+    _renderRow = (data) => {
         return (
-            <TouchableOpacity onPress={this._onPress}>
+            <TouchableOpacity onPress={()=>this._onPress(data)}>
                 <View style={{padding: 10}}>
                     <View style={styles.topStyle}>
                         {/*头像*/}
@@ -146,9 +146,10 @@ export default class NewCommentList extends Component {
      * 上个页面,也就是comment.js中接受props中的navigator,这里才能正常调用
      * @private
      */
-    _onPress = () => {
+    _onPress = (data) => {
         this.props.navigator.push({
-            component: CommentDetails
+            component: CommentDetails,
+            passProps: {data}
         })
     };
 

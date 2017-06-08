@@ -16,7 +16,6 @@ export default class App extends Component {
     render() {
         return (
             <View style={{flex: 1}}>
-                <StatusBar barStyle="light-content"/>
                 <Navigator
                     initialRoute={{component: Comment}}
                     configureScene={this.configureScene}
