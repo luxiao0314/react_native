@@ -31,6 +31,8 @@ const controllers = [
 export default class Comment extends Component {
 
     render() {
+        //必须接受上个页面传递过来的props中的navigator,再传递到下个页面才能关联起来
+        const {navigator} = this.props;
         return (
             <View style={{flex: 1}}>
                 {this._navigationBar()}
@@ -38,16 +40,18 @@ export default class Comment extends Component {
                     renderTabBar={() => <FeedsCategoryBar tabNames={titles}/>}
                     tabBarPosition='top'
                     scrollWithoutAnimation={false}>
-
-                    {controllers.map((data, index) => {
-                        let Component = data.controller;
-                        return (
-                            <Component
-                                key={titles[index]}
-                                tabLabel={titles[index]}
-                                categoryId={data.categoryId}/>
-                        )
-                    })}
+                    {
+                        controllers.map((data, index) => {
+                                let Component = data.controller;
+                                return (
+                                    <Component
+                                        key={titles[index]}
+                                        tabLabel={titles[index]}
+                                        navigator={navigator}   //非常重要:undefined is not an object (evaluating this.props.navigator.push).
+                                        categoryId={data.categoryId}/>
+                                )
+                            }
+                        )}
                 </ScrollableTabView>
             </View>
         )
@@ -62,14 +66,14 @@ export default class Comment extends Component {
                 style={{backgroundColor: 'orange'}}
                 rightButton={{
                     title: '1295条',
-                    tintColor:'#2E8FDB',
+                    tintColor: '#2E8FDB',
                 }}/>
         )
     };
 
     _onBack = () => {
-        const {navigator, onResetBarStyle} = this.props
-        onResetBarStyle && onResetBarStyle()
+        const {navigator, onResetBarStyle} = this.props;
+        onResetBarStyle && onResetBarStyle();
         navigator.pop()
     };
 }

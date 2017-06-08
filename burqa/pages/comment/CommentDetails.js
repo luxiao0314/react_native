@@ -31,4 +31,10 @@ export default class CommentDetails extends Component {
                 style={{backgroundColor: 'orange'}}/>
         )
     };
+
+    _onBack = () => {
+        const {navigator, onResetBarStyle} = this.props;
+        onResetBarStyle && onResetBarStyle();
+        navigator.pop()
+    };
 }

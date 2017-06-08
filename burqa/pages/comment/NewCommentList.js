@@ -142,9 +142,13 @@ export default class NewCommentList extends Component {
         this.commentStore.fetchCommentList();
     };
 
+    /**
+     * 上个页面,也就是comment.js中接受props中的navigator,这里才能正常调用
+     * @private
+     */
     _onPress = () => {
         this.props.navigator.push({
-            component:CommentDetails
+            component: CommentDetails
         })
     };
 
