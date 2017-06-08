@@ -4,23 +4,19 @@
 
 import React, {Component} from 'react'
 import {
-    Animated,
-    StyleSheet,
     View,
-    Text,
-    AppRegistry, StatusBar
+    StatusBar,
 } from 'react-native'
 
 import Comment from "./pages/comment/Comment";
 import {Navigator} from 'react-native-deprecated-custom-components'
-import Router from "./common/Router";
 
 export default class App extends Component {
 
     render() {
         return (
             <View style={{flex: 1}}>
-                <StatusBar barStyle="light-content" />
+                <StatusBar barStyle="light-content"/>
                 <Navigator
                     initialRoute={{component: Comment}}
                     configureScene={this.configureScene}
@@ -32,7 +28,7 @@ export default class App extends Component {
 
     //配置场景动画(configureScene): 根据路由的type属性, 判断使用的动画样式, 底部弹出或右侧弹出.
     configureScene = route => {
-        if (route.sceneConfig) return route.sceneConfig
+        if (route.sceneConfig) return route.sceneConfig;
 
         return {
             ...Navigator.SceneConfigs.PushFromRight,

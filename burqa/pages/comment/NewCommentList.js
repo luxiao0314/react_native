@@ -16,6 +16,8 @@ import CommentStore from "../../store/CommentStore";
 import Toast from "react-native-easy-toast";
 import Loading from "../../components/Loading";
 import LoadMoreFooter from "../../../../src/components/LoadMoreFooter";
+import ViewUtils from "../../utils/ViewUtils";
+import NavigationBar from "../../common/NavigationBar";
 
 /**
  * @Description 评论列表
@@ -91,6 +93,7 @@ export default class NewCommentList extends Component {
                     {/*头像*/}
                     <Image style={{borderRadius: 15, borderWidth: 0.5, height: 30, width: 30}}
                            source={{uri: data.avatar_url}}
+                           onLoadEnd={this._onLoadEnd}
                     />
                     {/*用户名*/}
                     <Text style={{color: '#2E8FDB', marginLeft: 10}}>
@@ -112,9 +115,13 @@ export default class NewCommentList extends Component {
                     <Text style={{textAlign: 'right', marginLeft: 20}}>回复</Text>
                 </View>
 
-                <View style={{borderBottomWidth: 1, marginLeft: 40}}/>
+                <View style={{borderBottomWidth: 1, marginLeft: 40, borderColor: '#949a9f'}}/>
             </View>
         );
+    };
+
+    _onLoadEnd = () => {
+        // alert("失败")
     };
 
     _renderFooter = () => <LoadMoreFooter isNoMore={this.commentStore.isNoMore}/>;

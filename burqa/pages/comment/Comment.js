@@ -12,6 +12,8 @@ import NewCommentList from "./NewCommentList";
 import HotCommentList from "./HotCommentList";
 import ScrollableTabView, {DefaultTabBar} from "react-native-scrollable-tab-view";
 import FeedsCategoryBar from "../../components/FeedsCategoryBar";
+import NavigationBar from "../../common/NavigationBar";
+import ViewUtils from "../../utils/ViewUtils";
 
 const titles = ['最新评论', '热门评论'];
 const controllers = [
@@ -31,6 +33,7 @@ export default class Comment extends Component {
     render() {
         return (
             <View style={{flex: 1}}>
+                {this._navigationBar()}
                 <ScrollableTabView
                     renderTabBar={() => <FeedsCategoryBar tabNames={titles}/>}
                     tabBarPosition='top'
@@ -49,4 +52,24 @@ export default class Comment extends Component {
             </View>
         )
     }
+
+    //导航栏标题
+    _navigationBar() {
+        return (
+            <NavigationBar
+                title='评论'
+                leftButton={ViewUtils.getLeftButton(() => this._onBack())}
+                style={{backgroundColor: 'orange'}}
+                rightButton={{
+                    title: '1295条',
+                    tintColor:'#2E8FDB',
+                }}/>
+        )
+    };
+
+    _onBack = () => {
+        const {navigator, onResetBarStyle} = this.props
+        onResetBarStyle && onResetBarStyle()
+        navigator.pop()
+    };
 }
