@@ -12,7 +12,7 @@ import NewCommentList from "./NewCommentList";
 import HotCommentList from "./HotCommentList";
 import ScrollableTabView, {DefaultTabBar} from "react-native-scrollable-tab-view";
 import FeedsCategoryBar from "../../components/FeedsCategoryBar";
-import NavigationBar from "../../common/NavigationBar";
+import NavigationBar from "../../components/NavigationBar";
 import ViewUtils from "../../utils/ViewUtils";
 
 const titles = ['最新评论', '热门评论'];

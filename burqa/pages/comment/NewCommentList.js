@@ -17,7 +17,7 @@ import Toast from "react-native-easy-toast";
 import Loading from "../../components/Loading";
 import LoadMoreFooter from "../../../../src/components/LoadMoreFooter";
 import ViewUtils from "../../utils/ViewUtils";
-import NavigationBar from "../../common/NavigationBar";
+import NavigationBar from "../../components/NavigationBar";
 
 /**
  * @Description 评论列表
