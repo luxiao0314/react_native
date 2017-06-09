@@ -19,6 +19,7 @@ import ViewUtils from "../../utils/ViewUtils";
 import NavigationBar from "../../components/NavigationBar";
 import CommentDetails from "./CommentDetails";
 import LoadMoreFooter from "../../components/LoadMoreFooter";
+import UpdatePages from "../UpdatePages";
 
 /**
  * @Description 评论列表
@@ -112,7 +113,7 @@ export default class NewCommentList extends Component {
                         {/*点赞*/}
                         <Text style={{marginLeft: 50}}>点赞 {data.isused}</Text>
                         {/*回复*/}
-                        <Text style={{textAlign: 'right', marginLeft: 20}}>回复</Text>
+                        <Text style={{textAlign: 'right', marginLeft: 20}}  onPress={this._onReplyPress}>回复</Text>
                     </View>
 
                     <View style={{borderBottomWidth: 1, marginLeft: 40, borderColor: '#949a9f'}}/>
@@ -152,6 +153,12 @@ export default class NewCommentList extends Component {
             passProps: {data}
         })
     };
+
+    _onReplyPress=()=>{
+        this.props.navigator.push({
+            component: UpdatePages,
+        })
+    }
 
 }
 
