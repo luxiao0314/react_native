@@ -30,7 +30,7 @@ export default class App extends Component {
         if (route.sceneConfig) return route.sceneConfig;
         return {
             ...Navigator.SceneConfigs.HorizontalSwipeJump,
-            // gestures: {}    // 禁用左滑返回手势
+            gestures: {}    // 禁用左滑返回手势
         }
     };
 

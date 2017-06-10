@@ -21,13 +21,12 @@ export default class CommentStore {
 
     constructor() {
         this.page = 0;
-        this.fetchCommentList();
     }
 
     @action
-    fetchCommentList = async () => {
+    fetchCommentList = async (tag) => {
         if (this.isRefreshing) this.page = 0;
-        const url = "http://v2.api.dmzj.com/old/comment/0/0/33461/" + this.page + ".json";
+        const url = "http://v2.api.dmzj.com/old/comment/0/" + tag + "/33461/" + this.page + ".json";
 
         fetch(url)
             .then((res) => res.json())
