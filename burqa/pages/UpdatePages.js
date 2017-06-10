@@ -61,7 +61,8 @@ export default class UpdatePages extends Component {
         return (
             <View style={styles.gridItemStyle} key={rowData.cover}>
                 <Image key={rowData} source={{uri: rowData.cover}} style={styles.imageStyle}
-                       defaultSource={require('../res/images/icon_rm_pic.png')}/>
+                       resizeMode='contain'
+                       defaultSource={require('../res/images/define_empty.png')}/>
                 <View style={styles.chapterNameStyle}>
                     <Text style={{color: 'white', margin: 3, fontSize: 12}}>{rowData.last_update_chapter_name}</Text>
                 </View>
@@ -95,8 +96,7 @@ const styles = StyleSheet.create({
         width: (gScreen.width - 40) / 3,
         borderBottomLeftRadius: 5,
         borderBottomRightRadius: 5,
-        borderWidth: 0.5,
-        backgroundColor: 'gray',
+        backgroundColor: '#44B8B8B8',
         position: 'absolute',
         bottom: 30,
     },
