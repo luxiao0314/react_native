@@ -21,9 +21,7 @@ var IMGS = [
     'https://images.unsplash.com/photo-1441716844725-09cedc13a4e7?h=1024',
     'https://images.unsplash.com/photo-1441448770220-76743f9e6af6?h=1024',
     'https://images.unsplash.com/photo-1441260038675-7329ab4cc264?h=1024',
-    'https://images.unsplash.com/photo-1441126270775-739547c8680c?h=1024',
-    'https://images.unsplash.com/photo-1440964829947-ca3277bd37f8?h=1024',
-    'https://images.unsplash.com/photo-1440847899694-90043f91c7f9?h=1024'
+    'https://images.unsplash.com/photo-1441126270775-739547c8680c?h=1024'
 ];
 
 /**
@@ -59,11 +57,16 @@ export default class AnimeNewsPages extends Component {
 
     render() {
         const {isFetching, banner, recentUpdates, animationDuring, toAnimate, classicWillSee} = this.animeNewsStore;
+        if (banner.length !== 0) {
+            IMGS.map((url, key) => {
+                banner[key].cover = url;   //更换请求url为静态url
+            });
+        }
         return (
             <View style={{flex: 1}}>
                 {this._navigationBar()}
                 <ScrollView>
-                    <View style={{height: 150, color: '#f5f5f5'}}>
+                    <View style={{height: 150, backgroundColor: '#F5FCFF'}}>
                         <ViewPager
                             dataSource={this.state.dataSource.cloneWithPages(banner.slice())}
                             renderPage={this._renderPage}
@@ -90,10 +93,9 @@ export default class AnimeNewsPages extends Component {
                     style={{
                         width: gScreen.width,
                         height: 150,
-                        backgroundColor: '#F5FCFF',
                     }}
                     source={{uri: banner.cover}}
-                    resizeMode='contain'
+                    resizeMode='repeat'
                     defaultSource={require('../res/images/define_empty.png')}
                 />
                 <Text style={styles.bannerTextStyle}>{banner.title}</Text>
@@ -120,10 +122,10 @@ export default class AnimeNewsPages extends Component {
 
 const styles = StyleSheet.create({
     bannerTextStyle: {
-        backgroundColor:'#44B8B8B8',
-        width:gScreen.width,
+        backgroundColor: '#44B8B8B8',
+        width: gScreen.width,
         position: 'absolute',
         bottom: 0,
-        padding:5
+        padding: 5
     }
 });
