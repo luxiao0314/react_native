@@ -13,7 +13,8 @@ import ViewUtils from "../utils/ViewUtils";
 import AnimeNewsStore from "../store/AnimeNewsStore";
 import {observer} from 'mobx-react/native'
 import Loading from "../../../src/components/Loading";
-import ViewPager from "react-native-viewpager";
+import CusViewPageIndicator from "../components/viewpager/DefaultViewPageIndicator";
+import ViewPager from "../components/viewpager/ViewPager";
 
 var IMGS = [
     'https://images.unsplash.com/photo-1441742917377-57f78ee0e582?h=1024',
@@ -75,6 +76,12 @@ export default class AnimeNewsPages extends Component {
         );
     }
 
+    _renderPageIndicator = () => {
+        return (
+            <CusViewPageIndicator/>
+        )
+    }
+
     _renderPage = (banner) => {
         return (
             <View>
@@ -113,7 +120,10 @@ export default class AnimeNewsPages extends Component {
 
 const styles = StyleSheet.create({
     bannerTextStyle: {
+        backgroundColor:'#44B8B8B8',
+        width:gScreen.width,
         position: 'absolute',
-        margin:5
+        bottom: 0,
+        padding:5
     }
 });
