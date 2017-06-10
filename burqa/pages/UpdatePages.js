@@ -12,6 +12,7 @@ import NavigationBar from "../components/NavigationBar";
 import ViewUtils from "../utils/ViewUtils";
 import UpdatePageStore from "../store/UpdatePageStore";
 import {observer} from 'mobx-react/native'
+import Loading from "../../../src/components/Loading";
 
 /**
  * @Description 更新页面
@@ -32,8 +33,14 @@ export default class UpdatePages extends Component {
         this.updatePageStore.fetchUpdatePageList();
     }
 
+    componentWillMount() {
+        const {errorMsg} = this.updatePageStore;
+        // errorMsg && this.toast.show(errorMsg)
+        errorMsg && alert(errorMsg)
+    }
+
     render() {
-        const {updateList} = this.updatePageStore;
+        const {isFetching,updateList} = this.updatePageStore;
         return (
             <View style={{flex: 1}}>
                 {this._navigationBar()}
@@ -43,6 +50,7 @@ export default class UpdatePages extends Component {
                     itemsPerRow={3}
                     renderItem={this._renderImageItem}
                 />
+                <Loading isShow={isFetching}/>
             </View>
         )
     }

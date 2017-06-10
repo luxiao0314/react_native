@@ -64,6 +64,13 @@ export default class ViewUtils {
                 source={require('../res/images/ic_arrow_back_white_36pt.png')}/>
         </TouchableOpacity>
     }
+
+    static getRightButton(callBack) {
+        return <TouchableOpacity
+            style={{padding:8}}
+            onPress={callBack}>
+        </TouchableOpacity>
+    }
 }
 
 const styles = StyleSheet.create({

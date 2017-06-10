@@ -14,6 +14,7 @@ import ScrollableTabView, {DefaultTabBar} from "react-native-scrollable-tab-view
 import FeedsCategoryBar from "../../components/FeedsCategoryBar";
 import NavigationBar from "../../components/NavigationBar";
 import ViewUtils from "../../utils/ViewUtils";
+import AnimeNewsPages from "../AnimeNewsPages";
 
 const titles = ['最新评论', '热门评论'];
 const controllers = [
@@ -59,14 +60,16 @@ export default class Comment extends Component {
 
     //导航栏标题
     _navigationBar() {
+        let rightButtonConfig = {};
         return (
             <NavigationBar
                 title='评论'
                 leftButton={ViewUtils.getLeftButton(() => this._onBack())}
                 style={{backgroundColor: 'orange'}}
                 rightButton={{
-                    title: '1295条',
-                    tintColor: '#2E8FDB',
+                    title: "Save",
+                    tintColor: 'white',
+                    handler: () => this._onSave()
                 }}/>
         )
     };
@@ -76,4 +79,10 @@ export default class Comment extends Component {
         onResetBarStyle && onResetBarStyle();
         navigator.pop()
     };
+
+    _onSave() {
+        this.props.navigator.push({
+            component:AnimeNewsPages,
+        })
+    }
 }

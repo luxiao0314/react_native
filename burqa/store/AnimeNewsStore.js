@@ -1,0 +1,48 @@
+/**
+ * Created by lucio on 10/06/2017.
+ */
+import {action, computed, observable} from "../../../node_modules/mobx/lib/mobx";
+/**
+ * @Description 动漫资讯store
+ * @Author lucio
+ * @Email lucio0314@163.com
+ * @Date 10/06/2017 1:42 PM
+ * @Version 1:42 PM
+ */
+export default class AnimeNewsStore {
+
+    @observable errorMsg = '';
+    @observable dataArr = [];
+    @observable banner = [];    //轮播图
+    @observable recentUpdates = []; //最近更新
+    @observable animationDuring = []; //动画进行时
+    @observable toAnimate = []; //即将动画
+    @observable classicWillSee = []; //经典必看
+
+    @action
+    fetchData = async () => {
+        const url = "http://v2.api.dmzj.com/novel/recommend.json";
+        fetch(url)
+            .then((res) => res.json())
+            .then((dataArr) => {
+                this.dataArr = dataArr;
+                this.banner = dataArr[0].data;
+                this.recentUpdates = dataArr[1].data;
+                this.animationDuring = dataArr[2].data;
+                this.toAnimate = dataArr[3].data;
+                this.classicWillSee = dataArr[4].data;
+            })
+            .catch(error => {
+                if (error.msg) {
+                    this.errorMsg = error.msg
+                } else {
+                    this.errorMsg = error
+                }
+            });
+    };
+
+    @computed
+    get isFetching() {
+        return this.dataArr.length === 0 && this.errorMsg === ''
+    }
+}
