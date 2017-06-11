@@ -24,8 +24,8 @@ export default class ViewUtils {
                         {icon ?
                             <Image source={icon} resizeMode='stretch'
                                    style={[{opacity: 1, width: 16, height: 16, marginRight: 10,}, tintStyle]}/> :
-                            <View style={{opacity: 1, width: 16, height: 16, marginRight: 10,}} />
-                            }
+                            <View style={{opacity: 1, width: 16, height: 16, marginRight: 10,}}/>
+                        }
                         <Text>{text}</Text>
                     </View>
                     <Image source={expandableIco ? expandableIco : require('../res/images/ic_tiaozhuan.png')}
@@ -40,13 +40,14 @@ export default class ViewUtils {
             </TouchableHighlight>
         )
     }
+
     static getMoreButton(callBack) {
         return <TouchableHighlight
             ref='moreMenuButton'
             underlayColor='transparent'
-            style={{padding:5}}
+            style={{padding: 5}}
             onPress={callBack}>
-            <View style={{paddingRight:8}}>
+            <View style={{paddingRight: 8}}>
                 <Image
                     style={{width: 24, height: 24, marginLeft: 5}}
                     source={require('../res/images/ic_more_vert_white_48pt.png')}
@@ -57,7 +58,7 @@ export default class ViewUtils {
 
     static getLeftButton(callBack) {
         return <TouchableOpacity
-            style={{padding:8}}
+            style={{padding: 8}}
             onPress={callBack}>
             <Image
                 style={{width: 26, height: 26,}}
@@ -67,7 +68,7 @@ export default class ViewUtils {
 
     static getRightButton(callBack) {
         return <TouchableOpacity
-            style={{padding:8}}
+            style={{padding: 8}}
             onPress={callBack}>
         </TouchableOpacity>
     }

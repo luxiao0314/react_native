@@ -6,16 +6,17 @@ import React, {Component} from 'react'
 import {
     StyleSheet,
     View,
-    Text, Image, ScrollView,
+    Text, Image, ScrollView, TouchableOpacity,
 } from 'react-native';
-import NavigationBar from "../components/NavigationBar";
-import ViewUtils from "../utils/ViewUtils";
-import AnimeNewsStore from "../store/AnimeNewsStore";
+import NavigationBar from "../../components/NavigationBar";
+import ViewUtils from "../../utils/ViewUtils";
+import AnimeNewsStore from "../../store/AnimeNewsStore";
 import {observer} from 'mobx-react/native'
-import Loading from "../../../src/components/Loading";
-import CusViewPageIndicator from "../components/viewpager/DefaultViewPageIndicator";
-import ViewPager from "../components/viewpager/ViewPager";
-import NovelItemView from "../components/NovelItemView";
+import Loading from "../../../../src/components/Loading";
+import CusViewPageIndicator from "../../components/viewpager/DefaultViewPageIndicator";
+import ViewPager from "../../components/viewpager/ViewPager";
+import NovelItemView from "../../components/NovelItemView";
+import FindNovelPage from "./FindNovelPage";
 
 var IMGS = [
     'https://images.unsplash.com/photo-1441742917377-57f78ee0e582?h=1024',
@@ -83,7 +84,7 @@ export default class AnimeNewsPages extends Component {
                 <Image style={{width: gScreen.width, height: 150}}
                        source={{uri: banner.cover}}
                        resizeMode='repeat'
-                       defaultSource={require('../res/images/define_empty.png')}
+                       defaultSource={require('../../res/images/define_empty.png')}
                 />
                 <Text style={styles.bannerTextStyle}>{banner.title}</Text>
             </View>
@@ -121,21 +122,21 @@ export default class AnimeNewsPages extends Component {
     _secondView() {
         return (
             <View style={styles.secondStyle}>
-                <View style={{flex: 1, alignItems: 'center'}}>
-                    <Image source={require('../res/images/img_novel_title_book.png')}
+                <TouchableOpacity onPress={this._afterNovel} style={{flex: 1, alignItems: 'center'}}>
+                    <Image source={require('../../res/images/img_novel_title_book.png')}
                            style={{height: 50, width: 50}}/>
                     <Text style={{marginTop: 5}}>追小说</Text>
-                </View>
-                <View style={{flex: 1, alignItems: 'center'}}>
-                    <Image source={require('../res/images/img_novel_title_dian.png')}
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this._findNovel} style={{flex: 1, alignItems: 'center'}}>
+                    <Image source={require('../../res/images/img_novel_title_dian.png')}
                            style={{height: 50, width: 50}}/>
                     <Text style={{marginTop: 5}}>找小说</Text>
-                </View>
-                <View style={{flex: 1, alignItems: 'center'}}>
-                    <Image source={require('../res/images/img_novel_title_chart.png')}
+                </TouchableOpacity>
+                <TouchableOpacity onPress={this._listNovel} style={{flex: 1, alignItems: 'center'}}>
+                    <Image source={require('../../res/images/img_novel_title_chart.png')}
                            style={{height: 50, width: 50}}/>
                     <Text style={{marginTop: 5}}>排行榜</Text>
-                </View>
+                </TouchableOpacity>
             </View>
         )
     }
@@ -159,6 +160,32 @@ export default class AnimeNewsPages extends Component {
             }
         });
         return itemArr;
+    }
+
+    /**
+     * 追小说
+     * @private
+     */
+    _afterNovel = () => {
+        alert('追小说')
+    }
+
+    /**
+     * 找小说
+     * @private
+     */
+    _findNovel = () => {
+        this.props.navigator.push({
+            component:FindNovelPage,
+        })
+    };
+
+    /**
+     * 排行榜
+     * @private
+     */
+    _listNovel = () => {
+        alert('排行榜')
     }
 }
 
