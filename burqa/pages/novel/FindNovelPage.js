@@ -44,7 +44,7 @@ export default class FindNovelPage extends Component {
         return (
             <View>
                 <NavigationBar
-                    title='找小说'
+                    title='小说分类'
                     leftButton={ViewUtils.getLeftButton(() => this._onBack())}
                     style={{backgroundColor: 'orange'}}/>
 
