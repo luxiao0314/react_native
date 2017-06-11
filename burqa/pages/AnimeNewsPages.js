@@ -15,6 +15,7 @@ import {observer} from 'mobx-react/native'
 import Loading from "../../../src/components/Loading";
 import CusViewPageIndicator from "../components/viewpager/DefaultViewPageIndicator";
 import ViewPager from "../components/viewpager/ViewPager";
+import NovelItemView from "../components/NovelItemView";
 
 var IMGS = [
     'https://images.unsplash.com/photo-1441742917377-57f78ee0e582?h=1024',
@@ -56,7 +57,7 @@ export default class AnimeNewsPages extends Component {
     }
 
     render() {
-        const {isFetching, banner, recentUpdates, animationDuring, toAnimate, classicWillSee} = this.animeNewsStore;
+        const {isFetching, banner, dataArr, recentUpdates, animationDuring, toAnimate, classicWillSee} = this.animeNewsStore;
         if (banner.length !== 0) {
             IMGS.map((url, key) => {
                 banner[key].cover = url;   //更换请求url为静态url
@@ -65,38 +66,24 @@ export default class AnimeNewsPages extends Component {
         return (
             <View style={{flex: 1}}>
                 {this._navigationBar()}
-                <ScrollView>
-                    <View style={{height: 150, backgroundColor: '#F5FCFF'}}>
-                        <ViewPager
-                            dataSource={this.state.dataSource.cloneWithPages(banner.slice())}
-                            renderPage={this._renderPage}
-                            isLoop={true}
-                            autoPlay={true}/>
-                    </View>
+                <ScrollView style={{backgroundColor: '#f5f5f5'}}>
+                    {this._bannerView(banner)}
+                    {this._secondView()}
+                    {this._recentUpdatesView(dataArr)}
                     <Loading isShow={isFetching}/>
                 </ScrollView>
             </View>
         );
     }
 
-    _renderPageIndicator = () => {
-        return (
-            <CusViewPageIndicator/>
-        )
-    }
-
     _renderPage = (banner) => {
         return (
             <View>
                 {/*图片一定要设置宽高,否则显示不出来*/}
-                <Image
-                    style={{
-                        width: gScreen.width,
-                        height: 150,
-                    }}
-                    source={{uri: banner.cover}}
-                    resizeMode='repeat'
-                    defaultSource={require('../res/images/define_empty.png')}
+                <Image style={{width: gScreen.width, height: 150}}
+                       source={{uri: banner.cover}}
+                       resizeMode='repeat'
+                       defaultSource={require('../res/images/define_empty.png')}
                 />
                 <Text style={styles.bannerTextStyle}>{banner.title}</Text>
             </View>
@@ -118,6 +105,61 @@ export default class AnimeNewsPages extends Component {
         onResetBarStyle && onResetBarStyle();
         navigator.pop()
     };
+
+    _bannerView(banner) {
+        return (
+            <View style={{height: 150, backgroundColor: '#F5FCFF'}}>
+                <ViewPager
+                    dataSource={this.state.dataSource.cloneWithPages(banner.slice())}
+                    renderPage={this._renderPage}
+                    isLoop={true}
+                    autoPlay={true}/>
+            </View>
+        )
+    }
+
+    _secondView() {
+        return (
+            <View style={styles.secondStyle}>
+                <View style={{flex: 1, alignItems: 'center'}}>
+                    <Image source={require('../res/images/img_novel_title_book.png')}
+                           style={{height: 50, width: 50}}/>
+                    <Text style={{marginTop: 5}}>追小说</Text>
+                </View>
+                <View style={{flex: 1, alignItems: 'center'}}>
+                    <Image source={require('../res/images/img_novel_title_dian.png')}
+                           style={{height: 50, width: 50}}/>
+                    <Text style={{marginTop: 5}}>找小说</Text>
+                </View>
+                <View style={{flex: 1, alignItems: 'center'}}>
+                    <Image source={require('../res/images/img_novel_title_chart.png')}
+                           style={{height: 50, width: 50}}/>
+                    <Text style={{marginTop: 5}}>排行榜</Text>
+                </View>
+            </View>
+        )
+    }
+
+    /**
+     * 最新更新
+     * @param dataArr
+     * @private
+     */
+    _recentUpdatesView(dataArr) {
+        const itemArr = [];
+        dataArr.map((itemData, index) => {
+            if (index !== 0) {
+                itemArr.push(
+                    <NovelItemView
+                        key={index}
+                        data={itemData}
+                        title={itemData.title}
+                    />
+                )
+            }
+        });
+        return itemArr;
+    }
 }
 
 const styles = StyleSheet.create({
@@ -127,5 +169,11 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         padding: 5
+    },
+    secondStyle: {
+        padding: 10,
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        marginBottom: 10
     }
 });
