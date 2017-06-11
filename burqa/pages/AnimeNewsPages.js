@@ -57,7 +57,7 @@ export default class AnimeNewsPages extends Component {
     }
 
     render() {
-        const {isFetching, banner, dataArr, recentUpdates, animationDuring, toAnimate, classicWillSee} = this.animeNewsStore;
+        const {isFetching, banner, dataArr} = this.animeNewsStore;
         if (banner.length !== 0) {
             IMGS.map((url, key) => {
                 banner[key].cover = url;   //更换请求url为静态url

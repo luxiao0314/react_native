@@ -9,6 +9,7 @@ import {
     Text, Image, ScrollView,
 } from 'react-native';
 import GridView from "./GridView";
+import {observer} from 'mobx-react/native'
 
 /**
  * @Description girdView条目
@@ -17,6 +18,7 @@ import GridView from "./GridView";
  * @Date 11/06/2017 11:35 AM
  * @Version 11:35 AM
  */
+@observer
 export default class NovelItemView extends Component {
 
     static propTypes = {

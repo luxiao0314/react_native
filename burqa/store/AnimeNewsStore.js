@@ -14,10 +14,6 @@ export default class AnimeNewsStore {
     @observable errorMsg = '';
     @observable dataArr = [];
     @observable banner = [];    //轮播图
-    @observable recentUpdates = []; //最近更新
-    @observable animationDuring = []; //动画进行时
-    @observable toAnimate = []; //即将动画
-    @observable classicWillSee = []; //经典必看
 
     @action
     fetchData = async () => {
@@ -27,10 +23,6 @@ export default class AnimeNewsStore {
             .then((dataArr) => {
                 this.dataArr = dataArr;
                 this.banner = dataArr[0].data;
-                this.recentUpdates = dataArr[1].data;
-                this.animationDuring = dataArr[2].data;
-                this.toAnimate = dataArr[3].data;
-                this.classicWillSee = dataArr[4].data;
             })
             .catch(error => {
                 if (error.msg) {
