@@ -12,11 +12,10 @@ import NavigationBar from "../../components/NavigationBar";
 import ViewUtils from "../../utils/ViewUtils";
 import AnimeNewsStore from "../../store/AnimeNewsStore";
 import {observer} from 'mobx-react/native'
-import Loading from "../../../../src/components/Loading";
-import CusViewPageIndicator from "../../components/viewpager/DefaultViewPageIndicator";
 import ViewPager from "../../components/viewpager/ViewPager";
 import NovelItemView from "../../components/NovelItemView";
 import FindNovelPage from "./FindNovelPage";
+import Loading from "../../components/Loading";
 
 var IMGS = [
     'https://images.unsplash.com/photo-1441742917377-57f78ee0e582?h=1024',
@@ -83,7 +82,7 @@ export default class AnimeNewsPages extends Component {
                 {/*图片一定要设置宽高,否则显示不出来*/}
                 <Image style={{width: gScreen.width, height: 150}}
                        source={{uri: banner.cover}}
-                       resizeMode='repeat'
+                       resizeMode='contain'
                        defaultSource={require('../../res/images/define_empty.png')}
                 />
                 <Text style={styles.bannerTextStyle}>{banner.title}</Text>

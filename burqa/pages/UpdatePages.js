@@ -12,7 +12,7 @@ import NavigationBar from "../components/NavigationBar";
 import ViewUtils from "../utils/ViewUtils";
 import UpdatePageStore from "../store/UpdatePageStore";
 import {observer} from 'mobx-react/native'
-import Loading from "../../../src/components/Loading";
+import Loading from "../components/Loading";
 
 /**
  * @Description 更新页面

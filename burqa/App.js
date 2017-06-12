@@ -5,7 +5,7 @@
 import React, {Component} from 'react'
 import {
     View,
-    StatusBar,
+    AppRegistry
 } from 'react-native'
 
 import Comment from "./pages/comment/Comment";
@@ -40,3 +40,5 @@ export default class App extends Component {
         return <Component {...route.passProps} navigator={navigator}/>;
     }
 }
+
+AppRegistry.registerComponent('iShiWuPai', () => App);
