@@ -60,7 +60,6 @@ export default class NewCommentList extends Component {
     getNativeData() {
         NativeModules.JsAndroid.jumpToJs(
             (successMsg) => {
-                alert(successMsg)
                 this.setState({
                         pageIndex: successMsg
                     }

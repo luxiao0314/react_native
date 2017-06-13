@@ -6,6 +6,7 @@ import {
     StyleSheet,
     View,
     Text,
+    NativeModules
 } from 'react-native';
 
 import NewCommentList from "./NewCommentList";
@@ -74,10 +75,12 @@ export default class Comment extends Component {
         )
     };
 
+    /**
+     * 返回到native
+     * @private
+     */
     _onBack = () => {
-        const {navigator, onResetBarStyle} = this.props;
-        onResetBarStyle && onResetBarStyle();
-        navigator.pop()
+        NativeModules.JsAndroid.backToNative();
     };
 
     _onSave() {
