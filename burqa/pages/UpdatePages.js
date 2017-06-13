@@ -4,8 +4,8 @@
 import React, {Component} from 'react'
 import {
     StyleSheet,
-    View,
-    Text, Image,
+    View, NativeModules,
+    Text, Image, TouchableOpacity,
 } from 'react-native';
 import GridView from "../components/GridView";
 import NavigationBar from "../components/NavigationBar";
@@ -40,7 +40,7 @@ export default class UpdatePages extends Component {
     }
 
     render() {
-        const {isFetching,updateList} = this.updatePageStore;
+        const {isFetching, updateList} = this.updatePageStore;
         return (
             <View style={{flex: 1}}>
                 {this._navigationBar()}
@@ -65,19 +65,32 @@ export default class UpdatePages extends Component {
         )
     };
 
-    _renderImageItem(rowData) {
+    _renderImageItem = (rowData) => {
         return (
-            <View style={styles.gridItemStyle} key={rowData.cover}>
-                <Image key={rowData} source={{uri: rowData.cover}} style={styles.imageStyle}
-                       resizeMode='contain'
-                       defaultSource={require('../res/images/define_empty.png')}/>
-                <View style={styles.chapterNameStyle}>
-                    <Text style={{color: 'white', margin: 3, fontSize: 12}}>{rowData.last_update_chapter_name}</Text>
+            <TouchableOpacity onPress={() => this._onPress(rowData)}>
+                <View style={styles.gridItemStyle} key={rowData.cover}>
+                    <Image key={rowData} source={{uri: rowData.cover}} style={styles.imageStyle}
+                           resizeMode='contain'
+                           defaultSource={require('../res/images/define_empty.png')}/>
+                    <View style={styles.chapterNameStyle}>
+                        <Text
+                            style={{color: 'white', margin: 3, fontSize: 12}}>{rowData.last_update_chapter_name}</Text>
+                    </View>
+                    <Text style={styles.titleStyle} numberOfLines={1}>{rowData.title}</Text>
                 </View>
-                <Text style={styles.titleStyle} numberOfLines={1}>{rowData.title}</Text>
-            </View>
+            </TouchableOpacity>
         )
     }
+
+    /**
+     * 跳转到activity页面
+     * @private
+     * @param rowData
+     */
+    _onPress = (rowData) => {
+        NativeModules.JsAndroid
+            .jumpToActivity("com.mvvm.lux.burqa.ui.home.activity.ComicDesActivity", rowData.id + "");
+    };
 
     _onBack = () => {
         const {navigator, onResetBarStyle} = this.props;

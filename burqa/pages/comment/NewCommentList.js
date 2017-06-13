@@ -58,7 +58,7 @@ export default class NewCommentList extends Component {
     }
 
     getNativeData() {
-        NativeModules.JsAndroidModule.jsActivity(
+        NativeModules.JsAndroid.jumpToJs(
             (successMsg) => {
                 alert(successMsg)
                 this.setState({
