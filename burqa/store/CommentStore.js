@@ -1,9 +1,10 @@
 /**
  * Created by luthor on 07/06/2017.
  */
-
 import {action, computed, observable, runInAction} from "../../../node_modules/mobx/lib/mobx";
-import {get} from '../common/HttpTool'
+import {
+    NativeModules,
+} from 'react-native'
 /**
  * @Description store类似viewModel,用于储存请求拿到的字段,并不明白action注解有什么用
  * @Author lucio
@@ -18,6 +19,7 @@ export default class CommentStore {
     @observable page = 0;
     @observable isRefreshing = false;
     @observable isNoMore = true;
+    @observable id = "";
 
     constructor() {
         this.page = 0;
@@ -27,6 +29,7 @@ export default class CommentStore {
     fetchCommentList = async (tag) => {
         if (this.isRefreshing) this.page = 0;
         const url = "http://v2.api.dmzj.com/old/comment/0/" + tag + "/33461/" + this.page + ".json";
+        // const url = "http://v2.api.dmzj.com/old/comment/0/" + tag + "/" + this.id + "/" + this.page + ".json";
 
         fetch(url)
             .then((res) => res.json())

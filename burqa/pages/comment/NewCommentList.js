@@ -7,6 +7,7 @@ import {
     StyleSheet,
     View,
     Text,
+    NativeModules,
     AppRegistry, ListView, RefreshControl, Image, TouchableOpacity
 } from 'react-native'
 
@@ -53,7 +54,24 @@ export default class NewCommentList extends Component {
         const {errorMsg} = this.commentStore;
         // errorMsg && this.toast.show(errorMsg)
         errorMsg && alert(errorMsg)
+        this.getNativeData()
     }
+
+    getNativeData() {
+        NativeModules.JsAndroidModule.jsActivity(
+            (successMsg) => {
+                alert(successMsg)
+                this.setState({
+                        pageIndex: successMsg
+                    }
+                );
+            },
+            (erroMsg) => {
+                alert(erroMsg)
+            }
+        );
+    }
+
 
     render() {
         const {isFetching, isRefreshing, commentList} = this.commentStore;
