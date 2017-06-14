@@ -88,8 +88,7 @@ export default class UpdatePages extends Component {
      * @param rowData
      */
     _onPress = (rowData) => {
-        NativeModules.JsAndroid
-            .jumpToActivity("com.mvvm.lux.burqa.ui.home.activity.ComicDesActivity", rowData.id + "");
+        NativeModules.JsAndroid.jumpToActivity("lux://comicDes?obj_id=" + rowData.id);
     };
 
     _onBack = () => {
