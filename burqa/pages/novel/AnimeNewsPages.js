@@ -53,7 +53,7 @@ export default class AnimeNewsPages extends Component {
         const {isFetching, banner, dataArr} = this.animeNewsStore;
         return (
             <View style={{flex: 1}}>
-                {this._navigationBar()}
+                {/*{this._navigationBar()}*/}
                 <ScrollView style={{backgroundColor: '#f5f5f5'}}>
                     {this._bannerView(banner)}
                     {this._secondView()}
@@ -68,7 +68,7 @@ export default class AnimeNewsPages extends Component {
         return (
             <View>
                 {/*图片一定要设置宽高,否则显示不出来*/}
-                <Image style={{width: gScreen.width, height: 150}}
+                <Image style={{width: gScreen.width, height: 180}}
                        source={{uri: banner.cover}}
                        defaultSource={require('../../res/images/define_empty.png')}
                 />
@@ -95,7 +95,7 @@ export default class AnimeNewsPages extends Component {
 
     _bannerView(banner) {
         return (
-            <View style={{height: 150, backgroundColor: '#F5FCFF'}}>
+            <View style={{height: 180, backgroundColor: '#F5FCFF'}}>
                 <ViewPager
                     dataSource={this.state.dataSource.cloneWithPages(banner.slice())}
                     renderPage={this._renderPage}
@@ -191,4 +191,4 @@ const styles = StyleSheet.create({
     }
 });
 
-// AppRegistry.registerComponent('AnimeNewsPages', () => AnimeNewsPages);
+AppRegistry.registerComponent('AnimeNewsPages', () => AnimeNewsPages);
