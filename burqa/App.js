@@ -10,7 +10,6 @@ import {
 
 import Comment from "./pages/comment/Comment";
 import {Navigator} from 'react-native-deprecated-custom-components'
-import UpdatePages from "./pages/UpdatePages";
 
 export default class App extends Component {
 
@@ -18,7 +17,7 @@ export default class App extends Component {
         return (
             <View style={{flex: 1}}>
                 <Navigator
-                    initialRoute={{component: UpdatePages}}
+                    initialRoute={{component: Comment}}
                     configureScene={this.configureScene}
                     renderScene={this.renderScene}
                 />
@@ -42,4 +41,4 @@ export default class App extends Component {
     }
 }
 
-AppRegistry.registerComponent('iShiWuPai', () => App);
+AppRegistry.registerComponent('Comment', () => App);

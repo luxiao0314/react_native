@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react'
 import {
-    StyleSheet,
+    StyleSheet, AppRegistry,
     View, NativeModules,
     Text, Image, TouchableOpacity,
 } from 'react-native';
@@ -74,7 +74,8 @@ export default class UpdatePages extends Component {
                            defaultSource={require('../res/images/define_empty.png')}/>
                     <View style={styles.chapterNameStyle}>
                         <Text
-                            style={{color: 'white', margin: 3, fontSize: 12}}>{rowData.last_update_chapter_name}</Text>
+                            style={{color: 'white', margin: 3, fontSize: 12}}
+                            numberOfLines={1}>{rowData.last_update_chapter_name}</Text>
                     </View>
                     <Text style={styles.titleStyle} numberOfLines={1}>{rowData.title}</Text>
                 </View>
@@ -127,4 +128,6 @@ const styles = StyleSheet.create({
         bottom: 0,
     }
 });
+
+AppRegistry.registerComponent('UpdatePages', () => UpdatePages);
 
