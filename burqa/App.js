@@ -41,4 +41,4 @@ export default class App extends Component {
     }
 }
 
-AppRegistry.registerComponent('iShiWuPai', () => App);
+AppRegistry.registerComponent('Comment', () => App);

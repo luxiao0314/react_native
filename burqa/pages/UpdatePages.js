@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react'
 import {
-    StyleSheet,
+    StyleSheet, AppRegistry,
     View, NativeModules,
     Text, Image, TouchableOpacity,
 } from 'react-native';
@@ -43,7 +43,7 @@ export default class UpdatePages extends Component {
         const {isFetching, updateList} = this.updatePageStore;
         return (
             <View style={{flex: 1}}>
-                {this._navigationBar()}
+                {/*{this._navigationBar()}*/}
                 <GridView
                     style={styles.gridViewStyle}
                     items={Array.from(updateList)}
@@ -70,11 +70,11 @@ export default class UpdatePages extends Component {
             <TouchableOpacity onPress={() => this._onPress(rowData)}>
                 <View style={styles.gridItemStyle} key={rowData.cover}>
                     <Image key={rowData} source={{uri: rowData.cover}} style={styles.imageStyle}
-                           resizeMode='contain'
                            defaultSource={require('../res/images/define_empty.png')}/>
                     <View style={styles.chapterNameStyle}>
                         <Text
-                            style={{color: 'white', margin: 3, fontSize: 12}}>{rowData.last_update_chapter_name}</Text>
+                            style={{color: 'white', margin: 3, fontSize: 12}}
+                            numberOfLines={1}>{rowData.last_update_chapter_name}</Text>
                     </View>
                     <Text style={styles.titleStyle} numberOfLines={1}>{rowData.title}</Text>
                 </View>
@@ -88,8 +88,7 @@ export default class UpdatePages extends Component {
      * @param rowData
      */
     _onPress = (rowData) => {
-        NativeModules.JsAndroid
-            .jumpToActivity("com.mvvm.lux.burqa.ui.home.activity.ComicDesActivity", rowData.id + "");
+        NativeModules.JsAndroid.jumpToActivity("lux://comicDes?obj_id=" + rowData.id);
     };
 
     _onBack = () => {
@@ -128,4 +127,6 @@ const styles = StyleSheet.create({
         bottom: 0,
     }
 });
+
+AppRegistry.registerComponent('UpdatePages', () => UpdatePages);
 

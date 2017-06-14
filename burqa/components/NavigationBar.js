@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     statusBar: {
-        height: Platform.OS === 'ios' ? STATUS_BAR_HEIGHT:20,
+        height: Platform.OS === 'ios' ? STATUS_BAR_HEIGHT:25,
 
     },
 })

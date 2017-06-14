@@ -17,13 +17,6 @@ import NovelItemView from "../../components/NovelItemView";
 import FindNovelPage from "./FindNovelPage";
 import Loading from "../../components/Loading";
 
-var IMGS = [
-    'https://images.unsplash.com/photo-1441742917377-57f78ee0e582?h=1024',
-    'https://images.unsplash.com/photo-1441716844725-09cedc13a4e7?h=1024',
-    'https://images.unsplash.com/photo-1441448770220-76743f9e6af6?h=1024',
-    'https://images.unsplash.com/photo-1441260038675-7329ab4cc264?h=1024',
-    'https://images.unsplash.com/photo-1441126270775-739547c8680c?h=1024'
-];
 const width = Dimensions.get('window').width;
 /**
  * @Description
@@ -58,14 +51,9 @@ export default class AnimeNewsPages extends Component {
 
     render() {
         const {isFetching, banner, dataArr} = this.animeNewsStore;
-        if (banner.length !== 0) {
-            IMGS.map((url, key) => {
-                banner[key].cover = url;   //更换请求url为静态url
-            });
-        }
         return (
             <View style={{flex: 1}}>
-                {this._navigationBar()}
+                {/*{this._navigationBar()}*/}
                 <ScrollView style={{backgroundColor: '#f5f5f5'}}>
                     {this._bannerView(banner)}
                     {this._secondView()}
@@ -82,7 +70,6 @@ export default class AnimeNewsPages extends Component {
                 {/*图片一定要设置宽高,否则显示不出来*/}
                 <Image style={{width: gScreen.width, height: 150}}
                        source={{uri: banner.cover}}
-                       resizeMode='contain'
                        defaultSource={require('../../res/images/define_empty.png')}
                 />
                 <Text style={styles.bannerTextStyle}>{banner.title}</Text>

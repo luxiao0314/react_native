@@ -183,9 +183,7 @@ export default class NewCommentList extends Component {
     };
 
     _onReplyPress = () => {
-        this.props.navigator.push({
-            component: UpdatePages,
-        })
+        alert('回复')
     }
 
 }
