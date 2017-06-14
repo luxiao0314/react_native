@@ -10,6 +10,7 @@ import {
 
 import Comment from "./pages/comment/Comment";
 import {Navigator} from 'react-native-deprecated-custom-components'
+import UpdatePages from "./pages/UpdatePages";
 
 export default class App extends Component {
 
@@ -17,7 +18,7 @@ export default class App extends Component {
         return (
             <View style={{flex: 1}}>
                 <Navigator
-                    initialRoute={{component: Comment}}
+                    initialRoute={{component: UpdatePages}}
                     configureScene={this.configureScene}
                     renderScene={this.renderScene}
                 />

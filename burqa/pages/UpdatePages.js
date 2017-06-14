@@ -43,7 +43,7 @@ export default class UpdatePages extends Component {
         const {isFetching, updateList} = this.updatePageStore;
         return (
             <View style={{flex: 1}}>
-                {this._navigationBar()}
+                {/*{this._navigationBar()}*/}
                 <GridView
                     style={styles.gridViewStyle}
                     items={Array.from(updateList)}
