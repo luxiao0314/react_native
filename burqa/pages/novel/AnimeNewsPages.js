@@ -53,7 +53,7 @@ export default class AnimeNewsPages extends Component {
         const {isFetching, banner, dataArr} = this.animeNewsStore;
         return (
             <View style={{flex: 1}}>
-                {/*{this._navigationBar()}*/}
+                {this._navigationBar()}
                 <ScrollView style={{backgroundColor: '#f5f5f5'}}>
                     {this._bannerView(banner)}
                     {this._secondView()}
@@ -191,4 +191,4 @@ const styles = StyleSheet.create({
     }
 });
 
-AppRegistry.registerComponent('AnimeNewsPages', () => AnimeNewsPages);
+// AppRegistry.registerComponent('AnimeNewsPages', () => AnimeNewsPages);

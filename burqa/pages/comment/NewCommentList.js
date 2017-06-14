@@ -21,6 +21,7 @@ import NavigationBar from "../../components/NavigationBar";
 import CommentDetails from "./CommentDetails";
 import LoadMoreFooter from "../../components/LoadMoreFooter";
 import UpdatePages from "../UpdatePages";
+import AnimeNewsPages from "../novel/AnimeNewsPages";
 
 /**
  * @Description 评论列表
@@ -183,7 +184,9 @@ export default class NewCommentList extends Component {
     };
 
     _onReplyPress = () => {
-        alert('回复')
+        this.props.navigator.push({
+            component: AnimeNewsPages,
+        })
     }
 
 }

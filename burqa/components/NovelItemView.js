@@ -51,7 +51,7 @@ export default class NovelItemView extends Component {
 
     _renderImageItem(rowData) {
         return (
-            <View style={styles.gridItemStyle} key={rowData.cover}>
+            <View style={styles.gridItemStyle}>
                 <Image style={styles.imageStyle}
                        source={{uri: rowData.cover}}
                        defaultSource={require('../res/images/define_empty.png')}/>
