@@ -54,7 +54,6 @@ export default class NovelItemView extends Component {
             <View style={styles.gridItemStyle} key={rowData.cover}>
                 <Image style={styles.imageStyle}
                        source={{uri: rowData.cover}}
-                       resizeMode='contain'
                        defaultSource={require('../res/images/define_empty.png')}/>
                 <Text style={styles.titleStyle} numberOfLines={1}>{rowData.title}</Text>
             </View>

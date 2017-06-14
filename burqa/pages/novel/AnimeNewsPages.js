@@ -5,7 +5,7 @@
 import React, {Component} from 'react'
 import {
     StyleSheet,
-    View,
+    View,AppRegistry,Dimensions,
     Text, Image, ScrollView, TouchableOpacity,
 } from 'react-native';
 import NavigationBar from "../../components/NavigationBar";
@@ -24,9 +24,9 @@ var IMGS = [
     'https://images.unsplash.com/photo-1441260038675-7329ab4cc264?h=1024',
     'https://images.unsplash.com/photo-1441126270775-739547c8680c?h=1024'
 ];
-
+const width = Dimensions.get('window').width;
 /**
- * @Description 动漫资讯
+ * @Description
  * @Author lucio
  * @Email lucio0314@163.com
  * @Date 10/06/2017 12:49 PM
@@ -191,7 +191,7 @@ export default class AnimeNewsPages extends Component {
 const styles = StyleSheet.create({
     bannerTextStyle: {
         backgroundColor: '#44B8B8B8',
-        width: gScreen.width,
+        width: width,
         position: 'absolute',
         bottom: 0,
         padding: 5
@@ -203,3 +203,5 @@ const styles = StyleSheet.create({
         marginBottom: 10
     }
 });
+
+AppRegistry.registerComponent('AnimeNewsPages', () => AnimeNewsPages);

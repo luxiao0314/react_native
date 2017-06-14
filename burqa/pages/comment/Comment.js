@@ -61,16 +61,15 @@ export default class Comment extends Component {
 
     //导航栏标题
     _navigationBar() {
-        let rightButtonConfig = {};
         return (
             <NavigationBar
                 title='评论'
                 leftButton={ViewUtils.getLeftButton(() => this._onBack())}
                 style={{backgroundColor: 'orange'}}
                 rightButton={{
-                    title: "Save",
+                    title: "search",
                     tintColor: 'white',
-                    handler: () => this._onSave()
+                    handler: () => this._onSearch()
                 }}/>
         )
     };
@@ -83,9 +82,7 @@ export default class Comment extends Component {
         NativeModules.JsAndroid.backToNative();
     };
 
-    _onSave() {
-        this.props.navigator.push({
-            component:AnimeNewsPages,
-        })
+    _onSearch() {
+        NativeModules.JsAndroid.jumpToActivity("lux://search?needLogin");
     }
 }
