@@ -92,7 +92,7 @@ export default class HotCommentList extends Component {
                 <View style={{padding: 10}}>
                     <View style={styles.topStyle}>
                         {/*头像*/}
-                        <Image style={{borderRadius: 15, borderWidth: 0.5, height: 30, width: 30}}
+                        <Image style={{borderRadius: 15, borderColor: '#949a9f',borderWidth: 0.5, height: 30, width: 30}}
                                source={{uri: data.avatar_url}}
                                onLoadEnd={this._onLoadEnd}
                                defaultSource={require('../../res/images/default_avatar.png')}

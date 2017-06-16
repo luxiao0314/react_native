@@ -115,7 +115,6 @@ export default class NewCommentList extends Component {
                             source={{uri: data.avatar_url}}
                             onLoadEnd={this._onLoadEnd}
                             defaultSource={require('../../res/images/default_avatar.png')}
-                            resizeMode='contain'
                         />
                         {/*用户名*/}
                         <Text style={{color: '#2E8FDB', marginLeft: 10}}>
