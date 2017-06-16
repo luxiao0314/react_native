@@ -5,7 +5,7 @@
 import React, {Component} from 'react'
 import {
     StyleSheet,
-    View,AppRegistry,Dimensions,
+    View,AppRegistry,Dimensions,NativeModules,
     Text, Image, ScrollView, TouchableOpacity,
 } from 'react-native';
 import NavigationBar from "../../components/NavigationBar";
@@ -16,7 +16,6 @@ import ViewPager from "../../components/viewpager/ViewPager";
 import NovelItemView from "../../components/NovelItemView";
 import FindNovelPage from "./FindNovelPage";
 import Loading from "../../components/Loading";
-
 const width = Dimensions.get('window').width;
 /**
  * @Description
@@ -161,9 +160,7 @@ export default class AnimeNewsPages extends Component {
      * @private
      */
     _findNovel = () => {
-        this.props.navigator.push({
-            component:FindNovelPage,
-        })
+        NativeModules.JsAndroid.jumpToActivity("lux://FindNovelPage");
     };
 
     /**

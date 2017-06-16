@@ -11,14 +11,15 @@ import {
 import {getRouteMap, registerNavigator} from './route';
 import Comment from "./pages/comment/Comment";
 import {Navigator} from 'react-native-deprecated-custom-components'
+import FindNovelPage from "./pages/novel/FindNovelPage";
 
-export default class App extends Component {
+export default class Root extends Component {
 
     render() {
         return (
             <View style={{flex: 1}}>
                 <Navigator
-                    initialRoute={{component: Comment}}
+                    initialRoute={{component: FindNovelPage}}
                     configureScene={this.configureScene}
                     renderScene={this.renderScene}
                 />
@@ -43,4 +44,4 @@ export default class App extends Component {
     }
 }
 
-AppRegistry.registerComponent('Comment', () => App);
+AppRegistry.registerComponent('FindNovelPage', () => Root);

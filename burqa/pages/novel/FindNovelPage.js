@@ -7,7 +7,7 @@ import {
     StyleSheet,
     View,
     Text,
-    AppRegistry, ListView, RefreshControl, Image, TouchableOpacity
+    AppRegistry, ListView, NativeModules, Image, TouchableOpacity
 } from 'react-native'
 import NavigationBar from "../../components/NavigationBar";
 import ViewUtils from "../../utils/ViewUtils";
@@ -71,9 +71,7 @@ export default class FindNovelPage extends Component {
     };
 
     _onBack = () => {
-        const {navigator, onResetBarStyle} = this.props;
-        onResetBarStyle && onResetBarStyle();
-        navigator.pop()
+        NativeModules.JsAndroid.backToNative();
     };
 }
 
