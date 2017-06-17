@@ -42,6 +42,7 @@ export default class UpdatePageStore {
                 }
             })
             .catch(error => {
+                this.isRefreshing = false;
                 if (error.msg) {
                     this.errorMsg = error.msg
                 } else {

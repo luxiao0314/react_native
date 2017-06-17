@@ -13,6 +13,7 @@ export default class FindNovelStore {
 
     @observable errorMsg = '';
     @observable dataArr = [];
+    @observable isRefreshing = true;
 
     @action
     fetchData = async () => {
@@ -21,8 +22,10 @@ export default class FindNovelStore {
             .then((res) => res.json())
             .then((dataArr) => {
                 this.dataArr = dataArr;
+                this.isRefreshing = false;
             })
             .catch(error => {
+                this.isRefreshing = false;
                 if (error.msg) {
                     this.errorMsg = error.msg
                 } else {

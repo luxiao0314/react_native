@@ -156,7 +156,7 @@ export default class AnimeNewsPages extends Component {
      */
     _afterNovel = () => {
         alert('追小说')
-    }
+    };
 
     /**
      * 找小说

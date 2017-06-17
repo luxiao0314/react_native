@@ -7,7 +7,7 @@ import {
     StyleSheet,
     View,
     Text,
-    AppRegistry, ListView, NativeModules, Image, TouchableOpacity
+    AppRegistry, ListView, NativeModules, Image, TouchableOpacity, RefreshControl
 } from 'react-native'
 import NavigationBar from "../../components/NavigationBar";
 import ViewUtils from "../../utils/ViewUtils";
@@ -40,7 +40,7 @@ export default class FindNovelPage extends Component {
     }
 
     render() {
-        const {dataArr} = this.findNovelStore;
+        const {dataArr,isRefreshing} = this.findNovelStore;
         return (
             <View>
                 <NavigationBar
@@ -53,9 +53,20 @@ export default class FindNovelPage extends Component {
                     items={Array.from(dataArr)}
                     itemsPerRow={3}
                     renderItem={this._renderImageItem}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={isRefreshing}
+                            onRefresh={this._onRefresh}
+                            colors={['rgb(217, 51, 58)']}/>
+                    }
                 />
             </View>
         )
+    };
+
+    _onRefresh = () => {
+        this.findNovelStore.isRefreshing = true;
+        this.findNovelStore.fetchData();
     };
 
     _renderImageItem(rowData) {
