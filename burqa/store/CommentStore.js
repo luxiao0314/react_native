@@ -41,7 +41,8 @@ export default class CommentStore {
                 if (this.page === 0) {
                     this.commentList.replace(dataArr);
                 } else {
-                    this.commentList.splice(dataArr.length, 0, ...dataArr)
+                    //这数组使用错误导致加载更多一直不成功
+                    this.commentList.splice(this.commentList.length, 0, ...dataArr)
                 }
             })
             .catch(error => {
