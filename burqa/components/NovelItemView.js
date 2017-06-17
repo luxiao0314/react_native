@@ -29,7 +29,7 @@ export default class NovelItemView extends Component {
     render() {
         const {data} = this.props.data;
         return (
-            <View style={{backgroundColor: 'white',marginBottom:10}}>
+            <View style={{backgroundColor: 'white', marginBottom: 10}}>
                 <Text numberOfLines={1} style={{marginLeft: 10, marginTop: 10}}>
                     {this.props.title}
                 </Text>
@@ -50,12 +50,13 @@ export default class NovelItemView extends Component {
     }
 
     _renderImageItem(rowData) {
+        let reactid = 0;
         return (
-            <View style={styles.gridItemStyle}>
-                <Image style={styles.imageStyle}
+            <View key={rowData.cover} style={styles.gridItemStyle}>
+                <Image key={rowData.cover + reactid++} style={styles.imageStyle}
                        source={{uri: rowData.cover}}
                        defaultSource={require('../res/images/define_empty.png')}/>
-                <Text style={styles.titleStyle} numberOfLines={1}>{rowData.title}</Text>
+                <Text key={rowData.cover + reactid++} style={styles.titleStyle} numberOfLines={1}>{rowData.title}</Text>
             </View>
         )
     }

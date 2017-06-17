@@ -5,7 +5,7 @@
 import React, {Component} from 'react'
 import {
     StyleSheet,
-    View,AppRegistry,Dimensions,NativeModules,
+    View, AppRegistry, Dimensions, NativeModules,
     Text, Image, ScrollView, TouchableOpacity,
 } from 'react-native';
 import NavigationBar from "../../components/NavigationBar";
@@ -17,6 +17,21 @@ import NovelItemView from "../../components/NovelItemView";
 import FindNovelPage from "./FindNovelPage";
 import Loading from "../../components/Loading";
 const width = Dimensions.get('window').width;
+import Swiper from 'react-native-swiper';
+
+const IMGS = [
+    'https://images.unsplash.com/photo-1441742917377-57f78ee0e582?h=1024',
+    'https://images.unsplash.com/photo-1441716844725-09cedc13a4e7?h=1024',
+    'https://images.unsplash.com/photo-1441448770220-76743f9e6af6?h=1024',
+    'https://images.unsplash.com/photo-1441260038675-7329ab4cc264?h=1024',
+    'https://images.unsplash.com/photo-1441126270775-739547c8680c?h=1024'
+];
+
+const TITLE = ["", "", "", "", ""];
+
+const data = [Object, Object, Object, Object, Object];
+
+
 /**
  * @Description
  * @Author lucio
@@ -33,12 +48,6 @@ export default class AnimeNewsPages extends Component {
         this.animeNewsStore = new AnimeNewsStore();
     }
 
-    state = {
-        dataSource: new ViewPager.DataSource({
-            pageHasChanged: (p1, p2) => p1 !== p2,
-        }),
-    };
-
     componentDidMount() {
         this.animeNewsStore.fetchData();
     }
@@ -49,12 +58,12 @@ export default class AnimeNewsPages extends Component {
     }
 
     render() {
-        const {isFetching, banner, dataArr} = this.animeNewsStore;
+        const {isFetching, dataArr} = this.animeNewsStore;
         return (
             <View style={{flex: 1}}>
                 {/*{this._navigationBar()}*/}
-                <ScrollView style={{backgroundColor: '#f5f5f5'}}>
-                    {this._bannerView(banner)}
+                <ScrollView style={{backgroundColor: '#f5f5f5'}} removeClippedSubviews={false}>
+                    {this._bannerView()}
                     {this._secondView()}
                     {this._recentUpdatesView(dataArr)}
                     <Loading isShow={isFetching}/>
@@ -63,44 +72,38 @@ export default class AnimeNewsPages extends Component {
         );
     }
 
-    _renderPage = (banner) => {
-        return (
-            <View>
-                {/*图片一定要设置宽高,否则显示不出来*/}
-                <Image style={{width: gScreen.width, height: 180}}
-                       source={{uri: banner.cover}}
-                       defaultSource={require('../../res/images/define_empty.png')}
-                />
-                <Text style={styles.bannerTextStyle}>{banner.title}</Text>
-            </View>
-        )
+
+    _renderPage() {
+        const {banner} = this.animeNewsStore;
+        //不知道为什么必须要把数组再封装图片才显示
+        banner.map((itemData, i) => {
+            data[i] = itemData;
+        });
+
+        const dataArr = [];
+        data.map((itemData) => {
+            dataArr.push(
+                <Image style={{width: gScreen.width, height: 220}}
+                       source={{uri: itemData.cover}}
+                       defaultSource={require('../../res/images/define_empty.png')}>
+                    <Text style={styles.bannerTextStyle}>{itemData.title}</Text>
+                </Image>
+            )
+        });
+        return dataArr;
     };
 
-    //导航栏标题
-    _navigationBar() {
+    _bannerView() {
         return (
-            <NavigationBar
-                title='轻小说'
-                leftButton={ViewUtils.getLeftButton(() => this._onBack())}
-                style={{backgroundColor: 'orange'}}/>
-        )
-    };
-
-    _onBack = () => {
-        const {navigator, onResetBarStyle} = this.props;
-        onResetBarStyle && onResetBarStyle();
-        navigator.pop()
-    };
-
-    _bannerView(banner) {
-        return (
-            <View style={{height: 180, backgroundColor: '#F5FCFF'}}>
-                <ViewPager
-                    dataSource={this.state.dataSource.cloneWithPages(banner.slice())}
-                    renderPage={this._renderPage}
-                    isLoop={true}
-                    autoPlay={true}/>
-            </View>
+            <Swiper
+                style={styles.wrapper}
+                height={220}
+                autoplay={true}
+                paginationStyle={{bottom: 10,justifyContent: 'flex-end'}}
+                dot={<View style={styles.dot_default}/>}
+                activeDot={<View style={styles.dot_select}/>}>
+                {this._renderPage()}
+            </Swiper>
         )
     }
 
@@ -185,6 +188,22 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: 'white',
         marginBottom: 10
+    },
+    dot_default: {
+        width: 8,
+        height: 8,
+        backgroundColor: 'white',
+        borderRadius: 4,
+        marginLeft: 3,
+        marginRight: 3
+    },
+    dot_select: {
+        width: 8,
+        height: 8,
+        backgroundColor: 'orange',
+        borderRadius: 4,
+        marginLeft: 3,
+        marginRight: 3
     }
 });
 

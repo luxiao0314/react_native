@@ -59,17 +59,17 @@ export default class NewCommentList extends Component {
     }
 
     getNativeData() {
-        NativeModules.JsAndroid.jumpToJs(
-            (successMsg) => {
-                this.setState({
-                        pageIndex: successMsg
-                    }
-                );
-            },
-            (erroMsg) => {
-                alert(erroMsg)
-            }
-        );
+        // NativeModules.JsAndroid.jumpToJs(
+        //     (successMsg) => {
+        //         this.setState({
+        //                 pageIndex: successMsg
+        //             }
+        //         );
+        //     },
+        //     (erroMsg) => {
+        //         alert(erroMsg)
+        //     }
+        // );
     }
 
 
