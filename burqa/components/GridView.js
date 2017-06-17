@@ -37,7 +37,9 @@ const GridView = ({
   itemsPerRow,
   onEndReached,
   scrollEnabled,
-  pageSize
+  pageSize,
+  refreshControl,
+  renderFooter
 }) => {
   const groupItems = (renderItems, renderItemsPerRow) => {
     const itemsGroups = [];
@@ -83,7 +85,9 @@ const GridView = ({
       onEndReached={onEndReached}
       scrollEnabled={scrollEnabled}
       pageSize={pageSize | 1}
+      refreshControl={refreshControl}
       enableEmptySections
+      renderFooter={renderFooter}
     />
   );
 };
@@ -102,7 +106,9 @@ GridView.defaultProps = {
   renderItem: null,
   style: undefined,
   itemsPerRow: 1,
-  onEndReached: undefined
+  onEndReached: undefined,
+  refreshControl: undefined,
+  renderFooter:null
 };
 
 export default GridView;

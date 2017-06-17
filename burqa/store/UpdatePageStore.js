@@ -16,7 +16,7 @@ export default class UpdatePageStore {
     @observable updateList = [];
     @observable errorMsg = '';
     @observable page = 0;
-    @observable isRefreshing = false;
+    @observable isRefreshing = true;
     @observable isNoMore = true;
 
     constructor() {
@@ -38,7 +38,7 @@ export default class UpdatePageStore {
                 if (this.page === 0) {
                     this.updateList.replace(dataArr);
                 } else {
-                    this.updateList.splice(dataArr.length, 0, ...dataArr)
+                    this.updateList.splice(this.updateList.length, 0, ...dataArr)
                 }
             })
             .catch(error => {

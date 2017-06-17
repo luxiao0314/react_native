@@ -1,7 +1,7 @@
 /**
  * Created by ljunb on 16/12/1.
  */
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import {
     ActivityIndicator,
     View,
@@ -12,15 +12,22 @@ import {
 export default class LoadMoreFooter extends Component {
     static propTypes = {
         isNoMore: React.PropTypes.bool,
-    }
+        isRefresh: React.PropTypes.bool,
+    };
 
     static defaultProps = {
-        isNoMore: false
-    }
+        isNoMore: false,
+        isRefresh: true
+    };
 
     render() {
-        const {isNoMore} = this.props
-        const title = isNoMore ? '- 没有更多的数据了 -' : '正在加载更多的数据...'
+        const {isNoMore, isRefresh} = this.props;
+        let title = "";
+        if (isRefresh) {
+            title = "";
+        } else {
+            title = isNoMore ? '- 没有更多的数据了 -' : '正在加载更多的数据...'
+        }
 
         return (
             <View style={styles.loadingContainer}>

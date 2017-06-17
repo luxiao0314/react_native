@@ -5,7 +5,7 @@ import React, {Component} from 'react'
 import {
     StyleSheet, AppRegistry,
     View, NativeModules,
-    Text, Image, TouchableOpacity,
+    Text, Image, TouchableOpacity, RefreshControl,
 } from 'react-native';
 import GridView from "../components/GridView";
 import NavigationBar from "../components/NavigationBar";
@@ -13,6 +13,7 @@ import ViewUtils from "../utils/ViewUtils";
 import UpdatePageStore from "../store/UpdatePageStore";
 import {observer} from 'mobx-react/native'
 import Loading from "../components/Loading";
+import LoadMoreFooter from "../components/LoadMoreFooter";
 
 /**
  * @Description 更新页面
@@ -40,7 +41,7 @@ export default class UpdatePages extends Component {
     }
 
     render() {
-        const {isFetching, updateList} = this.updatePageStore;
+        const {isFetching, updateList, isRefreshing} = this.updatePageStore;
         return (
             <View style={{flex: 1}}>
                 {/*{this._navigationBar()}*/}
@@ -49,20 +50,33 @@ export default class UpdatePages extends Component {
                     items={Array.from(updateList)}
                     itemsPerRow={3}
                     renderItem={this._renderImageItem}
+                    //加载更多脚布局
+                    renderFooter={this._renderFooter}
+                    enableEmptySections={true}
+                    onEndReached={this._onEndReach}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={isRefreshing}
+                            onRefresh={this._onRefresh}
+                            colors={['rgb(217, 51, 58)']}/>
+                    }
                 />
-                <Loading isShow={isFetching}/>
             </View>
         )
     }
 
-    //导航栏标题
-    _navigationBar() {
-        return (
-            <NavigationBar
-                title='更新'
-                leftButton={ViewUtils.getLeftButton(() => this._onBack())}
-                style={{backgroundColor: 'orange'}}/>
-        )
+    //当滑动到底部结束的时候页面叠加
+    _onEndReach = () => {
+        this.updatePageStore.page++;
+        this.updatePageStore.fetchUpdatePageList();
+    };
+
+    _renderFooter = () => <LoadMoreFooter isRefresh={this.updatePageStore.isRefreshing}
+                                          isNoMore={this.updatePageStore.isNoMore}/>;
+
+    _onRefresh = () => {
+        this.updatePageStore.isRefreshing = true;
+        this.updatePageStore.fetchUpdatePageList();
     };
 
     _renderImageItem = (rowData) => {
@@ -89,12 +103,6 @@ export default class UpdatePages extends Component {
      */
     _onPress = (rowData) => {
         NativeModules.JsAndroid.jumpToActivity("lux://comicDes?obj_id=" + rowData.id);
-    };
-
-    _onBack = () => {
-        const {navigator, onResetBarStyle} = this.props;
-        onResetBarStyle && onResetBarStyle();
-        navigator.pop()
     };
 }
 

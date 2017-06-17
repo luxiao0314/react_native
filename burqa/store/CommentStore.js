@@ -17,7 +17,7 @@ export default class CommentStore {
     @observable commentList = [];
     @observable errorMsg = '';
     @observable page = 0;
-    @observable isRefreshing = false;
+    @observable isRefreshing = true;
     @observable isNoMore = true;
     @observable id = "";
 

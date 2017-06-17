@@ -98,8 +98,7 @@ export default class NewCommentList extends Component {
                             colors={['rgb(217, 51, 58)']}/>
                     }>
                 </ListView>
-                <Loading isShow={isFetching}/>
-                <Toast ref={toast => this.toast = toast}/>
+                {/*<Loading isShow={isFetching}/>*/}
             </View>
         )
     }
@@ -154,7 +153,8 @@ export default class NewCommentList extends Component {
         // alert("失败")
     };
 
-    _renderFooter = () => <LoadMoreFooter isNoMore={this.commentStore.isNoMore}/>;
+    _renderFooter = () => <LoadMoreFooter isRefresh={this.commentStore.isRefreshing}
+                                          isNoMore={this.commentStore.isNoMore}/>;
 
     _onScroll = () => {
 

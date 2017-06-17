@@ -80,8 +80,6 @@ export default class HotCommentList extends Component {
                             colors={['rgb(217, 51, 58)']}/>
                     }>
                 </ListView>
-                <Loading isShow={isFetching}/>
-                <Toast ref={toast => this.toast = toast}/>
             </View>
         )
     }
@@ -92,10 +90,11 @@ export default class HotCommentList extends Component {
                 <View style={{padding: 10}}>
                     <View style={styles.topStyle}>
                         {/*头像*/}
-                        <Image style={{borderRadius: 15, borderColor: '#949a9f',borderWidth: 0.5, height: 30, width: 30}}
-                               source={{uri: data.avatar_url}}
-                               onLoadEnd={this._onLoadEnd}
-                               defaultSource={require('../../res/images/default_avatar.png')}
+                        <Image
+                            style={{borderRadius: 15, borderColor: '#949a9f', borderWidth: 0.5, height: 30, width: 30}}
+                            source={{uri: data.avatar_url}}
+                            onLoadEnd={this._onLoadEnd}
+                            defaultSource={require('../../res/images/default_avatar.png')}
                         />
                         {/*用户名*/}
                         <Text style={{color: '#2E8FDB', marginLeft: 10}}>
@@ -135,7 +134,8 @@ export default class HotCommentList extends Component {
         // alert("失败")
     };
 
-    _renderFooter = () => <LoadMoreFooter isNoMore={this.commentStore.isNoMore}/>;
+    _renderFooter = () => <LoadMoreFooter isRefresh={this.commentStore.isRefreshing}
+                                          isNoMore={this.commentStore.isNoMore}/>;
 
     _onScroll = () => {
 
