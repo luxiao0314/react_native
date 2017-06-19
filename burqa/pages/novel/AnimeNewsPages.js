@@ -18,6 +18,7 @@ import FindNovelPage from "./FindNovelPage";
 import Loading from "../../components/Loading";
 const width = Dimensions.get('window').width;
 import Swiper from 'react-native-swiper';
+import {Actions} from 'react-native-router-flux';
 
 const IMGS = [
     'https://images.unsplash.com/photo-1441742917377-57f78ee0e582?h=1024',
@@ -206,5 +207,4 @@ const styles = StyleSheet.create({
         marginRight: 3
     }
 });
-
 AppRegistry.registerComponent('AnimeNewsPages', () => AnimeNewsPages);

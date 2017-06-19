@@ -3,9 +3,8 @@
  */
 import React, {Component} from 'react'
 import {
-    StyleSheet,
     View,
-    Text,
+    AppRegistry,
     NativeModules
 } from 'react-native';
 
@@ -15,7 +14,8 @@ import ScrollableTabView, {DefaultTabBar} from "react-native-scrollable-tab-view
 import FeedsCategoryBar from "../../components/FeedsCategoryBar";
 import NavigationBar from "../../components/NavigationBar";
 import ViewUtils from "../../utils/ViewUtils";
-import AnimeNewsPages from "../novel/AnimeNewsPages";
+import CommentRouter from "../../router/CommentRouter";
+import {Actions} from 'react-native-router-flux';
 
 const titles = ['最新评论', '热门评论'];
 const controllers = [
@@ -32,12 +32,24 @@ const controllers = [
  */
 export default class Comment extends Component {
 
+    componentDidMount() {
+        Actions.refresh({
+            leftButtonImage: require('../../res/images/ic_arrow_back_white_36pt.png'),
+            onLeft: () => {
+                NativeModules.JsAndroid.backToNative();
+            },
+            rightTitle: 'search',
+            onRight: () => {
+                NativeModules.JsAndroid.jumpToActivity("lux://search?needLogin");
+            }
+        });
+    }
+
     render() {
         //必须接受上个页面传递过来的props中的navigator,再传递到下个页面才能关联起来
         const {navigator} = this.props;
         return (
             <View style={{flex: 1}}>
-                {this._navigationBar()}
                 <ScrollableTabView
                     renderTabBar={() => <FeedsCategoryBar tabNames={titles}/>}
                     tabBarPosition='top'
@@ -58,31 +70,5 @@ export default class Comment extends Component {
             </View>
         )
     }
-
-    //导航栏标题
-    _navigationBar() {
-        return (
-            <NavigationBar
-                title='评论'
-                leftButton={ViewUtils.getLeftButton(() => this._onBack())}
-                style={{backgroundColor: 'orange'}}
-                rightButton={{
-                    title: "search",
-                    tintColor: 'white',
-                    handler: () => this._onSearch()
-                }}/>
-        )
-    };
-
-    /**
-     * 返回到native
-     * @private
-     */
-    _onBack = () => {
-        NativeModules.JsAndroid.backToNative();
-    };
-
-    _onSearch() {
-        NativeModules.JsAndroid.jumpToActivity("lux://search?needLogin");
-    }
 }
+AppRegistry.registerComponent('iShiWuPai', () => CommentRouter);

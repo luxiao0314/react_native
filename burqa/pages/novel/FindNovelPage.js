@@ -3,17 +3,16 @@
  */
 import React, {Component} from 'react'
 import {
-    Animated,
     StyleSheet,
-    View,
+    View,AppRegistry,
     Text,
-    AppRegistry, ListView, NativeModules, Image, TouchableOpacity, RefreshControl
+    Image, TouchableOpacity, RefreshControl
 } from 'react-native'
-import NavigationBar from "../../components/NavigationBar";
-import ViewUtils from "../../utils/ViewUtils";
 import GridView from "../../components/GridView";
 import FindNovelStore from "../../store/FindNovelStore";
 import {observer} from 'mobx-react/native'
+import {Actions} from 'react-native-router-flux';
+import NovelRouter from "../../router/NovelRouter";
 
 /**
  * @Description 找小说页面
@@ -40,14 +39,9 @@ export default class FindNovelPage extends Component {
     }
 
     render() {
-        const {dataArr,isRefreshing} = this.findNovelStore;
+        const {dataArr, isRefreshing} = this.findNovelStore;
         return (
             <View>
-                <NavigationBar
-                    title='小说分类'
-                    leftButton={ViewUtils.getLeftButton(() => this._onBack())}
-                    style={{backgroundColor: 'orange'}}/>
-
                 <GridView
                     style={{padding: 5}}
                     items={Array.from(dataArr)}
@@ -71,18 +65,18 @@ export default class FindNovelPage extends Component {
 
     _renderImageItem(rowData) {
         return (
-            <View style={styles.gridItemStyle} key={rowData.cover}>
-                <Image style={styles.imageStyle}
-                       source={{uri: rowData.cover}}
-                       resizeMode='contain'
-                       defaultSource={require('../../res/images/define_empty.png')}/>
-                <Text style={styles.titleStyle} numberOfLines={1}>{rowData.title}</Text>
-            </View>
+            <TouchableOpacity onPress={() => {
+                Actions.findNovelSubPage();
+            }}>
+                <View style={styles.gridItemStyle} key={rowData.cover}>
+                    <Image style={styles.imageStyle}
+                           source={{uri: rowData.cover}}
+                           resizeMode='contain'
+                           defaultSource={require('../../res/images/define_empty.png')}/>
+                    <Text style={styles.titleStyle} numberOfLines={1}>{rowData.title}</Text>
+                </View>
+            </TouchableOpacity>
         )
-    };
-
-    _onBack = () => {
-        NativeModules.JsAndroid.backToNative();
     };
 }
 
@@ -105,3 +99,5 @@ const styles = StyleSheet.create({
         margin: 5
     },
 });
+
+AppRegistry.registerComponent('FindNovelPage', () => NovelRouter);

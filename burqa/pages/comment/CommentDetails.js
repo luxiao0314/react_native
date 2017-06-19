@@ -7,17 +7,15 @@ import {
     Text, TouchableOpacity, Image
 } from "react-native";
 import React, {Component} from 'react'
-import NavigationBar from "../../components/NavigationBar";
-import ViewUtils from "../../utils/ViewUtils";
 import UpdatePages from "../UpdatePages";
+import {Actions} from 'react-native-router-flux';
 
 export default class CommentDetails extends Component {
 
     render() {
-        const {data} = this.props;
+        const data = this.props.data;
         return (
             <View>
-                {this._navigationBar()}
                 <View style={{padding: 10}}>
                     <View style={styles.topStyle}>
                         {/*头像*/}
@@ -63,25 +61,7 @@ export default class CommentDetails extends Component {
     }
 
     _onReplyPress = () => {
-        this.props.navigator.push({
-            component: UpdatePages,
-        })
-    }
-
-    //导航栏标题
-    _navigationBar() {
-        return (
-            <NavigationBar
-                title='评论详情'
-                leftButton={ViewUtils.getLeftButton(() => this._onBack())}
-                style={{backgroundColor: 'orange'}}/>
-        )
-    };
-
-    _onBack = () => {
-        const {navigator, onResetBarStyle} = this.props;
-        onResetBarStyle && onResetBarStyle();
-        navigator.pop()
+        Actions.updatePages();
     };
 }
 

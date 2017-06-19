@@ -14,14 +14,8 @@ import {
 import {observer} from 'mobx-react/native'
 import {reaction} from 'mobx'
 import CommentStore from "../../store/CommentStore";
-import Toast from "react-native-easy-toast";
-import Loading from "../../components/Loading";
-import ViewUtils from "../../utils/ViewUtils";
-import NavigationBar from "../../components/NavigationBar";
-import CommentDetails from "./CommentDetails";
 import LoadMoreFooter from "../../components/LoadMoreFooter";
-import UpdatePages from "../UpdatePages";
-import AnimeNewsPages from "../novel/AnimeNewsPages";
+import {Actions} from 'react-native-router-flux';
 
 /**
  * @Description 评论列表
@@ -74,7 +68,7 @@ export default class NewCommentList extends Component {
 
 
     render() {
-        const {isFetching, isRefreshing, commentList} = this.commentStore;
+        const {isRefreshing, commentList} = this.commentStore;
         return (
             <View style={styles.listView}>
                 <ListView
@@ -98,14 +92,13 @@ export default class NewCommentList extends Component {
                             colors={['rgb(217, 51, 58)']}/>
                     }>
                 </ListView>
-                {/*<Loading isShow={isFetching}/>*/}
             </View>
         )
     }
 
     _renderRow = (data) => {
         return (
-            <TouchableOpacity onPress={() => this._onPress(data)}>
+            <TouchableOpacity onPress={() => Actions.commentDetails({"data": data})}>
                 <View style={{padding: 10}}>
                     <View style={styles.topStyle}>
                         {/*头像*/}
@@ -139,7 +132,7 @@ export default class NewCommentList extends Component {
                         <View style={{position: 'absolute', right: 80, flexDirection: 'row', alignItems: 'center'}}>
                             <Image source={require('../../res/images/ic_drawer_comment.png')}
                                    style={{width: 20, height: 20}}/>
-                            <Text onPress={this._onReplyPress}>回复</Text>
+                            <Text onPress={() => Actions.animeNewsPages()}>回复</Text>
                         </View>
                     </View>
 
@@ -170,23 +163,6 @@ export default class NewCommentList extends Component {
         this.commentStore.isRefreshing = true;
         this.commentStore.fetchCommentList(0);
     };
-
-    /**
-     * 上个页面,也就是comment.js中接受props中的navigator,这里才能正常调用
-     * @private
-     */
-    _onPress = (data) => {
-        this.props.navigator.push({
-            component: CommentDetails,
-            passProps: {data}
-        })
-    };
-
-    _onReplyPress = () => {
-        this.props.navigator.push({
-            component: AnimeNewsPages,
-        })
-    }
 
 }
 

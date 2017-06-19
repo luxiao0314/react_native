@@ -135,6 +135,4 @@ const styles = StyleSheet.create({
         bottom: 0,
     }
 });
-
 AppRegistry.registerComponent('UpdatePages', () => UpdatePages);
-
