@@ -2,7 +2,7 @@
  * Created by lucio on 19/06/2017.
  */
 import React, {Component} from 'react'
-import {Platform} from 'react-native'
+import {Platform, Image} from 'react-native'
 import Router from "react-native-router-flux/src/Router";
 import Scene from "react-native-router-flux/src/Scene";
 import FindNovelSubPage from "../pages/novel/FindNovelSubPage";
@@ -11,8 +11,6 @@ import AnimeNewsPages from "../pages/novel/AnimeNewsPages";
 import Comment from "../pages/comment/Comment";
 import CommentDetails from "../pages/comment/CommentDetails";
 import UpdatePages from "../pages/UpdatePages";
-import NewCommentList from "../pages/comment/NewCommentList";
-import HotCommentList from "../pages/comment/HotCommentList";
 
 /**
  * @Description 找小说路由
@@ -24,12 +22,16 @@ import HotCommentList from "../pages/comment/HotCommentList";
 export default class CommentRouter extends Component {
     render() {
         return (
-            <Router key="root" getSceneStyle={getSceneStyle}
-                    hideNavBar={false} hideTabBar={true}
-                    navigationBarStyle={{backgroundColor: 'orange'}}>
-                <Scene key="comment" component={Comment} title="评论"/>
-                <Scene key="newCommentList" component={NewCommentList} title="更新"/>
-                <Scene key="hotCommentList" component={HotCommentList} title="更新"/>
+            <Router key="root"
+                    getSceneStyle={getSceneStyle}
+                    hideNavBar={false}
+                    hideTabBar={true}
+                    titleStyle={{color: 'white'}} //统一title颜色
+                    navigationBarStyle={{
+                        backgroundColor: '#FF9800',
+                        height: Platform.OS === 'android' ? 54 : 64
+                    }}>
+                <Scene key="comment" component={Comment} title="评论" rightTitle="search"/>
                 <Scene key="commentDetails" component={CommentDetails} title="评论详情"/>
                 <Scene key="animeNewsPages" component={AnimeNewsPages} title="轻小说"/>
                 <Scene key="findNovelPage" component={FindNovelPage} title="小说分类"/>

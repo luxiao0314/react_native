@@ -40,7 +40,7 @@ module.exports ={
     listView_height:(height-(20+40)),
     window_height:height,
     window_width:width,
-    nav_bar_height_ios:44,
-    nav_bar_height_android:50,
+    nav_bar_height_ios:64,
+    nav_bar_height_android:54,
 
 };

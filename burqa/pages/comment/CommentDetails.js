@@ -11,7 +11,7 @@ import UpdatePages from "../UpdatePages";
 import {Actions} from 'react-native-router-flux';
 
 export default class CommentDetails extends Component {
-
+    
     render() {
         const data = this.props.data;
         return (

@@ -2,7 +2,7 @@
  * Created by lucio on 19/06/2017.
  */
 import React, {Component} from 'react'
-import {} from 'react-native'
+import {Platform} from 'react-native'
 import Router from "react-native-router-flux/src/Router";
 import Scene from "react-native-router-flux/src/Scene";
 import FindNovelSubPage from "../pages/novel/FindNovelSubPage";
@@ -22,10 +22,16 @@ import UpdatePages from "../pages/UpdatePages";
 export default class NovelRouter extends Component {
     render() {
         return (
-            <Router key="root" getSceneStyle={getSceneStyle}
-                    hideNavBar={false} hideTabBar={true}
-                    navigationBarStyle={{backgroundColor: 'orange'}}>
-                <Scene key="findNovelPage" component={FindNovelPage} title="小说分类"/>
+            <Router key="root"
+                    getSceneStyle={getSceneStyle}
+                    hideNavBar={false}
+                    hideTabBar={true}
+                    titleColor="white"
+                    navigationBarStyle={{
+                        backgroundColor: '#FF9800',
+                        height: Platform.OS === 'android' ? 54 : 64
+                    }}>
+                <Scene key="findNovelPage" component={FindNovelPage} title="小说分类" titleColor="white"/>
                 <Scene key="findNovelSubPage" component={FindNovelSubPage} title="小说分类"/>
             </Router>
         );
