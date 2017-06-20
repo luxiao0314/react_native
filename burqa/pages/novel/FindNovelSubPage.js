@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import Router from "react-native-router-flux/src/Router";
 import Scene from "react-native-router-flux/src/Scene";
+import FindNovelSubPageStore from "../../store/FindNovelSubPageStore";
 
 /**
  * @Description 小说分类列表
@@ -21,7 +22,16 @@ export default class FindNovelSubPage extends Component {
 
     constructor() {
         super();
-        new FindNovelSubPageStore();
+        this.findNovelSubPageStore = new FindNovelSubPageStore()
+    }
+
+    componentDidMount() {
+        this.findNovelSubPageStore.getData();
+    }
+
+    componentWillMount() {
+        const {errorMsg} = this.findNovelSubPageStore;
+        errorMsg && alert(errorMsg)
     }
 
     render() {

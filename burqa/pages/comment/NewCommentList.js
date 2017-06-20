@@ -16,6 +16,7 @@ import {reaction} from 'mobx'
 import CommentStore from "../../store/CommentStore";
 import LoadMoreFooter from "../../components/LoadMoreFooter";
 import {Actions} from 'react-native-router-flux';
+import * as HTTPTools from "../../utils/TimeUtil";
 
 /**
  * @Description 评论列表
@@ -121,7 +122,7 @@ export default class NewCommentList extends Component {
 
                     <View style={styles.buttonStyle}>
                         {/*时间*/}
-                        <Text style={{alignSelf: 'flex-start', color: '#949a9f', fontSize: 12}}>{data.createtime}</Text>
+                        <Text style={{alignSelf: 'flex-start', color: '#949a9f', fontSize: 12}}>{HTTPTools.dateForm1}</Text>
                         {/*点赞*/}
                         <View style={{position: 'absolute', right: 140, flexDirection: 'row', alignItems: 'center'}}>
                             <Image source={require('../../res/images/ic_drawer_night_mode.png')}
