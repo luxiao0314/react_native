@@ -3,7 +3,7 @@
  */
 export var apiURL = {
     baseUrl: 'http://v2.api.dmzj.com',
-    novel: '/novel/40/0/0/0.json',
+    novel: '/novel/',
     readingCarousel: '/reading/carousel',
     readingIndex: '/reading/index/',
     essay: '/essay/',

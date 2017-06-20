@@ -4,7 +4,7 @@
 import React, {Component} from 'react'
 import {
     StyleSheet,
-    View,AppRegistry,
+    View, AppRegistry,
     Text,
     Image, TouchableOpacity, RefreshControl
 } from 'react-native'
@@ -66,7 +66,7 @@ export default class FindNovelPage extends Component {
     _renderImageItem(rowData) {
         return (
             <TouchableOpacity onPress={() => {
-                Actions.findNovelSubPage();
+                Actions.findNovelSubPage({"tag_id": rowData.tag_id});
             }}>
                 <View style={styles.gridItemStyle} key={rowData.cover}>
                     <Image style={styles.imageStyle}

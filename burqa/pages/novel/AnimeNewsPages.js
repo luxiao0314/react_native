@@ -165,7 +165,7 @@ export default class AnimeNewsPages extends Component {
      */
     _findNovel = () => {
         // NativeModules.JsAndroid.jumpToActivity("lux://FindNovelPage");
-        Actions.findNovelSubPage();
+        Actions.findNovelPage();
     };
 
     /**

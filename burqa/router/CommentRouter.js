@@ -31,7 +31,7 @@ export default class CommentRouter extends Component {
                         backgroundColor: '#FF9800',
                         height: Platform.OS === 'android' ? 54 : 64
                     }}>
-                <Scene key="comment" component={Comment} title="评论" rightTitle="search"/>
+                <Scene key="comment" component={Comment} title="评论"/>
                 <Scene key="commentDetails" component={CommentDetails} title="评论详情"/>
                 <Scene key="animeNewsPages" component={AnimeNewsPages} title="轻小说"/>
                 <Scene key="findNovelPage" component={FindNovelPage} title="小说分类"/>
