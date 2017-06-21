@@ -7,10 +7,6 @@ import Router from "react-native-router-flux/src/Router";
 import Scene from "react-native-router-flux/src/Scene";
 import FindNovelSubPage from "../pages/novel/FindNovelSubPage";
 import FindNovelPage from "../pages/novel/FindNovelPage";
-import AnimeNewsPages from "../pages/novel/AnimeNewsPages";
-import Comment from "../pages/comment/Comment";
-import CommentDetails from "../pages/comment/CommentDetails";
-import UpdatePages from "../pages/UpdatePages";
 
 /**
  * @Description 找小说路由

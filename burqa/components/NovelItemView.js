@@ -6,10 +6,11 @@ import React, {Component, PropTypes} from 'react';
 import {
     StyleSheet,
     View,
-    Text, Image, ScrollView,
+    Text, Image, ScrollView, TouchableOpacity,
 } from 'react-native';
 import GridView from "./GridView";
 import {observer} from 'mobx-react/native'
+import {Actions} from 'react-native-router-flux';
 
 /**
  * @Description girdView条目
@@ -52,14 +53,20 @@ export default class NovelItemView extends Component {
     _renderImageItem(rowData) {
         let reactid = 0;
         return (
-            <View key={rowData.cover} style={styles.gridItemStyle}>
-                <Image key={rowData.cover + reactid++} style={styles.imageStyle}
-                       source={{uri: rowData.cover}}
-                       defaultSource={require('../res/images/define_empty.png')}/>
-                <Text key={rowData.cover + reactid++} style={styles.titleStyle} numberOfLines={1}>{rowData.title}</Text>
-            </View>
+            <TouchableOpacity onPress={() => {
+                Actions.novelDesPage({"title": rowData.title});
+            }}>
+                <View key={rowData.cover} style={styles.gridItemStyle}>
+                    <Image key={rowData.cover + reactid++} style={styles.imageStyle}
+                           source={{uri: rowData.cover}}
+                           defaultSource={require('../res/images/define_empty.png')}/>
+                    <Text key={rowData.cover + reactid++} style={styles.titleStyle}
+                          numberOfLines={1}>{rowData.title}</Text>
+                </View>
+            </TouchableOpacity>
         )
     }
+
 }
 
 const styles = StyleSheet.create({

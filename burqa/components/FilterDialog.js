@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import GridView from "./GridView";
 import {observer} from 'mobx-react/native'
-import FilterStore from "../store/FilterStore";
+import FilterStore from "../store/NovelDesStore";
 const PubSub = require('pubsub-js');
 
 /**

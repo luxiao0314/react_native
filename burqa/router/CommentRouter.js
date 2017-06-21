@@ -11,6 +11,7 @@ import AnimeNewsPages from "../pages/novel/AnimeNewsPages";
 import Comment from "../pages/comment/Comment";
 import CommentDetails from "../pages/comment/CommentDetails";
 import UpdatePages from "../pages/UpdatePages";
+import NovelDesPage from "../pages/novel/NovelDesPage";
 
 /**
  * @Description 找小说路由
@@ -37,6 +38,7 @@ export default class CommentRouter extends Component {
                 <Scene key="findNovelPage" component={FindNovelPage} title="小说分类"/>
                 <Scene key="findNovelSubPage" component={FindNovelSubPage} title="小说分类"/>
                 <Scene key="updatePages" component={UpdatePages} title="更新"/>
+                <Scene key="novelDesPage" component={NovelDesPage}/>
             </Router>
         );
     }
