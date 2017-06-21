@@ -66,7 +66,7 @@ export default class FindNovelPage extends Component {
     _renderImageItem(rowData) {
         return (
             <TouchableOpacity onPress={() => {
-                Actions.findNovelSubPage({"tag_id": rowData.tag_id});
+                Actions.findNovelSubPage({"tag_id": rowData.tag_id, "tabTitle": rowData.title});
             }}>
                 <View style={styles.gridItemStyle} key={rowData.cover}>
                     <Image style={styles.imageStyle}

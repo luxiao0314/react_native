@@ -26,6 +26,7 @@ export default class FindNovelSubPage extends Component {
 
     @observable dialogVisible = false;
     @observable type = 'funny';
+    @observable tabTitle = '';
 
     constructor() {
         super();
@@ -36,6 +37,7 @@ export default class FindNovelSubPage extends Component {
 
     componentDidMount() {
         this.findNovelSubPageStore.tag_id = this.props.tag_id;
+        this.tabTitle = this.props.tabTitle;
         this.findNovelSubPageStore.getData();
     }
 
@@ -107,7 +109,7 @@ export default class FindNovelSubPage extends Component {
                 }}>
                     <TextView
                         drawRight={require('../../res/images/img_triangle_down_gray.png')}
-                        text='搞笑'/>
+                        text={this.tabTitle}/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => {
                     this.dialogVisible = true;
@@ -118,17 +120,6 @@ export default class FindNovelSubPage extends Component {
                         drawRight={require('../../res/images/img_triangle_down_gray.png')}
                         text='连载进度'/>
                 </TouchableOpacity>
-                {/*<TouchableOpacity onPress={() => alert("连载进度")}>*/}
-                    {/*<TextView*/}
-                        {/*drawRight={require('../../res/images/img_down_gray.png')}*/}
-                        {/*text='人气'/>*/}
-                {/*</TouchableOpacity>*/}
-                {/*<TouchableOpacity onPress={() => alert("更新")}>*/}
-                    {/*<TextView*/}
-                        {/*style={{position: 'absolute', right: 80}}*/}
-                        {/*drawRight={require('../../res/images/img_down_gray.png')}*/}
-                        {/*text='更新'/>*/}
-                {/*</TouchableOpacity>*/}
             </View>
         )
     }
