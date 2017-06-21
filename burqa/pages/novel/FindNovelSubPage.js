@@ -13,6 +13,9 @@ import GridView from "../../components/GridView";
 import LoadMoreFooter from "../../components/LoadMoreFooter";
 import {observer} from 'mobx-react/native'
 import TextView from "../../components/TextView";
+import FilterDialog from "../../components/FilterDialog";
+import {observable} from "../../../../node_modules/mobx/lib/mobx";
+const PubSub = require('pubsub-js');
 /**
  * @Description 小说分类列表
  * @Author lucio
@@ -23,9 +26,14 @@ import TextView from "../../components/TextView";
 @observer
 export default class FindNovelSubPage extends Component {
 
+    @observable dialogVisible = false;
+
     constructor() {
         super();
         this.findNovelSubPageStore = new FindNovelSubPageStore();
+        PubSub.subscribe("dialogVisible", (msg,data) => {
+            this.dialogVisible = data;
+        })
     }
 
     componentDidMount() {
@@ -42,6 +50,7 @@ export default class FindNovelSubPage extends Component {
         const {updateList, isRefreshing} = this.findNovelSubPageStore;
         return (
             <View style={{flex: 1}}>
+                <FilterDialog _dialogVisible={this.dialogVisible}/>
                 {this._tabView()}
                 {this._content(updateList, isRefreshing)}
             </View>
@@ -91,7 +100,7 @@ export default class FindNovelSubPage extends Component {
     _tabView() {
         return (
             <View style={{flexDirection: 'row', width: gScreen.width, backgroundColor: "#44B8B8B8"}}>
-                <TouchableOpacity onPress={() => alert("搞笑")}>
+                <TouchableOpacity onPress={() => this.dialogVisible = true}>
                     <TextView
                         drawRight={require('../../res/images/img_triangle_down_gray.png')}
                         text='搞笑'/>
@@ -136,6 +145,7 @@ export default class FindNovelSubPage extends Component {
             />
         )
     }
+
 }
 
 const styles = StyleSheet.create({
