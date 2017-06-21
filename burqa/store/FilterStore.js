@@ -10,16 +10,20 @@ import {action, computed, observable} from "../../../node_modules/mobx/lib/mobx"
 import * as HTTPTools from "../utils/HttpTools";
 import {apiURL} from "../utils/UrlCons";
 
-export default class NovelDesStore {
+export default class FilterStore {
     @observable errorMsg = '';
     @observable dataArr = [];
 
     @action
-    fetchData = async () => {
-        let url = apiURL.baseUrl + apiURL.novel+"244.json";
+    fetchData = async (type) => {
+        let url = apiURL.baseUrl + apiURL.novel_filter;
         HTTPTools.get(url)
-            .then((data) => {
-
+            .then((dataArr) => {
+                if ("funny" === type) {
+                    this.dataArr.replace(dataArr[0].items);
+                } else {
+                    this.dataArr.replace(dataArr[1].items);
+                }
             })
             .catch(error => {
                 if (error.msg) {
