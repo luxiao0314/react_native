@@ -6,8 +6,6 @@ import {
     View, StyleSheet,
     Text, RefreshControl, TouchableOpacity, Image
 } from 'react-native'
-import Router from "react-native-router-flux/src/Router";
-import Scene from "react-native-router-flux/src/Scene";
 import FindNovelSubPageStore from "../../store/FindNovelSubPageStore";
 import GridView from "../../components/GridView";
 import LoadMoreFooter from "../../components/LoadMoreFooter";
@@ -27,13 +25,13 @@ const PubSub = require('pubsub-js');
 export default class FindNovelSubPage extends Component {
 
     @observable dialogVisible = false;
+    @observable type = 'funny';
 
     constructor() {
         super();
         this.findNovelSubPageStore = new FindNovelSubPageStore();
-        PubSub.subscribe("dialogVisible", (msg,data) => {
-            this.dialogVisible = data;
-        })
+        this.findNovelSubPageStore.isRefreshing = true;
+        this._subscribe();
     }
 
     componentDidMount() {
@@ -50,7 +48,9 @@ export default class FindNovelSubPage extends Component {
         const {updateList, isRefreshing} = this.findNovelSubPageStore;
         return (
             <View style={{flex: 1}}>
-                <FilterDialog _dialogVisible={this.dialogVisible}/>
+                <FilterDialog
+                    type={this.type}
+                    _dialogVisible={this.dialogVisible}/>
                 {this._tabView()}
                 {this._content(updateList, isRefreshing)}
             </View>
@@ -100,27 +100,35 @@ export default class FindNovelSubPage extends Component {
     _tabView() {
         return (
             <View style={{flexDirection: 'row', width: gScreen.width, backgroundColor: "#44B8B8B8"}}>
-                <TouchableOpacity onPress={() => this.dialogVisible = true}>
+                <TouchableOpacity onPress={() => {
+                    this.dialogVisible = true;
+                    this.type = 'funny';
+                    this.findNovelSubPageStore.type = '1'
+                }}>
                     <TextView
                         drawRight={require('../../res/images/img_triangle_down_gray.png')}
                         text='搞笑'/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => alert("连载进度")}>
+                <TouchableOpacity onPress={() => {
+                    this.dialogVisible = true;
+                    this.type = 'progress';
+                    this.findNovelSubPageStore.type = '2'
+                }}>
                     <TextView
                         drawRight={require('../../res/images/img_triangle_down_gray.png')}
                         text='连载进度'/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => alert("连载进度")}>
-                    <TextView
-                        drawRight={require('../../res/images/img_down_gray.png')}
-                        text='人气'/>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => alert("更新")}>
-                    <TextView
-                        style={{position: 'absolute', right: 80}}
-                        drawRight={require('../../res/images/img_down_gray.png')}
-                        text='更新'/>
-                </TouchableOpacity>
+                {/*<TouchableOpacity onPress={() => alert("连载进度")}>*/}
+                    {/*<TextView*/}
+                        {/*drawRight={require('../../res/images/img_down_gray.png')}*/}
+                        {/*text='人气'/>*/}
+                {/*</TouchableOpacity>*/}
+                {/*<TouchableOpacity onPress={() => alert("更新")}>*/}
+                    {/*<TextView*/}
+                        {/*style={{position: 'absolute', right: 80}}*/}
+                        {/*drawRight={require('../../res/images/img_down_gray.png')}*/}
+                        {/*text='更新'/>*/}
+                {/*</TouchableOpacity>*/}
             </View>
         )
     }
@@ -146,6 +154,27 @@ export default class FindNovelSubPage extends Component {
         )
     }
 
+    _subscribe() {
+        PubSub.subscribe("dialogVisible", (msg, data) => {
+            this.dialogVisible = data;
+        });
+        //搞笑
+        PubSub.subscribe("tag_id", (msg, filter_tag_id) => {
+            this.dialogVisible = false;
+            this.findNovelSubPageStore.tag_id = filter_tag_id;
+            this.findNovelSubPageStore.isRefreshing = true;
+            this.findNovelSubPageStore.page = 0;
+            this.findNovelSubPageStore.getData();
+        });
+        //进度
+        PubSub.subscribe("type", (msg, filter_tag_id) => {
+            this.dialogVisible = false;
+            this.findNovelSubPageStore.type = filter_tag_id;
+            this.findNovelSubPageStore.isRefreshing = true;
+            this.findNovelSubPageStore.page = 0;
+            this.findNovelSubPageStore.getData();
+        })
+    }
 }
 
 const styles = StyleSheet.create({

@@ -15,11 +15,15 @@ export default class FilterStore {
     @observable dataArr = [];
 
     @action
-    fetchData = async () => {
-        let url = apiURL.baseUrl + apiURL.novel + this.tag_id + "/0/0/" + this.page + ".json";
+    fetchData = async (type) => {
+        let url = apiURL.baseUrl + apiURL.novel_filter;
         HTTPTools.get(url)
             .then((dataArr) => {
-                this.updateList.replace(dataArr.items);
+                if ("funny" === type) {
+                    this.dataArr.replace(dataArr[0].items);
+                } else {
+                    this.dataArr.replace(dataArr[1].items);
+                }
             })
             .catch(error => {
                 if (error.msg) {

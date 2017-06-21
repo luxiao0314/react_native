@@ -19,11 +19,12 @@ export default class FindNovelSubPageStore extends Component {
     @observable page = 0;
     @observable isRefreshing = true;
     @observable isNoMore = true;
-    @observable tag_id = '';
+    @observable tag_id = 0;
+    @observable type = '1';
 
     @action
     getData() {
-        let url = apiURL.baseUrl + apiURL.novel + this.tag_id + "/0/0/" + this.page + ".json";
+        let url = apiURL.baseUrl + apiURL.novel + this.tag_id + "/" + this.type + "/0/" + this.page + ".json";
         HTTPTools.get(url)
             .then((dataArr) => {
                 this.isNoMore = dataArr.length === 0;

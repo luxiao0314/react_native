@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react'
 import {
-    View, StyleSheet,
+    View, StyleSheet, Platform,
     Text, Image, Modal, TouchableOpacity
 } from 'react-native'
 import GridView from "./GridView";
@@ -23,10 +23,12 @@ export default class FilterDialog extends Component {
 
     static propTypes = {
         _dialogVisible: React.PropTypes.bool,       //显示还是隐藏
+        type: React.PropTypes.string,       //显示还是隐藏
     };
 
     static defaultProps = {
         _dialogVisible: false,
+        type: "funny",
     };
 
     constructor() {
@@ -34,7 +36,16 @@ export default class FilterDialog extends Component {
         this.filterStore = new FilterStore();
     }
 
+    componentWillMount() {
+        const {errorMsg} = this.filterStore;
+        errorMsg && alert(errorMsg)
+    }
+
+
     render() {
+        if (this.props._dialogVisible) {
+            this.filterStore.fetchData("progress" === this.props.type ? "progress" : "funny");
+        }
         const {dataArr} = this.filterStore;
         return (
             <Modal
@@ -44,13 +55,12 @@ export default class FilterDialog extends Component {
                 onRequestClose={() => { //如果是Android设备 必须有此方法
                     this.onRequestClose()
                 }}>
-                <TouchableOpacity onPress={() => {
+                <TouchableOpacity activeOpacity={1} onPress={() => {
                     //rn组件通信
                     PubSub.publish('dialogVisible', false);
                 }}>
                     <View style={styles.bg}>
                         <View style={styles.dialog}>
-                            <Text>1111111111111</Text>
                             <GridView
                                 style={styles.gridViewStyle}
                                 items={Array.from(dataArr)}
@@ -67,58 +77,50 @@ export default class FilterDialog extends Component {
 
     _renderImageItem = (rowData) => {
         return (
-            <TouchableOpacity activeOpacity={0} onPress={() => this._onPress(rowData)}>
-                <View style={styles.gridItemStyle} key={rowData.cover}>
-                    <View style={styles.chapterNameStyle}>
-                        <Text
-                            style={{color: 'white', margin: 3, fontSize: 12}}
-                            numberOfLines={1}>{rowData.tag_name}</Text>
-                    </View>
+            <TouchableOpacity activeOpacity={0.5} onPress={() => this._onPress(rowData.tag_id)}>
+                <View style={styles.chapterNameStyle}>
+                    <Text
+                        key={rowData.cover}
+                        style={{margin: 3, fontSize: 12}}
+                        numberOfLines={1}>{rowData.tag_name}</Text>
                 </View>
             </TouchableOpacity>
         )
     };
+
+    _onPress(tag_id) {
+        //rn组件通信
+        if ("progress" === this.props.type) {
+            PubSub.publish('type', tag_id);
+        } else {
+            PubSub.publish('tag_id', tag_id);
+        }
+    }
 }
 
 const styles = StyleSheet.create({
     gridViewStyle: {
         padding: 5
     },
-    gridItemStyle: {
-        width: (gScreen.width - 40) / 4,
-        height: 180,
-        margin: 5
-    },
-    imageStyle: {
-        borderRadius: 5,
-        height: 150,
-        borderWidth: 0.5,
-    },
     chapterNameStyle: {
-        width: (gScreen.width - 40) / 4,
-        borderBottomLeftRadius: 5,
-        borderBottomRightRadius: 5,
+        height: 30,
         backgroundColor: '#44B8B8B8',
-        position: 'absolute',
-        bottom: 30,
-    },
-    titleStyle: {
-        position: 'absolute',
-        left: 0,
-        padding: 2,
-        bottom: 0,
+        margin: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: (gScreen.width - 20) / 4,
+        borderRadius: 3,
     },
     bg: {  //全屏显示 半透明 可以看到之前的控件但是不能操作了
         width: gScreen.width,
         height: gScreen.height,
+        top: Platform.OS === 'android' ? 54 + 40 : 64 + 40,
         backgroundColor: 'rgba(52,52,52,0.5)',  //rgba  a0-1  其余都是16进制数
-        justifyContent: 'center',
-        alignItems: 'center',
     },
     dialog: {
-        width: gScreen.width * 0.8,
-        height: gScreen.height * 0.28,
+        width: gScreen.width,
         backgroundColor: 'white',
-        borderRadius: 8,
+        position: 'absolute',
+        top: 0
     },
 });

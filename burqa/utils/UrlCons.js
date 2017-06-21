@@ -4,6 +4,7 @@
 export var apiURL = {
     baseUrl: 'http://v2.api.dmzj.com',
     novel: '/novel/',
+    novel_filter: '/novel/filter.json',
     readingCarousel: '/reading/carousel',
     readingIndex: '/reading/index/',
     essay: '/essay/',
