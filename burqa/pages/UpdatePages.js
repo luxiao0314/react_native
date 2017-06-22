@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     },
     imageStyle: {
         borderRadius: 5,
-        height: 150,
+        height: gDimensions.imageHeight,
         borderWidth: 0.5,
     },
     chapterNameStyle: {

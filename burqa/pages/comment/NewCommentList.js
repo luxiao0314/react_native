@@ -170,7 +170,7 @@ export default class NewCommentList extends Component {
 const styles = StyleSheet.create({
     listView: {
         flex: 1,
-        backgroundColor: '#f5f5f5'
+        backgroundColor: gColors.background
     },
     topStyle: {
         flexDirection: 'row',

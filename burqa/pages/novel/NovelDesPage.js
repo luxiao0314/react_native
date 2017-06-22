@@ -15,6 +15,7 @@ import {Actions} from 'react-native-router-flux';
 import {observer} from 'mobx-react/native'
 import NovelDesStore from "../../store/NovelDesStore";
 import NovelHeaderView from "../../components/NovelHeaderView";
+import GridView from "../../components/GridView";
 
 /**
  * @Description 小说详情页面
@@ -29,6 +30,7 @@ export default class NovelDesPage extends Component {
     constructor() {
         super();
         this.novelDesStore = new NovelDesStore();
+        this.novelDesStore.isRefreshing = true;
     }
 
     state = {
@@ -38,6 +40,7 @@ export default class NovelDesPage extends Component {
     };
 
     componentDidMount() {
+        this.novelDesStore.obj_id = this.props.obj_id;
         this.novelDesStore.fetchData();
         Actions.refresh({
             title: this.props.title
@@ -53,14 +56,13 @@ export default class NovelDesPage extends Component {
         const {volume, isRefreshing} = this.novelDesStore;
         return (
             <View style={styles.listView}>
-                <ListView
-                    dataSource={this.state.dataSource.cloneWithRows(volume.slice(0))}
+                <GridView
+                    items={volume.slice(0)}
                     //header
                     renderHeader={this._renderHeader}
                     //item布局
-                    renderRow={this._renderRow}
-                    //脚布局
-                    renderFooter={this._renderFooter}
+                    renderItem={this._renderRow}
+                    itemsPerRow={2}
                     enableEmptySections={true}
                     initialListSize={3}
                     onEndReachedThreshold={30}
@@ -71,7 +73,7 @@ export default class NovelDesPage extends Component {
                             onRefresh={this._onRefresh}
                             colors={['rgb(217, 51, 58)']}/>
                     }>
-                </ListView>
+                </GridView>
             </View>
         )
     }
@@ -92,16 +94,15 @@ export default class NovelDesPage extends Component {
     };
 
     //item
-    _renderRow = () => {
-        return(
-            <Text>1111</Text>
-        )
-    };
-
-    //脚布局
-    _renderFooter = () => {
-        return(
-            <Text>222</Text>
+    _renderRow = (rowData) => {
+        let volume_name = rowData.volume_name;
+        let volumeName = volume_name.substring(0,volume_name.length-1);
+        return (
+            <View style={styles.itemStyle}>
+                <Image source={require('../../res/images/img_share_copy_link.png')}
+                       style={{padding: 5, height: 20, width: 20}}/>
+                <Text style={{marginLeft: 5}} numberOfLines={1}>{volumeName}</Text>
+            </View>
         )
     };
 
@@ -114,7 +115,7 @@ export default class NovelDesPage extends Component {
 const styles = StyleSheet.create({
     listView: {
         flex: 1,
-        backgroundColor: '#f5f5f5'
+        backgroundColor: gColors.background
     },
     topStyle: {
         flexDirection: 'row',
@@ -128,5 +129,21 @@ const styles = StyleSheet.create({
         marginLeft: 40,
         flexDirection: 'row',
         alignItems: 'center',
+    },
+    itemStyle: {
+        width:gScreen.width / 2,
+        flexDirection: 'row',
+        height: 40,
+        backgroundColor: 'white',
+        marginTop: 1,
+        alignItems: 'center',
+        padding: 5
+    },
+    infoBarStyle: {
+        marginTop: 10,
+        padding: 16,
+        width: gScreen.width,
+        alignItems: 'center',
+        backgroundColor: 'white'
     }
 });

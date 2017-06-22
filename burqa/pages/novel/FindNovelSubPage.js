@@ -13,6 +13,8 @@ import {observer} from 'mobx-react/native'
 import TextView from "../../components/TextView";
 import FilterDialog from "../../components/FilterDialog";
 import {observable} from "../../../../node_modules/mobx/lib/mobx";
+import {Actions} from 'react-native-router-flux';
+
 const PubSub = require('pubsub-js');
 /**
  * @Description 小说分类列表
@@ -96,7 +98,7 @@ export default class FindNovelSubPage extends Component {
      * @param rowData
      */
     _onPress = (rowData) => {
-        alert(rowData.name)
+        Actions.novelDesPage({"title": rowData.name,"obj_id":rowData.id});
     };
 
     _tabView() {
@@ -179,7 +181,7 @@ const styles = StyleSheet.create({
     },
     imageStyle: {
         borderRadius: 5,
-        height: 150,
+        height: gDimensions.imageHeight,
         borderWidth: 0.5,
     },
     chapterNameStyle: {

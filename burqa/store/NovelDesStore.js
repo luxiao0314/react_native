@@ -14,6 +14,7 @@ export default class NovelDesStore {
     @observable errorMsg = '';
     @observable volume = [];    //小说多少话
     @observable isRefreshing = false;    //小说多少话
+    @observable obj_id = '';    //小说多少话
 
     @observable types = '';
     @observable hot_hits = '';
@@ -25,7 +26,7 @@ export default class NovelDesStore {
 
     @action
     fetchData() {
-        let url = apiURL.baseUrl + apiURL.novel + "244.json";
+        let url = apiURL.baseUrl + apiURL.novel + this.obj_id + ".json";
         HTTPTools.get(url)
             .then((data) => {
                 this.isRefreshing = false;
@@ -40,7 +41,8 @@ export default class NovelDesStore {
                 this.introduction = data.introduction;
                 this.newChapter = data.volume[0].volume_name;
             })
-            .catch(error => {1
+            .catch(error => {
+                1
                 this.isRefreshing = false;
                 if (error.msg) {
                     this.errorMsg = error.msg

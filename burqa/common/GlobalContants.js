@@ -1,7 +1,7 @@
 /**
  * Created by ljunb on 2017/2/25.
  */
-import { Dimensions, Platform, PixelRatio } from 'react-native'
+import {Dimensions, Platform, PixelRatio} from 'react-native'
 
 global.gScreen = {
     width: Dimensions.get('window').width,
@@ -10,6 +10,10 @@ global.gScreen = {
     navBarPaddingTop: __IOS__ ? 20 : 0,
     onePix: 1 / PixelRatio.get(),
 }
+
+global.gDimensions = {
+    imageHeight: 145,
+};
 
 global.gColors = {
     theme: 'rgb(217, 51, 58)',

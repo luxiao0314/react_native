@@ -52,7 +52,7 @@ export default class AnimeNewsPages extends Component {
         return (
             <View style={{flex: 1}}>
                 {/*{this._navigationBar()}*/}
-                <ScrollView style={{backgroundColor: '#f5f5f5'}} removeClippedSubviews={false}>
+                <ScrollView style={{backgroundColor: gColors.background}} removeClippedSubviews={false}>
                     {this._bannerView()}
                     {this._secondView()}
                     {this._recentUpdatesView(dataArr)}

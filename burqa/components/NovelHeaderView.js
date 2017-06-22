@@ -6,6 +6,8 @@ import {
     View, StyleSheet,
     Text, Image, Button, TouchableOpacity
 } from 'react-native'
+import {action, computed, observable} from "../../../node_modules/mobx/lib/mobx";
+import {observer} from 'mobx-react/native'
 
 /**
  * @Description 小说详情头部分
@@ -15,6 +17,10 @@ import {
  * @Version 1.0.1
  */
 export default class NovelHeaderView extends Component {
+
+    @observable numberOfLines = 2;
+    @observable requireArrow = require('../res/images/img_open_btn.png');
+    @observable isOpen = false;
 
     static propTypes = {
         name: React.PropTypes.string,
@@ -27,10 +33,12 @@ export default class NovelHeaderView extends Component {
         newChapter: React.PropTypes.array,
     };
 
+    @observer
     render() {
-        let newChapter = this.props.newChapter.replace("'\r'", '');
+        let newChapter = this.props.newChapter;
+        let new_chapter = newChapter.substring(0, newChapter.length - 1);
         return (
-            <View style={{flex: 1, backgroundColor: '#f5f5f5'}}>
+            <View style={{flex: 1, backgroundColor: gColors.background}}>
                 <View style={{flexDirection: 'row', backgroundColor: '#44B8B8B8', padding: 10}}>
                     <Image source={{uri: this.props.cover}} style={styles.imageStyle}/>
                     <View style={{marginLeft: 10}}>
@@ -50,35 +58,54 @@ export default class NovelHeaderView extends Component {
                     </View>
                 </View>
                 <View style={{width: gScreen.width}}>
-                    <Text style={{padding: 10, backgroundColor: 'white'}}
-                          numberOfLines={2}>{this.props.introduction}</Text>
-                    <TouchableOpacity onPress={() => alert('显示全部')}>
-                        <Image source={require('../res/images/ic_tiaozhuan.png')}
-                               style={{position: 'absolute', right: 0, bottom: 0, justifyContent: 'center'}}/>
+                    <Text style={{padding: 12, backgroundColor: 'white'}}
+                          numberOfLines={this.numberOfLines}>{this.props.introduction}</Text>
+                    <TouchableOpacity onPress={() => {
+                        this._onPress()
+                    }}>
+                        <Image source={this.requireArrow} style={styles.arrowStyle}/>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.infoBarStyle}>
                     <Text>分享</Text>
                 </View>
-                <View style={[styles.infoBarStyle, {flexDirection: 'row', justifyContent: 'center'}]}>
+                <View style={[styles.infoBarStyle, {flexDirection: 'row'}]}>
                     <Text style={{marginRight: 10}}>最新章节</Text>
-                    {/*<Text style={{color:'blue'}}>{newChapter}</Text>*/}
-                    <Text style={{color: 'blue'}}>第1卷 Public Enemy Number91</Text>
+                    <Text style={{color: 'blue', position: 'absolute', right: 20}}
+                          numberOfLines={1}>{new_chapter}</Text>
+                    <Image source={require('../res/images/img_more_s.png')}
+                           style={{height: 16, width: 8, position: 'absolute', right: 10,}}/>
                 </View>
                 <View style={[styles.infoBarStyle, {flexDirection: 'row'}]}>
                     <Text style={{marginRight: 10}}>小说章节</Text>
-                    <Text style={{position: 'absolute', right: 50}}>正序</Text>
-                    <Text style={{color: 'blue', position: 'absolute', right: 10}}>倒序</Text>
+                    <TouchableOpacity onPress={() => alert("正序")}>
+                        <Text style={{position: 'absolute', right: 50}}>正序</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => alert("倒序")}>
+                        <Text style={{color: 'blue', position: 'absolute', right: 10}}>倒序</Text>
+                    </TouchableOpacity>
                 </View>
             </View>
         )
+    }
+
+    _onPress = () => {
+        if (this.isOpen) {
+            this.isOpen = false;
+            this.numberOfLines = 2;
+            this.requireArrow = require('../res/images/img_open_btn.png');
+        } else {
+            this.isOpen = true;
+            this.numberOfLines = 0;
+            this.requireArrow = require('../res/images/img_close_btn.png');
+        }
     }
 }
 
 const styles = StyleSheet.create({
     imageStyle: {
         borderRadius: 5,
-        height: 145,
+        height: gDimensions.imageHeight,
         borderWidth: 0.5,
         width: (gScreen.width - 40) / 3,
     },
@@ -102,5 +129,13 @@ const styles = StyleSheet.create({
         width: gScreen.width,
         alignItems: 'center',
         backgroundColor: 'white'
+    },
+    arrowStyle: {
+        height: 10,
+        width: 20,
+        position: 'absolute',
+        right: 10,
+        bottom: 3,
+        justifyContent: 'center'
     }
 });

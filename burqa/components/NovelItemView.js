@@ -54,7 +54,7 @@ export default class NovelItemView extends Component {
         let reactid = 0;
         return (
             <TouchableOpacity onPress={() => {
-                Actions.novelDesPage({"title": rowData.title});
+                Actions.novelDesPage({"title": rowData.title,"obj_id":rowData.obj_id});
             }}>
                 <View key={rowData.cover} style={styles.gridItemStyle}>
                     <Image key={rowData.cover + reactid++} style={styles.imageStyle}
