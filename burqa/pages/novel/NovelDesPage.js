@@ -9,7 +9,7 @@ import React, {Component} from 'react';
 import {
     StyleSheet,
     View,
-    Text, Image, RefreshControl, ListView
+    Text, Image, RefreshControl, ListView, TouchableOpacity
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {observer} from 'mobx-react/native'
@@ -96,13 +96,13 @@ export default class NovelDesPage extends Component {
     //item
     _renderRow = (rowData) => {
         let volume_name = rowData.volume_name;
-        let volumeName = volume_name.substring(0,volume_name.length-1);
+        let volumeName = volume_name.substring(0, volume_name.length - 1);
         return (
-            <View style={styles.itemStyle}>
+            <TouchableOpacity style={styles.itemStyle} onPress={() => alert(rowData.volume_name)}>
                 <Image source={require('../../res/images/img_share_copy_link.png')}
                        style={{padding: 5, height: 20, width: 20}}/>
                 <Text style={{marginLeft: 5}} numberOfLines={1}>{volumeName}</Text>
-            </View>
+            </TouchableOpacity>
         )
     };
 
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     itemStyle: {
-        width:gScreen.width / 2,
+        width: gScreen.width / 2,
         flexDirection: 'row',
         height: 40,
         backgroundColor: 'white',

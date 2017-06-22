@@ -78,11 +78,12 @@ export default class NovelHeaderView extends Component {
                 </View>
                 <View style={[styles.infoBarStyle, {flexDirection: 'row'}]}>
                     <Text style={{marginRight: 10}}>小说章节</Text>
-                    <TouchableOpacity onPress={() => alert("正序")}>
-                        <Text style={{position: 'absolute', right: 50}}>正序</Text>
+                    <TouchableOpacity style={{position: 'absolute', right: 50}} onPress={() => alert("正序")}>
+                        <Text>正序</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => alert("倒序")}>
-                        <Text style={{color: 'blue', position: 'absolute', right: 10}}>倒序</Text>
+                    <TouchableOpacity style={{ position: 'absolute', right: 10}}
+                                      onPress={() => alert("倒序")}>
+                        <Text style={{color: 'blue'}}>倒序</Text>
                     </TouchableOpacity>
                 </View>
             </View>
