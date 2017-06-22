@@ -18,7 +18,7 @@
 import {
   Platform
 } from 'react-native';
-import Toast from 'react-native-root-toast';
+import * as Toast from "react-native-easy-toast";
 
 let toast;
 

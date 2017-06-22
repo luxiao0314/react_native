@@ -12,16 +12,36 @@ import {apiURL} from "../utils/UrlCons";
 
 export default class NovelDesStore {
     @observable errorMsg = '';
-    @observable dataArr = [];
+    @observable volume = [];    //小说多少话
+    @observable isRefreshing = false;    //小说多少话
+
+    @observable types = '';
+    @observable hot_hits = '';
+    @observable cover = '';
+    @observable name = '';
+    @observable subscribe_num = '';
+    @observable last_update_time = '';
+    @observable newChapter = '';
 
     @action
-    fetchData = async () => {
-        let url = apiURL.baseUrl + apiURL.novel+"244.json";
+    fetchData() {
+        let url = apiURL.baseUrl + apiURL.novel + "244.json";
         HTTPTools.get(url)
             .then((data) => {
+                this.isRefreshing = false;
+                this.volume = data.volume;
 
+                this.types = data.types[0];
+                this.hot_hits = data.hot_hits + "";
+                this.cover = data.cover;
+                this.name = data.name;
+                this.subscribe_num = data.subscribe_num + "";
+                this.last_update_time = data.last_update_time + "";
+                this.introduction = data.introduction;
+                this.newChapter = data.volume[0].volume_name;
             })
-            .catch(error => {
+            .catch(error => {1
+                this.isRefreshing = false;
                 if (error.msg) {
                     this.errorMsg = error.msg
                 } else {
@@ -32,6 +52,6 @@ export default class NovelDesStore {
 
     @computed
     get isFetching() {
-        return this.dataArr.length === 0 && this.errorMsg === ''
+        return this.data.length === 0 && this.errorMsg === ''
     }
 }

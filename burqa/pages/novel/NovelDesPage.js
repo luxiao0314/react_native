@@ -12,41 +12,103 @@ import {
     Text, Image, RefreshControl, ListView
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
+import {observer} from 'mobx-react/native'
+import NovelDesStore from "../../store/NovelDesStore";
+import NovelHeaderView from "../../components/NovelHeaderView";
 
+/**
+ * @Description 小说详情页面
+ * @Author lucio
+ * @Email lucio0314@163.com
+ * @Date 22/06/2017 09:47
+ * @Version 1.0.1
+ */
+@observer
 export default class NovelDesPage extends Component {
 
     constructor() {
         super();
+        this.novelDesStore = new NovelDesStore();
     }
 
+    state = {
+        dataSource: new ListView.DataSource({
+            rowHasChanged: (row1, row2) => row1 !== row2,
+        })
+    };
+
     componentDidMount() {
+        this.novelDesStore.fetchData();
         Actions.refresh({
             title: this.props.title
         });
     }
 
+    componentWillMount() {
+        const {errorMsg} = this.novelDesStore;
+        errorMsg && alert(errorMsg)
+    }
+
     render() {
+        const {volume, isRefreshing} = this.novelDesStore;
         return (
             <View style={styles.listView}>
-                {/*<ListView*/}
-                    {/*dataSource={this.state.dataSource.cloneWithRows(commentList.slice(0))}*/}
-                    {/*//item布局*/}
-                    {/*renderRow={this._renderRow}*/}
-                    {/*//加载更多脚布局*/}
-                    {/*enableEmptySections={true}*/}
-                    {/*initialListSize={3}*/}
-                    {/*onEndReachedThreshold={30}*/}
-                    {/*//刷新控制器*/}
-                    {/*refreshControl={*/}
-                        {/*<RefreshControl*/}
-                            {/*refreshing={isRefreshing}*/}
-                            {/*onRefresh={this._onRefresh}*/}
-                            {/*colors={['rgb(217, 51, 58)']}/>*/}
-                    {/*}>*/}
-                {/*</ListView>*/}
+                <ListView
+                    dataSource={this.state.dataSource.cloneWithRows(volume.slice(0))}
+                    //header
+                    renderHeader={this._renderHeader}
+                    //item布局
+                    renderRow={this._renderRow}
+                    //脚布局
+                    renderFooter={this._renderFooter}
+                    enableEmptySections={true}
+                    initialListSize={3}
+                    onEndReachedThreshold={30}
+                    //刷新控制器
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={isRefreshing}
+                            onRefresh={this._onRefresh}
+                            colors={['rgb(217, 51, 58)']}/>
+                    }>
+                </ListView>
             </View>
         )
     }
+
+    //头布局
+    _renderHeader = () => {
+        return (
+            <NovelHeaderView
+                types={this.novelDesStore.types}
+                hot_hits={this.novelDesStore.hot_hits}
+                cover={this.novelDesStore.cover}
+                name={this.novelDesStore.name}
+                subscribe_num={this.novelDesStore.subscribe_num}
+                newChapter={this.novelDesStore.newChapter}
+                introduction={this.novelDesStore.introduction}
+                last_update_time={this.novelDesStore.last_update_time}/>
+        )
+    };
+
+    //item
+    _renderRow = () => {
+        return(
+            <Text>1111</Text>
+        )
+    };
+
+    //脚布局
+    _renderFooter = () => {
+        return(
+            <Text>222</Text>
+        )
+    };
+
+    _onRefresh = () => {
+        this.novelDesStore.isRefreshing = true;
+        this.novelDesStore.fetchData();
+    };
 }
 
 const styles = StyleSheet.create({
