@@ -12,6 +12,7 @@ import Comment from "../pages/comment/Comment";
 import CommentDetails from "../pages/comment/CommentDetails";
 import UpdatePages from "../pages/UpdatePages";
 import NovelDesPage from "../pages/novel/NovelDesPage";
+import LatestNovelPage from "../pages/novel/LatestNovelPage";
 
 /**
  * @Description 找小说路由
@@ -32,13 +33,14 @@ export default class CommentRouter extends Component {
                         backgroundColor: '#FF9800',
                         height: Platform.OS === 'android' ? 54 : 64
                     }}>
+                <Scene key="animeNewsPages" component={AnimeNewsPages} title="轻小说"/>
                 <Scene key="comment" component={Comment} title="评论"/>
                 <Scene key="commentDetails" component={CommentDetails} title="评论详情"/>
-                <Scene key="animeNewsPages" component={AnimeNewsPages} title="轻小说"/>
                 <Scene key="findNovelPage" component={FindNovelPage} title="小说分类"/>
                 <Scene key="findNovelSubPage" component={FindNovelSubPage} title="小说分类"/>
                 <Scene key="updatePages" component={UpdatePages} title="更新"/>
                 <Scene key="novelDesPage" component={NovelDesPage}/>
+                <Scene key="latestNovelPage" component={LatestNovelPage} title="最新小说"/>
             </Router>
         );
     }

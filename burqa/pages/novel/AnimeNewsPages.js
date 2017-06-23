@@ -147,7 +147,8 @@ export default class AnimeNewsPages extends Component {
      * @private
      */
     _afterNovel = () => {
-        alert('追小说')
+        // alert('追小说')
+        Actions.latestNovelPage();
     };
 
     /**

@@ -42,7 +42,6 @@ export default class NovelDesStore {
                 this.newChapter = data.volume[0].volume_name;
             })
             .catch(error => {
-                1
                 this.isRefreshing = false;
                 if (error.msg) {
                     this.errorMsg = error.msg
