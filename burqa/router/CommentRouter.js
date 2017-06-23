@@ -13,6 +13,7 @@ import CommentDetails from "../pages/comment/CommentDetails";
 import UpdatePages from "../pages/UpdatePages";
 import NovelDesPage from "../pages/novel/NovelDesPage";
 import LatestNovelPage from "../pages/novel/LatestNovelPage";
+import NovelListPage from "../pages/novel/NovelListPage";
 
 /**
  * @Description 找小说路由
@@ -41,6 +42,7 @@ export default class CommentRouter extends Component {
                 <Scene key="updatePages" component={UpdatePages} title="更新"/>
                 <Scene key="novelDesPage" component={NovelDesPage}/>
                 <Scene key="latestNovelPage" component={LatestNovelPage} title="最新小说"/>
+                <Scene key="novelListPage" component={NovelListPage} title="小说排行榜"/>
             </Router>
         );
     }

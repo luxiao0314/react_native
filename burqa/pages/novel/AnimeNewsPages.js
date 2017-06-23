@@ -165,7 +165,7 @@ export default class AnimeNewsPages extends Component {
      * @private
      */
     _listNovel = () => {
-        alert('排行榜')
+        Actions.novelListPage();
     }
 }
 
