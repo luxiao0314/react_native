@@ -93,7 +93,7 @@ export default class NovelListPage extends Component {
                     <Text style={{margin: 10}} numberOfLines={1}>{rowData.last_update_time}</Text>
                 </View>
                 <Image source={this.requireImage} style={imageStyle}>
-                    <Text style={{position: 'absolute', right: 10, top: 10,backgroundColor:'#00000000'}}>{rowId}</Text>
+                    <Text style={{position: 'absolute', right: 5, top: 5,backgroundColor:'#00000000'}}>{rowId}</Text>
                 </Image>
             </TouchableOpacity>
         )
