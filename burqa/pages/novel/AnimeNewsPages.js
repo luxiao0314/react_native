@@ -73,11 +73,13 @@ export default class AnimeNewsPages extends Component {
         const dataArr = [];
         data.map((itemData) => {
             dataArr.push(
-                <Image style={{width: gScreen.width, height: 220}}
-                       source={{uri: itemData.cover}}
-                       defaultSource={require('../../res/images/define_empty.png')}>
-                    <Text style={styles.bannerTextStyle}>{itemData.title}</Text>
-                </Image>
+                <TouchableOpacity onPress={()=>Actions.novelDesPage({"title": itemData.title,"obj_id":itemData.obj_id})}>
+                    <Image style={{width: gScreen.width, height: 220}}
+                           source={{uri: itemData.cover}}
+                           defaultSource={require('../../res/images/define_empty.png')}>
+                        <Text style={styles.bannerTextStyle}>{itemData.title}</Text>
+                    </Image>
+                </TouchableOpacity>
             )
         });
         return dataArr;
@@ -89,7 +91,7 @@ export default class AnimeNewsPages extends Component {
                 style={styles.wrapper}
                 height={220}
                 autoplay={true}
-                paginationStyle={{bottom: 10,justifyContent: 'flex-end'}}
+                paginationStyle={{bottom: 10, justifyContent: 'flex-end'}}
                 dot={<View style={styles.dot_default}/>}
                 activeDot={<View style={styles.dot_select}/>}>
                 {this._renderPage()}
