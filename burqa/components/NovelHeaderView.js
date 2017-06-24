@@ -7,6 +7,7 @@ import {
     Text, Image, Button, TouchableOpacity
 } from 'react-native'
 import {action, computed, observable} from "../../../node_modules/mobx/lib/mobx";
+import {Actions} from 'react-native-router-flux';
 import {observer} from 'mobx-react/native'
 
 /**
@@ -51,7 +52,7 @@ export default class NovelHeaderView extends Component {
                             <TouchableOpacity style={styles.buttonStyle} onPress={() => alert('订阅小说')}>
                                 <Text style={{color: 'white', fontSize: 14, margin: 5}}>订阅小说</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={[styles.rightButtonStyle]} onPress={() => alert('开始阅读')}>
+                            <TouchableOpacity style={[styles.rightButtonStyle]} onPress={() => Actions.novelReadListPage({'title':this.props.name})}>
                                 <Text style={{color: 'white', fontSize: 14, margin: 5}}>开始阅读</Text>
                             </TouchableOpacity>
                         </View>
