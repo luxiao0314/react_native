@@ -32,6 +32,7 @@ export default class NovelHeaderView extends Component {
         types: React.PropTypes.string,
         introduction: React.PropTypes.string,
         newChapter: React.PropTypes.array,
+        id: React.PropTypes.string,
     };
 
     @observer
@@ -52,7 +53,11 @@ export default class NovelHeaderView extends Component {
                             <TouchableOpacity style={styles.buttonStyle} onPress={() => alert('订阅小说')}>
                                 <Text style={{color: 'white', fontSize: 14, margin: 5}}>订阅小说</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={[styles.rightButtonStyle]} onPress={() => Actions.novelReadListPage({'title':this.props.name})}>
+                            <TouchableOpacity style={[styles.rightButtonStyle]}
+                                              onPress={() => Actions.novelReadListPage({
+                                                  'title': this.props.name,
+                                                  "id": this.props.id
+                                              })}>
                                 <Text style={{color: 'white', fontSize: 14, margin: 5}}>开始阅读</Text>
                             </TouchableOpacity>
                         </View>
@@ -82,7 +87,7 @@ export default class NovelHeaderView extends Component {
                     <TouchableOpacity style={{position: 'absolute', right: 50}} onPress={() => alert("正序")}>
                         <Text>正序</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={{ position: 'absolute', right: 10}}
+                    <TouchableOpacity style={{position: 'absolute', right: 10}}
                                       onPress={() => alert("倒序")}>
                         <Text style={{color: 'blue'}}>倒序</Text>
                     </TouchableOpacity>

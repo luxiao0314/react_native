@@ -15,15 +15,18 @@ export default class NovelReadListStore extends Component {
     @observable dataArr = [];
     @observable errorMsg = '';
     @observable isRefreshing = true;
+    @observable id = '';
 
     @action
-    fetchData() {
-        let url = apiURL.baseUrl + apiURL.novel_chapter + "1714.json";
+    fetchData(callBack) {
+        let url = apiURL.baseUrl + apiURL.novel_chapter + this.id + ".json";
+        console.log(url);
         HTTPTools.get(url)
-            .then((dataArr) => {
+            .then((data) => {
                 this.isRefreshing = false;
                 this.errorMsg = '';
-                this.dataArr.replace(dataArr);
+                this.dataArr.replace(data);
+                callBack(this.dataArr);
             })
             .catch(error => {
                 this.isRefreshing = false;

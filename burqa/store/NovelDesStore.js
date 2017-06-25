@@ -23,6 +23,7 @@ export default class NovelDesStore {
     @observable subscribe_num = '';
     @observable last_update_time = '';
     @observable newChapter = '';
+    @observable id = '';
 
     @action
     fetchData() {
@@ -39,6 +40,7 @@ export default class NovelDesStore {
                 this.subscribe_num = data.subscribe_num + "";
                 this.last_update_time = data.last_update_time + "";
                 this.introduction = data.introduction;
+                this.id = data.id;
                 this.newChapter = data.volume[0].volume_name;
             })
             .catch(error => {
