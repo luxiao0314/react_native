@@ -15,6 +15,7 @@ import NovelDesPage from "../pages/novel/NovelDesPage";
 import LatestNovelPage from "../pages/novel/LatestNovelPage";
 import NovelListPage from "../pages/novel/NovelListPage";
 import NovelReadListPage from "../pages/novel/NovelReadListPage";
+import NovelPhotoView from "../pages/novel/NovelPhotoView";
 
 /**
  * @Description 找小说路由
@@ -45,6 +46,7 @@ export default class CommentRouter extends Component {
                 <Scene key="latestNovelPage" component={LatestNovelPage} title="最新小说"/>
                 <Scene key="novelListPage" component={NovelListPage} title="小说排行榜"/>
                 <Scene key="novelReadListPage" component={NovelReadListPage}/>
+                <Scene key="novelPhotoView" component={NovelPhotoView} hideNavBar={true}/>
             </Router>
         );
     }

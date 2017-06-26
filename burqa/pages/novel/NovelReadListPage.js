@@ -113,7 +113,7 @@ export default class NovelReadListPage extends Component {
 
     _renderSectionHeader = (sectionHeadData, sectionID) => {
         return (
-            <TouchableOpacity onPress={() => alert(sectionHeadData)}>
+            <TouchableOpacity onPress={() => Actions.novelPhotoView()}>
                 <Text numberOfLines={1} style={{
                     width: gScreen.width,
                     fontSize: 18,
