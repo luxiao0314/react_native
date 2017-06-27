@@ -126,11 +126,18 @@ export default class NovelPhotoView extends Component {
         this.viewerPressHandle = this.viewerPressHandle.bind(this)
         this.thumbPressHandle = this.thumbPressHandle.bind(this)
 
+        this._subscribe();
+    }
+
+    _subscribe() {
         PubSub.subscribe("novel_dialog_visible", (msg, data) => {
             this.showDialog = data;
         });
         PubSub.subscribe("finish_photo_view", () => {
             Actions.pop();
+        });
+        PubSub.subscribe("on_press_dir", () => {
+            Actions.novelReadListPage();
         });
     }
 

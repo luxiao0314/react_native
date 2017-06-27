@@ -11,6 +11,8 @@ import {observer} from 'mobx-react/native'
 import FilterStore from "../store/FilterStore";
 import NavigationBar from "./NavigationBar";
 import ViewUtils from "../utils/ViewUtils";
+import Slider from "react-native-slider/src/Slider";
+import {observable} from "../../../node_modules/mobx/lib/mobx";
 const PubSub = require('pubsub-js');
 
 /**
@@ -23,6 +25,8 @@ const PubSub = require('pubsub-js');
 @observer
 export default class NovelDialog extends Component {
 
+    @observable sliderValue = 0.2;
+
     static propTypes = {
         _dialogVisible: React.PropTypes.bool,       //显示还是隐藏
         _onBack: React.PropTypes.func,       //显示还是隐藏
@@ -34,15 +38,6 @@ export default class NovelDialog extends Component {
     };
 
     render() {
-        let bottom = {
-            width: gScreen.width,
-            height: 100,
-            // backgroundColor: 'rgba(52,52,52,0.5)',
-            backgroundColor: 'gray',
-            position: 'absolute',
-            bottom: 0
-        };
-        let textStyle = {flex: 1, textColor: 'white', justifyContent: 'center', height: 50, fontSize: 18};
         return (
             <Modal
                 animationType='fade'
@@ -60,18 +55,50 @@ export default class NovelDialog extends Component {
                             title='更新'
                             leftButton={ViewUtils.getLeftButton(() => PubSub.publish('finish_photo_view'))}
                             style={{backgroundColor: '#FF9800'}}/>
-
-                        <View style={bottom}>
-                            <View style={{flexDirection: 'row'}}>
-                                <Text style={textStyle}>设置</Text>
-                                <Text style={textStyle}>夜间</Text>
-                                <Text style={textStyle}>目录</Text>
-                                <Text style={textStyle}>吐槽</Text>
-                            </View>
+                        <View style={styles.bottomStyle}>
+                            {this._slider()}
+                            {this._bottomView()}
                         </View>
                     </View>
                 </TouchableOpacity>
             </Modal>
+        )
+    }
+
+    _slider = () => {
+        return (
+            <View style={styles.sliderStyle}>
+                <Slider
+                    value={this.sliderValue}
+                    onValueChange={(value) => this.sliderValue = value}/>
+            </View>
+        )
+    };
+
+    _bottomView() {
+        return (
+            <View style={{flexDirection: 'row', position: 'absolute', bottom: 10}}>
+                <View style={styles.textStyle}>
+                    <Image source={require('../res/images/img_novel_setting.png')}
+                           style={styles.imageStyle}/>
+                    <Text style={{color: 'white'}}>设置</Text>
+                </View>
+                <View style={styles.textStyle}>
+                    <Image source={require('../res/images/img_novel_moon.png')}
+                           style={styles.imageStyle}/>
+                    <Text style={{color: 'white'}}>夜间</Text>
+                </View>
+                <TouchableOpacity style={styles.textStyle} onPress={()=>PubSub.publish('on_press_dir')}>
+                    <Image source={require('../res/images/img_novel_dir.png')}
+                           style={styles.imageStyle}/>
+                    <Text style={{color: 'white'}}>目录</Text>
+                </TouchableOpacity>
+                <View style={styles.textStyle}>
+                    <Image source={require('../res/images/img_novel_discurss.png')}
+                           style={styles.imageStyle}/>
+                    <Text style={{color: 'white'}}>吐槽</Text>
+                </View>
+            </View>
         )
     }
 }
@@ -99,4 +126,34 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 0
     },
+    bottomStyle: {
+        width: gScreen.width,
+        height: 100,
+        backgroundColor: 'rgba(52,52,52,0.5)',
+        // backgroundColor: 'gray',
+        position: 'absolute',
+        bottom: 0
+    },
+    textStyle: {
+        flex: 1,
+        height: 50,
+        width: 30,
+        fontSize: 18,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    imageStyle: {
+        width: 15,
+        height: 15,
+        resizeMode: 'stretch',
+        marginBottom: 5
+    },
+    sliderStyle: {
+        marginTop:10,
+        height: 30,
+        paddingLeft: 10,
+        paddingRight: 10,
+        alignItems: 'stretch',
+        justifyContent: 'center',
+    }
 });
