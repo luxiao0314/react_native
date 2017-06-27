@@ -50,7 +50,7 @@ export default class ViewUtils {
             <View style={{paddingRight: 8}}>
                 <Image
                     style={{width: 24, height: 24, marginLeft: 5}}
-                    source={require('../res/images/ic_more_vert_white_48pt.png')}
+                    source={require('../res/images/ic_more_vert_white.png')}
                 />
             </View>
         </TouchableHighlight>
@@ -62,7 +62,7 @@ export default class ViewUtils {
             onPress={callBack}>
             <Image
                 style={{width: 26, height: 26,}}
-                source={require('../res/images/ic_arrow_back_white_36pt.png')}/>
+                source={require('../res/images/ic_arrow_back_white.png')}/>
         </TouchableOpacity>
     }
 

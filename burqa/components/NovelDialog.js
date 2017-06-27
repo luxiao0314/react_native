@@ -88,7 +88,7 @@ export default class NovelDialog extends Component {
                            style={styles.imageStyle}/>
                     <Text style={{color: 'white'}}>夜间</Text>
                 </View>
-                <TouchableOpacity style={styles.textStyle} onPress={()=>PubSub.publish('on_press_dir')}>
+                <TouchableOpacity style={styles.textStyle} onPress={() => PubSub.publish('on_press_dir')}>
                     <Image source={require('../res/images/img_novel_dir.png')}
                            style={styles.imageStyle}/>
                     <Text style={{color: 'white'}}>目录</Text>
@@ -130,9 +130,8 @@ const styles = StyleSheet.create({
         width: gScreen.width,
         height: 100,
         backgroundColor: 'rgba(52,52,52,0.5)',
-        // backgroundColor: 'gray',
         position: 'absolute',
-        bottom: 0
+        bottom: Platform.OS === 'ios' ? 0 : 30,
     },
     textStyle: {
         flex: 1,
@@ -149,7 +148,7 @@ const styles = StyleSheet.create({
         marginBottom: 5
     },
     sliderStyle: {
-        marginTop:10,
+        marginTop: 10,
         height: 30,
         paddingLeft: 10,
         paddingRight: 10,

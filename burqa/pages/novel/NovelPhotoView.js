@@ -89,17 +89,15 @@ const Viewer = props =>
         {
             props.imgList.map((item, i) =>
                 <View key={i} style={styles.slide}>
-                    <TouchableWithoutFeedback onPress={e => props.pressHandle()}>
-                        <PhotoView
-                            onLoad={() => console.log("onLoad called")}
-                            onTap={props.onTap}
-                            source={{uri: item}}
-                            resizeMode='contain'
-                            minimumZoomScale={0.5}
-                            maximumZoomScale={3}
-                            androidScaleType='center'
-                            style={styles.photo}/>
-                    </TouchableWithoutFeedback>
+                    <PhotoView
+                        onLoad={() => console.log("onLoad called")}
+                        onTap={props.onTap}
+                        source={{uri: item}}
+                        resizeMode='contain'
+                        minimumZoomScale={0.5}
+                        maximumZoomScale={3}
+                        androidScaleType='center'
+                        style={styles.photo}/>
                 </View>
             )
         }
@@ -120,12 +118,8 @@ export default class NovelPhotoView extends Component {
                 'https://gitlab.pro/yuji/demo/uploads/4421f77012d43a0b4e7cfbe1144aac7c/XFVzKhq.jpg',
                 'https://gitlab.pro/yuji/demo/uploads/576ef91941b0bda5761dde6914dae9f0/kD3eeHe.jpg'
             ],
-            showViewer: true,
             showIndex: 0
-        }
-        this.viewerPressHandle = this.viewerPressHandle.bind(this)
-        this.thumbPressHandle = this.thumbPressHandle.bind(this)
-
+        };
         this._subscribe();
     }
 
@@ -141,44 +135,25 @@ export default class NovelPhotoView extends Component {
         });
     }
 
-    viewerPressHandle() {
-        this.setState({
-            showViewer: false
-        })
-    }
-
-    thumbPressHandle(i) {
-        this.setState({
-            showIndex: i,
-            showViewer: true
-        })
-    }
-
     render() {
         return (
             <View style={{position: 'relative'}}>
-                {
-                    this.state.showViewer &&
-                    <Viewer
-                        index={this.state.showIndex}
-                        onTap={this._onTap}
-                        pressHandle={this.viewerPressHandle}
-                        imgList={this.state.imgList}/>
-                }
-                <View style={styles.thumbWrap}>
-                    {
-                        this.state.imgList.map((item, i) =>
-                            <TouchableOpacity key={i} onPress={e => this.thumbPressHandle(i)}>
-                                <Image style={styles.thumb} source={{uri: item}}/>
-                            </TouchableOpacity>)
-                    }
-                </View>
+                <Viewer
+                    index={this.state.showIndex}
+                    onTap={this._onTap}
+                    imgList={this.state.imgList}/>
                 <NovelDialog
                     _onBack={() => Actions.pop()}
                     _dialogVisible={this.showDialog}/>
             </View>
         )
     }
+
+    _viewerPressHandle = () => {
+        if (!this.showDialog) {
+            this.showDialog = true;
+        }
+    };
 
     _onTap = () => {
         if (!this.showDialog) {

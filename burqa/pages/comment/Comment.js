@@ -34,7 +34,7 @@ export default class Comment extends Component {
 
     componentDidMount() {
         Actions.refresh({
-            leftButtonImage: require('../../res/images/ic_arrow_back_white_36pt.png'),
+            leftButtonImage: require('../../res/images/ic_arrow_back_white.png'),
             onLeft: () => {
                 NativeModules.JsAndroid.backToNative();
             },
