@@ -5,7 +5,7 @@ import {
     Image,
     TouchableOpacity,
     TouchableWithoutFeedback,
-    Dimensions, Button
+    Dimensions, Button, ScrollView
 } from 'react-native'
 import {Actions} from 'react-native-router-flux';
 
@@ -60,12 +60,12 @@ export default class NovelPhotoView extends Component {
     }
 
     render() {
+        const {content} = this.novelPhotoViewStore;
         return (
             <View style={{position: 'relative'}}>
                 <Viewer
                     index={this.state.showIndex}
-                    onTap={this._onTap}
-                    imgList={this.state.imgList}/>
+                    imgList={Array.from(content)}/>
                 <NovelDialog
                     _onBack={() => Actions.pop()}
                     _dialogVisible={this.showDialog}/>
@@ -87,15 +87,16 @@ const Viewer = props =>
         {
             props.imgList.map((item, i) =>
                 <View key={i} style={styles.slide}>
-                    <PhotoView
-                        onLoad={() => console.log("onLoad called")}
-                        onTap={props.onTap}
-                        source={{uri: item}}
-                        resizeMode='contain'
-                        minimumZoomScale={0.5}
-                        maximumZoomScale={3}
-                        androidScaleType='center'
-                        style={styles.photo}/>
+                    <Text>{item}</Text>
+                    {/*<PhotoView*/}
+                    {/*onLoad={() => console.log("onLoad called")}*/}
+                    {/*onTap={props.onTap}*/}
+                    {/*source={{uri: item}}*/}
+                    {/*resizeMode='contain'*/}
+                    {/*minimumZoomScale={0.5}*/}
+                    {/*maximumZoomScale={3}*/}
+                    {/*androidScaleType='center'*/}
+                    {/*style={styles.photo}/>*/}
                 </View>
             )
         }
@@ -128,7 +129,6 @@ const renderPagination = (index, total, context) => {
 
 let styles = {
     wrapper: {
-        backgroundColor: '#000',
         top: 0,
         right: 0,
         bottom: 0,

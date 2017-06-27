@@ -14,23 +14,24 @@ import {
 import {action, observable} from "../../../node_modules/mobx/lib/mobx";
 import {apiURL} from "../utils/UrlCons";
 const RNFS = require('react-native-fs');
-let jobId = -1;
 
+/**
+ * @Description 下载小说,读取小说并实现分页
+ * @Author lucio
+ * @Email lucio0314@163.com
+ * @Date 27/06/2017 9:00 PM
+ * @Version 9:00 PM
+ */
 export default class NovelPhotoViewStore {
 
-    @observable dataArr = [];
-    @observable errorMsg = '';
-    @observable isRefreshing = true;
-    @observable id = '';
+    @observable content = [];
 
     @action
     fetchData() {
         //http://v2.api.dmzj.com/novel/download/2134_7827_61265.txt
         let url = apiURL.baseUrl + apiURL.novel_download + "2134_7827_61265.txt";
-        const path = RNFS.DocumentDirectoryPath + '/demo.txt';
-        this.downloadFile(path,url);
-        this.readFile(path);
-        // this.writeFile();
+        const path = RNFS.DocumentDirectoryPath + '/' + encodeURIComponent(url);
+        this.downloadFile(path, url);
     };
 
     downloadFile = (path, url) => {
@@ -52,13 +53,25 @@ export default class NovelPhotoViewStore {
     readFile(path) {
         return RNFS.readFile(path)
             .then((result) => {
-                console.log(result);
-                alert(result);
+                if (result.length !== 0) {
+                    this.computer(result);
+                }
             })
             .catch((err) => {
                 console.log(err.message);
-                alert(err.message)
             });
+    }
+
+    computer(result) {
+        //假设每页900字,计算出页数
+        let num = 850;
+        let pages = parseInt(result.length / num);
+        let dataArr = [];
+        for (let i = 1; i <= pages; i++) {
+            let content = result.substring(num * (i - 1), num * i);
+            dataArr.push(content)
+        }
+        this.content.replace(dataArr);
     }
 
     /*将文本写入本地 txt*/
