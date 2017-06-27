@@ -100,7 +100,7 @@ export default class NovelReadListPage extends Component {
 
     _renderRow = (rowData: string, sectionID: number, rowID: number) => {
         return (
-            <TouchableOpacity onPress={() => alert(rowData.chapter_name)}>
+            <TouchableOpacity onPress={() => Actions.novelPhotoView({"chapter_id": rowData.chapter_id}) }>
                 <Text numberOfLines={1} style={{
                     width: gScreen.width,
                     padding: 10,
@@ -113,14 +113,12 @@ export default class NovelReadListPage extends Component {
 
     _renderSectionHeader = (sectionHeadData, sectionID) => {
         return (
-            <TouchableOpacity onPress={() => Actions.novelPhotoView()}>
-                <Text numberOfLines={1} style={{
-                    width: gScreen.width,
-                    fontSize: 18,
-                    padding: 10,
-                    backgroundColor: '#00666666'
-                }}>• {sectionHeadData} •</Text>
-            </TouchableOpacity>
+            <Text numberOfLines={1} style={{
+                width: gScreen.width,
+                fontSize: 18,
+                padding: 10,
+                backgroundColor: '#00666666'
+            }}>• {sectionHeadData} •</Text>
         );
     };
 

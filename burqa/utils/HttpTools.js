@@ -17,6 +17,7 @@ const get = function (url, params, headers) {
         }
     }
     return new Promise(function (resolve, reject) {
+        console.log(url);
         fetch(url, {
             method: 'GET',
             headers: headers,

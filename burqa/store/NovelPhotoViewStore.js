@@ -25,11 +25,12 @@ const RNFS = require('react-native-fs');
 export default class NovelPhotoViewStore {
 
     @observable content = [];
+    @observable chapter_id = '';
 
     @action
     fetchData() {
         //http://v2.api.dmzj.com/novel/download/2134_7827_61265.txt
-        let url = apiURL.baseUrl + apiURL.novel_download + "2134_7827_61265.txt";
+        let url = apiURL.baseUrl + apiURL.novel_download + "2134_7827_" + this.chapter_id + ".txt";
         const path = RNFS.DocumentDirectoryPath + '/' + encodeURIComponent(url);
         this.downloadFile(path, url);
     };

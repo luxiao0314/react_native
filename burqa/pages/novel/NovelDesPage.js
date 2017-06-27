@@ -99,7 +99,7 @@ export default class NovelDesPage extends Component {
         let volume_name = rowData.volume_name;
         let volumeName = volume_name.substring(0, volume_name.length - 1);
         return (
-            <TouchableOpacity style={styles.itemStyle} onPress={() => alert(rowData.volume_name)}>
+            <TouchableOpacity style={styles.itemStyle} onPress={() => Actions.novelPhotoView({"chapter_id": rowData.lnovel_id})}>
                 <Image source={require('../../res/images/img_share_copy_link.png')}
                        style={{padding: 5, height: 20, width: 20}}/>
                 <Text style={{marginLeft: 5}} numberOfLines={1}>{volumeName}</Text>

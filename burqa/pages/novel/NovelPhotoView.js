@@ -39,6 +39,7 @@ export default class NovelPhotoView extends Component {
     }
 
     componentDidMount() {
+        this.novelPhotoViewStore.chapter_id = this.props.chapter_id;
         this.novelPhotoViewStore.fetchData();
     }
 
@@ -64,6 +65,7 @@ export default class NovelPhotoView extends Component {
         return (
             <View style={{position: 'relative'}}>
                 <Viewer
+                    onTap={()=>this._onTap()}
                     index={this.state.showIndex}
                     imgList={Array.from(content)}/>
                 <NovelDialog
@@ -86,7 +88,7 @@ const Viewer = props =>
             renderPagination={renderPagination}>
         {
             props.imgList.map((item, i) =>
-                <View key={i} style={styles.slide}>
+                <TouchableOpacity activeOpacity={1} key={i} style={styles.slide} onPress={props.onTap}>
                     <Text>{item}</Text>
                     {/*<PhotoView*/}
                     {/*onLoad={() => console.log("onLoad called")}*/}
@@ -97,7 +99,7 @@ const Viewer = props =>
                     {/*maximumZoomScale={3}*/}
                     {/*androidScaleType='center'*/}
                     {/*style={styles.photo}/>*/}
-                </View>
+                </TouchableOpacity>
             )
         }
     </Swiper>;
@@ -119,7 +121,6 @@ const renderPagination = (index, total, context) => {
                 paddingHorizontal: 7
             }}>
                 <Text style={{
-                    color: '#fff',
                     fontSize: 14
                 }}>{index + 1} / {total}</Text>
             </View>
