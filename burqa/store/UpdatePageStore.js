@@ -3,7 +3,6 @@
  */
 
 import {action, computed, observable, runInAction} from "../../../node_modules/mobx/lib/mobx";
-import {get} from '../common/HttpTool'
 /**
  * @Description store类似viewModel,用于储存请求拿到的字段,并不明白action注解有什么用
  * @Author lucio

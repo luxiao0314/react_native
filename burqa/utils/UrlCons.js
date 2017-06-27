@@ -8,4 +8,5 @@ export const apiURL = {
     novel_filter: '/novel/filter.json',
     novel_rank: '/novel/rank/',
     novel_chapter: '/novel/chapter/',
+    novel_download: '/novel/download/',
 };
