@@ -25,7 +25,7 @@ import {
 const propTypes = {
   items: PropTypes.array,
   renderItem: PropTypes.func,
-  style: PropTypes.func,
+  style: PropTypes.object,
   itemsPerRow: PropTypes.number,
   onEndReached: PropTypes.func
 };

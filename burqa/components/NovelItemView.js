@@ -27,6 +27,11 @@ export default class NovelItemView extends Component {
         title: PropTypes.string,
     };
 
+    static defaultProps = {
+        data: [],
+        title: '',
+    };
+
     render() {
         const {data} = this.props.data;
         return (
@@ -45,22 +50,21 @@ export default class NovelItemView extends Component {
                 style={{padding: 5}}
                 items={Array.from(data)}
                 itemsPerRow={3}
-                renderItem={this._renderImageItem}
-            />
+                renderItem={this._renderImageItem}/>
         )
     }
 
     _renderImageItem(rowData) {
         let reactid = 0;
         return (
-            <TouchableOpacity onPress={() => {
-                Actions.novelDesPage({"title": rowData.title,"obj_id":rowData.obj_id});
+            <TouchableOpacity key={rowData.obj_id} onPress={() => {
+                Actions.novelDesPage({"title": rowData.title, "obj_id": rowData.obj_id});
             }}>
-                <View key={rowData.cover} style={styles.gridItemStyle}>
-                    <Image key={rowData.cover + reactid++} style={styles.imageStyle}
+                <View style={styles.gridItemStyle}>
+                    <Image style={styles.imageStyle}
                            source={{uri: rowData.cover}}
                            defaultSource={require('../res/images/define_empty.png')}/>
-                    <Text key={rowData.cover + reactid++} style={styles.titleStyle}
+                    <Text style={styles.titleStyle}
                           numberOfLines={1}>{rowData.title}</Text>
                 </View>
             </TouchableOpacity>
@@ -73,7 +77,7 @@ const styles = StyleSheet.create({
     imageStyle: {
         borderRadius: 5,
         borderWidth: 0.5,
-        height: 160,
+        height: gDimensions.imageHeight,
         width: (gScreen.width - 40) / 3,
     },
     titleStyle: {
@@ -84,7 +88,7 @@ const styles = StyleSheet.create({
     },
     gridItemStyle: {
         width: (gScreen.width - 40) / 3,
-        height: 180,
+        height: gDimensions.imageHeight + 20,
         margin: 5
     },
 });

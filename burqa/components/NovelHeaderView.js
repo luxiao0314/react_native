@@ -31,7 +31,7 @@ export default class NovelHeaderView extends Component {
         subscribe_num: React.PropTypes.string,
         types: React.PropTypes.string,
         introduction: React.PropTypes.string,
-        newChapter: React.PropTypes.array,
+        newChapter: React.PropTypes.string,
         id: React.PropTypes.string,
     };
 
@@ -72,9 +72,9 @@ export default class NovelHeaderView extends Component {
                         <Image source={this.requireArrow} style={styles.arrowStyle}/>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.infoBarStyle}>
+                <TouchableOpacity style={styles.infoBarStyle} onPress={()=>Actions.comment()}>
                     <Text>分享</Text>
-                </View>
+                </TouchableOpacity>
                 <View style={[styles.infoBarStyle, {flexDirection: 'row'}]}>
                     <Text style={{marginRight: 10}}>最新章节</Text>
                     <Text style={{color: 'blue', position: 'absolute', right: 20}}

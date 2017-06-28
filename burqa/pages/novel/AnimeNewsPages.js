@@ -71,9 +71,9 @@ export default class AnimeNewsPages extends Component {
         });
 
         const dataArr = [];
-        data.map((itemData) => {
+        data.map((itemData,index) => {
             dataArr.push(
-                <TouchableOpacity onPress={()=>Actions.novelDesPage({"title": itemData.title,"obj_id":itemData.obj_id})}>
+                <TouchableOpacity key={index} onPress={()=>Actions.novelDesPage({"title": itemData.title,"obj_id":itemData.obj_id})}>
                     <Image style={{width: gScreen.width, height: 220}}
                            source={{uri: itemData.cover}}
                            defaultSource={require('../../res/images/define_empty.png')}>
