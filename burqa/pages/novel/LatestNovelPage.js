@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react'
 import {
-    View, StyleSheet,
+    View, AppRegistry,
     Text, Image, ListView, RefreshControl, TouchableOpacity
 } from 'react-native'
 import RefreshListView from "../../components/RefreshListView";
@@ -64,7 +64,7 @@ export default class LatestNovelPage extends Component {
             <TouchableOpacity style={newVar} onPress={()=>Actions.novelDesPage({"title": rowData.name,"obj_id":rowData.id})}>
                 <Image source={{uri: rowData.cover}} style={CommStyle.styles.imageStyle}/>
                 <View style={{width: 150,marginLeft:5}}>
-                    <Text style={{margin: 10, fontSize: 18, maxLength: 8, fontWeight: ('bold', '700')}}
+                    <Text style={{margin: 10, fontSize: 18, fontWeight: ('bold', '700')}}
                           numberOfLines={1}>{rowData.name}</Text>
                     <Text style={{margin: 10}}>{rowData.authors}</Text>
                     <Text style={{margin: 10}}>{type}</Text>
@@ -73,7 +73,7 @@ export default class LatestNovelPage extends Component {
                 <View style={{right: 10, position: 'absolute', width: 60, alignItems: 'center'}}>
                     <Image source={require('../../res/images/img_novel_title_book.png')}
                            style={{height: 40, width: 40, alignItems: 'center'}}/>
-                    <Text style={{marginTop: 10, maxLength: 5, alignItems: 'center'}}
+                    <Text style={{marginTop: 10, alignItems: 'center'}}
                           numberOfLines={1}>{rowData.last_update_chapter_name}</Text>
                 </View>
             </TouchableOpacity>
@@ -91,3 +91,4 @@ export default class LatestNovelPage extends Component {
         this.latestNovelStore.fetchData();
     };
 }
+

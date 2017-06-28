@@ -8,7 +8,7 @@
 import React, {Component} from 'react';
 import {
     StyleSheet,
-    View,
+    View, AppRegistry,NativeModules,
     Text, Image, RefreshControl, ListView, TouchableOpacity
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
@@ -16,6 +16,7 @@ import {observer} from 'mobx-react/native'
 import NovelDesStore from "../../store/NovelDesStore";
 import NovelHeaderView from "../../components/NovelHeaderView";
 import GridView from "../../components/GridView";
+const PubSub = require('pubsub-js');
 
 /**
  * @Description 小说详情页面
@@ -31,6 +32,7 @@ export default class NovelDesPage extends Component {
         super();
         this.novelDesStore = new NovelDesStore();
         this.novelDesStore.isRefreshing = true;
+        this.getNativeData();
     }
 
     state = {
@@ -40,11 +42,30 @@ export default class NovelDesPage extends Component {
     };
 
     componentDidMount() {
-        this.novelDesStore.obj_id = this.props.obj_id;
-        this.novelDesStore.fetchData();
-        Actions.refresh({
-            title: this.props.title
-        });
+        // PubSub.subscribe("novelDesPage_title", (msg, obj_id) => {
+        //     this.novelDesStore.obj_id = obj_id;
+        // });
+        // this.novelDesStore.obj_id = this.props.obj_id;
+        // this.novelDesStore.fetchData();
+        // Actions.refresh({
+        //     title: this.props.title
+        // });
+    }
+
+    //接受从native传递过来的值
+    getNativeData() {
+        NativeModules.JsAndroid.passTojs(
+            (title, obj_id) => {
+                this.novelDesStore.obj_id = obj_id;
+                this.novelDesStore.fetchData();
+                // Actions.refresh({
+                //     title: this.props.title
+                // });
+            },
+            (erroMsg) => {
+                alert(erroMsg)
+            }
+        );
     }
 
     componentWillMount() {
@@ -89,7 +110,7 @@ export default class NovelDesPage extends Component {
                 subscribe_num={this.novelDesStore.subscribe_num}
                 newChapter={this.novelDesStore.newChapter}
                 introduction={this.novelDesStore.introduction}
-                id={this.novelDesStore.id+""}
+                id={this.novelDesStore.id + ""}
                 last_update_time={this.novelDesStore.last_update_time}/>
         )
     };
@@ -99,7 +120,8 @@ export default class NovelDesPage extends Component {
         let volume_name = rowData.volume_name;
         let volumeName = volume_name.substring(0, volume_name.length - 1);
         return (
-            <TouchableOpacity style={styles.itemStyle} onPress={() => Actions.novelPhotoView({"chapter_id": rowData.lnovel_id})}>
+            <TouchableOpacity style={styles.itemStyle}
+                              onPress={() => Actions.novelPhotoView({"chapter_id": rowData.lnovel_id})}>
                 <Image source={require('../../res/images/img_share_copy_link.png')}
                        style={{padding: 5, height: 20, width: 20}}/>
                 <Text style={{marginLeft: 5}} numberOfLines={1}>{volumeName}</Text>
@@ -148,3 +170,4 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     }
 });
+

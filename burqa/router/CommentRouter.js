@@ -52,7 +52,7 @@ export default class CommentRouter extends Component {
     }
 }
 
-const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) => {
+export const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) => {
     const style = {
         flex: 1,
         backgroundColor: '#fff',

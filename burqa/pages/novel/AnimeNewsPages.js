@@ -4,7 +4,7 @@
 
 import React, {Component} from 'react'
 import {
-    StyleSheet,
+    StyleSheet, Platform,
     View, AppRegistry, Dimensions, NativeModules,
     Text, Image, ScrollView, TouchableOpacity,
 } from 'react-native';
@@ -19,6 +19,7 @@ import Loading from "../../components/Loading";
 const width = Dimensions.get('window').width;
 import Swiper from 'react-native-swiper';
 import {Actions} from 'react-native-router-flux';
+const PubSub = require('pubsub-js');
 const data = [Object, Object, Object, Object, Object];
 
 
@@ -71,9 +72,12 @@ export default class AnimeNewsPages extends Component {
         });
 
         const dataArr = [];
-        data.map((itemData,index) => {
+        data.map((itemData, index) => {
             dataArr.push(
-                <TouchableOpacity key={index} onPress={()=>Actions.novelDesPage({"title": itemData.title,"obj_id":itemData.obj_id})}>
+                <TouchableOpacity key={index} onPress={() => {
+                    Platform.OS === 'ios' ? Actions.novelDesPage({"title": itemData.title, "obj_id": itemData.obj_id}) :
+                        NativeModules.JsAndroid.jumpToActivity("lux://JsAndroidActivity?jsRouter=NovelDesPage&title=" + itemData.title + "&obj_id=" + itemData.obj_id);
+                }}>
                     <Image style={{width: gScreen.width, height: 220}}
                            source={{uri: itemData.cover}}
                            defaultSource={require('../../res/images/define_empty.png')}>
@@ -147,8 +151,8 @@ export default class AnimeNewsPages extends Component {
      * @private
      */
     _afterNovel = () => {
-        // alert('追小说')
-        Actions.latestNovelPage();
+        // Platform.OS === 'ios' ? Actions.latestNovelPage() :
+            NativeModules.JsAndroid.jumpToActivity("lux://JsAndroidActivity?jsRouter=LatestNovelPage");
     };
 
     /**
@@ -156,8 +160,8 @@ export default class AnimeNewsPages extends Component {
      * @private
      */
     _findNovel = () => {
-        // NativeModules.JsAndroid.jumpToActivity("lux://FindNovelPage");
-        Actions.findNovelPage();
+        // Platform.OS === 'ios' ? Actions.findNovelPage() :
+            NativeModules.JsAndroid.jumpToActivity("lux://JsAndroidActivity?jsRouter=FindNovelPage");
     };
 
     /**
@@ -165,7 +169,8 @@ export default class AnimeNewsPages extends Component {
      * @private
      */
     _listNovel = () => {
-        Actions.novelListPage();
+        // Platform.OS === 'ios' ? Actions.novelListPage() :
+            NativeModules.JsAndroid.jumpToActivity("lux://JsAndroidActivity?jsRouter=NovelListPage");
     }
 }
 
