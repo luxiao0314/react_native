@@ -5,7 +5,7 @@ import React, {Component} from 'react'
 import {
     StyleSheet,
     View, AppRegistry,
-    Text,
+    Text,NativeModules,
     Image, TouchableOpacity, RefreshControl
 } from 'react-native'
 import GridView from "../../components/GridView";
@@ -13,6 +13,7 @@ import FindNovelStore from "../../store/FindNovelStore";
 import {observer} from 'mobx-react/native'
 import {Actions} from 'react-native-router-flux';
 import NovelRouter from "../../router/NovelRouter";
+import FindNovelRouter from "../../router/FindNovelRouter";
 
 /**
  * @Description 找小说页面
@@ -30,6 +31,16 @@ export default class FindNovelPage extends Component {
     }
 
     componentDidMount() {
+        Actions.refresh({
+            leftButtonImage: require('../../res/images/ic_arrow_back_white.png'),
+            onLeft: () => {
+                NativeModules.JsAndroid.backToNative();
+            },
+            rightTitle: 'search',
+            onRight: () => {
+                NativeModules.JsAndroid.jumpToActivity("lux://search?needLogin");
+            }
+        });
         this.findNovelStore.fetchData();
     }
 
@@ -100,4 +111,4 @@ const styles = StyleSheet.create({
     },
 });
 
-AppRegistry.registerComponent('FindNovelPage', () => NovelRouter);
+AppRegistry.registerComponent('FindNovelPage', () => FindNovelRouter);

@@ -24,7 +24,7 @@ import NovelPhotoView from "../pages/novel/NovelPhotoView";
  * @Date 19/06/2017 11:34 PM
  * @Version 11:34 PM
  */
-export default class LatestNovelRouter extends Component {
+export default class FindNovelRouter extends Component {
     render() {
         return (
             <Router key="root"
@@ -36,14 +36,14 @@ export default class LatestNovelRouter extends Component {
                         backgroundColor: '#FF9800',
                         height: Platform.OS === 'android' ? 54 : 64
                     }}>
-                <Scene key="findNovelPage" component={FindNovelPage} title="小说分类"/>
+                <Scene key="findNovelPage" component={FindNovelPage} title="小说分类"  initial={true}/>
                 <Scene key="animeNewsPages" component={AnimeNewsPages} title="轻小说"/>
                 <Scene key="comment" component={Comment} title="评论"/>
                 <Scene key="commentDetails" component={CommentDetails} title="评论详情"/>
                 <Scene key="findNovelSubPage" component={FindNovelSubPage} title="小说分类"/>
                 <Scene key="updatePages" component={UpdatePages} title="更新"/>
                 <Scene key="novelDesPage" component={NovelDesPage}/>
-                <Scene key="latestNovelPage" component={LatestNovelPage} title="最新小说" initial={true}/>
+                <Scene key="latestNovelPage" component={LatestNovelPage} title="最新小说"/>
                 <Scene key="novelListPage" component={NovelListPage} title="小说排行榜"/>
                 <Scene key="novelReadListPage" component={NovelReadListPage}/>
                 <Scene key="novelPhotoView" component={NovelPhotoView} hideNavBar={true}/>

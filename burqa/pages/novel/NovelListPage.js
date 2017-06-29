@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react'
 import {
-    View, StyleSheet,
+    View, NativeModules, AppRegistry,
     Text, Image, ListView, RefreshControl, TouchableOpacity
 } from 'react-native'
 import RefreshListView from "../../components/RefreshListView";
@@ -12,6 +12,7 @@ import {observer} from 'mobx-react/native'
 import {Actions} from 'react-native-router-flux';
 import NovelListStore from "../../store/NovelListStore";
 import {observable} from "../../../../node_modules/mobx/lib/mobx";
+import NovelListRouter from "../../router/NovelListRouter";
 
 @observer
 export default class NovelListPage extends Component {
@@ -26,6 +27,16 @@ export default class NovelListPage extends Component {
 
     //视图加载完成请求网络
     componentDidMount() {
+        Actions.refresh({
+            leftButtonImage: require('../../res/images/ic_arrow_back_white.png'),
+            onLeft: () => {
+                NativeModules.JsAndroid.backToNative();
+            },
+            rightTitle: 'search',
+            onRight: () => {
+                NativeModules.JsAndroid.jumpToActivity("lux://search?needLogin");
+            }
+        });
         this.novelListStore.fetchData();
     }
 
@@ -93,7 +104,7 @@ export default class NovelListPage extends Component {
                     <Text style={{margin: 10}} numberOfLines={1}>{rowData.last_update_time}</Text>
                 </View>
                 <Image source={this.requireImage} style={imageStyle}>
-                    <Text style={{position: 'absolute', right: 5, top: 5,backgroundColor:'#00000000'}}>{rowId}</Text>
+                    <Text style={{position: 'absolute', right: 5, top: 5, backgroundColor: '#00000000'}}>{rowId}</Text>
                 </Image>
             </TouchableOpacity>
         )
@@ -110,3 +121,5 @@ export default class NovelListPage extends Component {
         this.novelListStore.fetchData();
     };
 }
+
+AppRegistry.registerComponent('NovelListPage', () => NovelListRouter);

@@ -16,6 +16,7 @@ import {observer} from 'mobx-react/native'
 import NovelDesStore from "../../store/NovelDesStore";
 import NovelHeaderView from "../../components/NovelHeaderView";
 import GridView from "../../components/GridView";
+import NovelDesRouter from "../../router/NovelDesRouter";
 const PubSub = require('pubsub-js');
 
 /**
@@ -42,14 +43,23 @@ export default class NovelDesPage extends Component {
     };
 
     componentDidMount() {
-        // PubSub.subscribe("novelDesPage_title", (msg, obj_id) => {
-        //     this.novelDesStore.obj_id = obj_id;
-        // });
-        // this.novelDesStore.obj_id = this.props.obj_id;
-        // this.novelDesStore.fetchData();
-        // Actions.refresh({
-        //     title: this.props.title
-        // });
+        Actions.refresh({
+            leftButtonImage: require('../../res/images/ic_arrow_back_white.png'),
+            onLeft: () => {
+                NativeModules.JsAndroid.backToNative();
+            },
+            rightTitle: 'search',
+            onRight: () => {
+                NativeModules.JsAndroid.jumpToActivity("lux://search?needLogin");
+            },
+            title: this.props.title
+        });
+
+        PubSub.subscribe("novelDesPage_title", (msg, obj_id) => {
+            this.novelDesStore.obj_id = obj_id;
+        });
+        this.novelDesStore.obj_id = this.props.obj_id;
+        this.novelDesStore.fetchData();
     }
 
     //接受从native传递过来的值
@@ -58,9 +68,9 @@ export default class NovelDesPage extends Component {
             (title, obj_id) => {
                 this.novelDesStore.obj_id = obj_id;
                 this.novelDesStore.fetchData();
-                // Actions.refresh({
-                //     title: this.props.title
-                // });
+                Actions.refresh({
+                    title: title
+                });
             },
             (erroMsg) => {
                 alert(erroMsg)
@@ -171,3 +181,4 @@ const styles = StyleSheet.create({
     }
 });
 
+AppRegistry.registerComponent('NovelDesPage', () => NovelDesRouter);

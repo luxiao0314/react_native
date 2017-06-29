@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react'
 import {
-    View, AppRegistry,
+    View, AppRegistry,NativeModules,
     Text, Image, ListView, RefreshControl, TouchableOpacity
 } from 'react-native'
 import RefreshListView from "../../components/RefreshListView";
@@ -11,6 +11,7 @@ import LatestNovelStore from "../../store/LatestNovelStore";
 import CommStyle from "../../res/styles/CommStyle";
 import {observer} from 'mobx-react/native'
 import {Actions} from 'react-native-router-flux';
+import LatestNovelRouter from "../../router/LatestNovelRouter";
 
 @observer
 export default class LatestNovelPage extends Component {
@@ -23,6 +24,16 @@ export default class LatestNovelPage extends Component {
 
     //视图加载完成请求网络
     componentDidMount() {
+        Actions.refresh({
+            leftButtonImage: require('../../res/images/ic_arrow_back_white.png'),
+            onLeft: () => {
+                NativeModules.JsAndroid.backToNative();
+            },
+            rightTitle: 'search',
+            onRight: () => {
+                NativeModules.JsAndroid.jumpToActivity("lux://search?needLogin");
+            }
+        });
         this.latestNovelStore.fetchData();
     }
 
@@ -92,3 +103,4 @@ export default class LatestNovelPage extends Component {
     };
 }
 
+AppRegistry.registerComponent('LatestNovelPage', () => LatestNovelRouter);
