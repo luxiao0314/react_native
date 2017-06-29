@@ -28,8 +28,8 @@ export default class CommentStore {
     @action
     fetchCommentList = async (tag) => {
         if (this.isRefreshing) this.page = 0;
-        const url = "http://v2.api.dmzj.com/old/comment/0/" + tag + "/33461/" + this.page + ".json";
-        // const url = "http://v2.api.dmzj.com/old/comment/0/" + tag + "/" + this.id + "/" + this.page + ".json";
+        //http://v2.api.dmzj.com/old/comment/0/0/8765/0.json
+        const url = "http://v2.api.dmzj.com/old/comment/0/" + tag + "/" + this.id + "/" + this.page + ".json";
 
         fetch(url)
             .then((res) => res.json())
@@ -52,26 +52,6 @@ export default class CommentStore {
                     this.errorMsg = error
                 }
             });
-
-        /*try {
-         const params = {
-         page: this.page,
-         id: this.id,
-         per: 10
-         };
-         const dataArr = await get({url, timeout: 20}).then(response => response.json());
-         runInAction(() => {
-         this.isRefreshing = false;
-         this.errorMsg = '';
-         this.commentList.replace(dataArr);
-         })
-         } catch (error) {
-         if (error.msg) {
-         this.errorMsg = error.msg
-         } else {
-         this.errorMsg = error
-         }
-         }*/
     };
 
     @computed

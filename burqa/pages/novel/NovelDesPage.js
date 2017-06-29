@@ -121,6 +121,7 @@ export default class NovelDesPage extends Component {
                 newChapter={this.novelDesStore.newChapter}
                 introduction={this.novelDesStore.introduction}
                 id={this.novelDesStore.id + ""}
+                last_update_volume_id={this.novelDesStore.last_update_volume_id + ""}
                 last_update_time={this.novelDesStore.last_update_time}/>
         )
     };

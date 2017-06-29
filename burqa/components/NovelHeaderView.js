@@ -33,6 +33,7 @@ export default class NovelHeaderView extends Component {
         introduction: React.PropTypes.string,
         newChapter: React.PropTypes.string,
         id: React.PropTypes.string,
+        last_update_volume_id: React.PropTypes.string,
     };
 
     @observer
@@ -72,7 +73,7 @@ export default class NovelHeaderView extends Component {
                         <Image source={this.requireArrow} style={styles.arrowStyle}/>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.infoBarStyle} onPress={()=>Actions.comment()}>
+                <TouchableOpacity style={styles.infoBarStyle} onPress={() => Actions.comment({"id": this.props.last_update_volume_id})}>
                     <Text>分享</Text>
                 </TouchableOpacity>
                 <View style={[styles.infoBarStyle, {flexDirection: 'row'}]}>

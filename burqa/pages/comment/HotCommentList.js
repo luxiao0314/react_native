@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react'
 import {
-    Animated,
+    NativeModules,
     StyleSheet,
     View,
     Text,
@@ -34,19 +34,31 @@ export default class HotCommentList extends Component {
     constructor() {
         super();
         this.commentStore = new CommentStore();
-    }
-
-    //视图加载完成请求网络
-    componentDidMount() {
-        // reaction(() => {
-        this.commentStore.fetchCommentList(1);
-        // });
+        this.getNativeData();
     }
 
     componentWillMount() {
         const {errorMsg} = this.commentStore;
-        // errorMsg && this.toast.show(errorMsg)
         errorMsg && alert(errorMsg)
+    }
+
+    componentDidMount() {
+        if(this.commentStore.id === ""){
+            this.commentStore.id = this.props.id;
+            this.commentStore.fetchCommentList(0);
+        }
+    }
+
+    getNativeData() {
+        NativeModules.JsAndroid.jumpToJs(
+            (id) => {
+                this.commentStore.id = id;
+                this.commentStore.fetchCommentList(0);
+            },
+            (erroMsg) => {
+                alert(erroMsg)
+            }
+        );
     }
 
     render() {

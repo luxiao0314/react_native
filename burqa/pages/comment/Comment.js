@@ -47,7 +47,7 @@ export default class Comment extends Component {
 
     render() {
         //必须接受上个页面传递过来的props中的navigator,再传递到下个页面才能关联起来
-        const {navigator} = this.props;
+        const {navigator, id} = this.props;
         return (
             <View style={{flex: 1}}>
                 <ScrollableTabView
@@ -61,6 +61,7 @@ export default class Comment extends Component {
                                     <Component
                                         key={titles[index]}
                                         tabLabel={titles[index]}
+                                        id={id}
                                         navigator={navigator}   //非常重要:undefined is not an object (evaluating this.props.navigator.push).
                                         categoryId={data.categoryId}/>
                                 )
