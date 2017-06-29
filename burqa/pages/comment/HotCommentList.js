@@ -3,7 +3,6 @@
  */
 import React, {Component} from 'react'
 import {
-    NativeModules,
     StyleSheet,
     View,
     Text,
@@ -50,15 +49,15 @@ export default class HotCommentList extends Component {
     }
 
     getNativeData() {
-        NativeModules.JsAndroid.jumpToJs(
-            (id) => {
-                this.commentStore.id = id;
-                this.commentStore.fetchCommentList(0);
-            },
-            (erroMsg) => {
-                alert(erroMsg)
-            }
-        );
+        // NativeModules.JsAndroid.jumpToJs(
+        //     (id) => {
+        //         this.commentStore.id = id;
+        //         this.commentStore.fetchCommentList(0);
+        //     },
+        //     (erroMsg) => {
+        //         alert(erroMsg)
+        //     }
+        // );
     }
 
     render() {

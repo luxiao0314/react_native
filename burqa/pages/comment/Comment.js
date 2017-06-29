@@ -5,7 +5,6 @@ import React, {Component} from 'react'
 import {
     View,
     AppRegistry,
-    NativeModules
 } from 'react-native';
 
 import NewCommentList from "./NewCommentList";
@@ -16,6 +15,7 @@ import NavigationBar from "../../components/NavigationBar";
 import ViewUtils from "../../utils/ViewUtils";
 import CommentRouter from "../../router/CommentRouter";
 import {Actions} from 'react-native-router-flux';
+import AnimeNewsRouter from "../../router/AnimeNewsRouter";
 
 const titles = ['最新评论', '热门评论'];
 const controllers = [
@@ -36,11 +36,11 @@ export default class Comment extends Component {
         Actions.refresh({
             leftButtonImage: require('../../res/images/ic_arrow_back_white.png'),
             onLeft: () => {
-                NativeModules.JsAndroid.backToNative();
+                // NativeModules.JsAndroid.backToNative();
             },
             rightTitle: 'search',
             onRight: () => {
-                NativeModules.JsAndroid.jumpToActivity("lux://search?needLogin");
+                // NativeModules.JsAndroid.jumpToActivity("lux://search?needLogin");
             }
         });
     }
@@ -72,4 +72,4 @@ export default class Comment extends Component {
         )
     }
 }
-AppRegistry.registerComponent('iShiWuPai', () => CommentRouter);
+AppRegistry.registerComponent('iShiWuPai', () => AnimeNewsRouter);

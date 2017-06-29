@@ -7,7 +7,6 @@ import {
     StyleSheet,
     View,
     Text,
-    NativeModules,
     AppRegistry, ListView, RefreshControl, Image, TouchableOpacity
 } from 'react-native'
 
@@ -53,15 +52,15 @@ export default class NewCommentList extends Component {
     }
 
     getNativeData() {
-        NativeModules.JsAndroid.jumpToJs(
-            (id) => {
-                this.commentStore.id = id;
-                this.commentStore.fetchCommentList(0);
-            },
-            (erroMsg) => {
-                alert(erroMsg)
-            }
-        );
+        // NativeModules.JsAndroid.jumpToJs(
+        //     (id) => {
+        //         this.commentStore.id = id;
+        //         this.commentStore.fetchCommentList(0);
+        //     },
+        //     (erroMsg) => {
+        //         alert(erroMsg)
+        //     }
+        // );
     }
 
     render() {

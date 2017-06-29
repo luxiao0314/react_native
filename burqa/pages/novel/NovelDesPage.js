@@ -8,7 +8,7 @@
 import React, {Component} from 'react';
 import {
     StyleSheet,
-    View, AppRegistry,NativeModules,
+    View, AppRegistry,
     Text, Image, RefreshControl, ListView, TouchableOpacity
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
@@ -46,11 +46,11 @@ export default class NovelDesPage extends Component {
         Actions.refresh({
             leftButtonImage: require('../../res/images/ic_arrow_back_white.png'),
             onLeft: () => {
-                NativeModules.JsAndroid.backToNative();
+                // NativeModules.JsAndroid.backToNative();
             },
             rightTitle: 'search',
             onRight: () => {
-                NativeModules.JsAndroid.jumpToActivity("lux://search?needLogin");
+                // NativeModules.JsAndroid.jumpToActivity("lux://search?needLogin");
             },
             title: this.props.title
         });
@@ -64,18 +64,18 @@ export default class NovelDesPage extends Component {
 
     //接受从native传递过来的值
     getNativeData() {
-        NativeModules.JsAndroid.passTojs(
-            (title, obj_id) => {
-                this.novelDesStore.obj_id = obj_id;
-                this.novelDesStore.fetchData();
-                Actions.refresh({
-                    title: title
-                });
-            },
-            (erroMsg) => {
-                alert(erroMsg)
-            }
-        );
+        // NativeModules.JsAndroid.passTojs(
+        //     (title, obj_id) => {
+        //         this.novelDesStore.obj_id = obj_id;
+        //         this.novelDesStore.fetchData();
+        //         Actions.refresh({
+        //             title: title
+        //         });
+        //     },
+        //     (erroMsg) => {
+        //         alert(erroMsg)
+        //     }
+        // );
     }
 
     componentWillMount() {

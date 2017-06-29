@@ -5,7 +5,7 @@
 import React, {Component, PropTypes} from 'react';
 import {
     StyleSheet,
-    View,NativeModules,
+    View,
     Text, Image, ScrollView, TouchableOpacity,
 } from 'react-native';
 import GridView from "./GridView";
@@ -57,8 +57,7 @@ export default class NovelItemView extends Component {
     _renderImageItem(rowData) {
         return (
             <TouchableOpacity key={rowData.obj_id} onPress={() => {
-                NativeModules.JsAndroid.jumpToActivity("lux://JsAndroidActivity?jsRouter=NovelDesPage&title=" + rowData.title + "&obj_id=" + rowData.obj_id);
-                // Actions.novelDesPage({"title": rowData.title, "obj_id": rowData.obj_id});
+                Actions.novelDesPage({"title": rowData.title, "obj_id": rowData.obj_id});
             }}>
                 <View style={styles.gridItemStyle}>
                     <Image style={styles.imageStyle}

@@ -5,7 +5,7 @@ import React, {Component} from 'react'
 import {
     StyleSheet,
     View, AppRegistry,
-    Text,NativeModules,
+    Text,
     Image, TouchableOpacity, RefreshControl
 } from 'react-native'
 import GridView from "../../components/GridView";
@@ -34,11 +34,11 @@ export default class FindNovelPage extends Component {
         Actions.refresh({
             leftButtonImage: require('../../res/images/ic_arrow_back_white.png'),
             onLeft: () => {
-                NativeModules.JsAndroid.backToNative();
+                // NativeModules.JsAndroid.backToNative();
             },
             rightTitle: 'search',
             onRight: () => {
-                NativeModules.JsAndroid.jumpToActivity("lux://search?needLogin");
+                // NativeModules.JsAndroid.jumpToActivity("lux://search?needLogin");
             }
         });
         this.findNovelStore.fetchData();

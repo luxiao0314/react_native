@@ -5,7 +5,7 @@
 import React, {Component} from 'react'
 import {
     StyleSheet, Platform,
-    View, AppRegistry, Dimensions, NativeModules,
+    View, AppRegistry, Dimensions,
     Text, Image, ScrollView, TouchableOpacity,
 } from 'react-native';
 import NavigationBar from "../../components/NavigationBar";
@@ -75,8 +75,7 @@ export default class AnimeNewsPages extends Component {
         data.map((itemData, index) => {
             dataArr.push(
                 <TouchableOpacity key={index} onPress={() => {
-                    Platform.OS === 'ios' ? Actions.novelDesPage({"title": itemData.title, "obj_id": itemData.obj_id}) :
-                        NativeModules.JsAndroid.jumpToActivity("lux://JsAndroidActivity?jsRouter=NovelDesPage&title=" + itemData.title + "&obj_id=" + itemData.obj_id);
+                    Actions.novelDesPage({"title": itemData.title, "obj_id": itemData.obj_id});
                 }}>
                     <Image style={{width: gScreen.width, height: 220}}
                            source={{uri: itemData.cover}}
@@ -151,8 +150,7 @@ export default class AnimeNewsPages extends Component {
      * @private
      */
     _afterNovel = () => {
-        // Platform.OS === 'ios' ? Actions.latestNovelPage() :
-            NativeModules.JsAndroid.jumpToActivity("lux://JsAndroidActivity?jsRouter=LatestNovelPage");
+        Actions.latestNovelPage();
     };
 
     /**
@@ -160,8 +158,7 @@ export default class AnimeNewsPages extends Component {
      * @private
      */
     _findNovel = () => {
-        // Platform.OS === 'ios' ? Actions.findNovelPage() :
-            NativeModules.JsAndroid.jumpToActivity("lux://JsAndroidActivity?jsRouter=FindNovelPage");
+        Actions.findNovelPage();
     };
 
     /**
@@ -169,8 +166,7 @@ export default class AnimeNewsPages extends Component {
      * @private
      */
     _listNovel = () => {
-        // Platform.OS === 'ios' ? Actions.novelListPage() :
-            NativeModules.JsAndroid.jumpToActivity("lux://JsAndroidActivity?jsRouter=NovelListPage");
+        Actions.novelListPage();
     }
 }
 

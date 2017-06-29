@@ -4,7 +4,7 @@
 import React, {Component} from 'react'
 import {
     StyleSheet, AppRegistry,
-    View, NativeModules,
+    View,
     Text, Image, TouchableOpacity, RefreshControl,
 } from 'react-native';
 import GridView from "../components/GridView";
@@ -102,7 +102,8 @@ export default class UpdatePages extends Component {
      * @param rowData
      */
     _onPress = (rowData) => {
-        NativeModules.JsAndroid.jumpToActivity("lux://comicDes?obj_id=" + rowData.id);
+        alert('跳转到漫画详情页面');
+        // NativeModules.JsAndroid.jumpToActivity("lux://comicDes?obj_id=" + rowData.id);
     };
 }
 

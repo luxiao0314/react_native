@@ -3,7 +3,7 @@
  */
 import React, {Component} from 'react'
 import {
-    View, NativeModules, AppRegistry,
+    View, AppRegistry,
     Text, Image, ListView, RefreshControl, TouchableOpacity
 } from 'react-native'
 import RefreshListView from "../../components/RefreshListView";
@@ -30,11 +30,11 @@ export default class NovelListPage extends Component {
         Actions.refresh({
             leftButtonImage: require('../../res/images/ic_arrow_back_white.png'),
             onLeft: () => {
-                NativeModules.JsAndroid.backToNative();
+                // NativeModules.JsAndroid.backToNative();
             },
             rightTitle: 'search',
             onRight: () => {
-                NativeModules.JsAndroid.jumpToActivity("lux://search?needLogin");
+                // NativeModules.JsAndroid.jumpToActivity("lux://search?needLogin");
             }
         });
         this.novelListStore.fetchData();
